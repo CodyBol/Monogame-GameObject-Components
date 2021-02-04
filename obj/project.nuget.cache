@@ -1,0 +1,11 @@
+{
+  "version": 2,
+  "dgSpecHash": "lWg198dOEVz9oYQ+kzDm9PY7iEpUV394NoVGn0/qjnd+2vzEzwQZEqCW2AOqe2HI21mujvmFNYaRDIBnikxSXQ==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\CodySchool\\source\\repos\\TestProject\\TestProject\\TestProject.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\CodySchool\\.nuget\\packages\\monogame.content.builder.task\\3.8.0.1641\\monogame.content.builder.task.3.8.0.1641.nupkg.sha512",
+    "C:\\Users\\CodySchool\\.nuget\\packages\\monogame.framework.desktopgl\\3.8.0.1641\\monogame.framework.desktopgl.3.8.0.1641.nupkg.sha512"
+  ],
+  "logs": []
+}

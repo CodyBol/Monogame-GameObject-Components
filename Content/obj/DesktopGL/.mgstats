@@ -1,0 +1,3 @@
+Source File,Dest File,Processor Type,Content Type,Source File Size,Dest File Size,Build Seconds
+"C:/Users/CodySchool/source/repos/TestProject/TestProject/Content/spr_blue_invader.png","C:/Users/CodySchool/source/repos/TestProject/TestProject/Content/bin/DesktopGL/spr_blue_invader.xnb","TextureProcessor","Texture2DContent",2904,3029,0,3946678
+"C:/Users/CodySchool/source/repos/TestProject/TestProject/Content/spr_red_invader.png","C:/Users/CodySchool/source/repos/TestProject/TestProject/Content/bin/DesktopGL/spr_red_invader.xnb","TextureProcessor","Texture2DContent",2910,3029,0,0126223
