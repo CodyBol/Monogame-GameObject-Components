@@ -25,14 +25,14 @@ namespace TestProject
             spriteLoader = new SpriteLoader(Content, new List<string>() { "spr_blue_invader", "spr_red_invader", "spr_tile" });
 
             ComponentContainer comp = ComponentBuild.Animation(2, new List<Texture2D>() { spriteLoader.getSprite("spr_tile") });
-            comp.updateComponents.Add(new RectTrigger("default", true));
+            comp.updateComponents.Add(new RectCollider("default", true));
 
 
             GameObjectManager.gameObjects = new List<GameObject>();
             GameObjectManager.gameObjects.Add(new GameObject(new Rectangle(300, 300, 50, 50), comp));
 
             comp = ComponentBuild.Animation(2, new List<Texture2D>() { spriteLoader.getSprite("spr_tile") });
-            comp.updateComponents.Add(new RectTrigger("default", false));
+            comp.updateComponents.Add(new RectCollider("default", false));
 
             GameObjectManager.gameObjects.Add(new GameObject(new Rectangle(100, 100, 100, 300), comp));
             GameObjectManager.gameObjects.Add(new GameObject(new Rectangle(200, 100, 200, 100), comp));

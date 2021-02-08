@@ -66,8 +66,40 @@ namespace TestProject
             }
         }
 
+        /**
+         * can be added in a extended class
+         */
         public void onTriggerEnter(GameObject collision, Vector2 direction) {
-            Debug.WriteLine(direction);
+            //Debug.WriteLine(direction);
+        }
+
+        /**
+         * can be added in a extended class
+         */
+        public void onCollisionEnter(GameObject collision, Vector2 direction)
+        {
+            if (direction == new Vector2(1, 0)) {
+                rectangle.X = collision.rectangle.Left - rectangle.Width;
+                velocity.X = 0;
+            }
+
+            if (direction == new Vector2(-1, 0))
+            {
+                rectangle.X = collision.rectangle.Right;
+                velocity.X = 0;
+            }
+
+            if (direction == new Vector2(0, 1))
+            {
+                velocity.Y = 0;
+                rectangle.Y = collision.rectangle.Top - rectangle.Height;
+            }
+
+            if (direction == new Vector2(0, -1))
+            {
+                velocity.Y = 0;
+                rectangle.Y = collision.rectangle.Bottom;
+            }
         }
 
         /**

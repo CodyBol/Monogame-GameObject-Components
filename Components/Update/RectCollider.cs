@@ -40,8 +40,7 @@ namespace TestProject.Component
                                 {
                                     if (!cornerOverride)
                                     {
-                                        gameObject.rectangle.X = collide.rectangle.Right;
-                                        gameObject.velocity.X = 0;
+                                        gameObject.onCollisionEnter(collide, new Vector2(-1, 0));
                                     }
                                 }
                             }
@@ -55,8 +54,7 @@ namespace TestProject.Component
                                 {
                                     if (!cornerOverride)
                                     {
-                                        gameObject.rectangle.X = collide.rectangle.Left - gameObject.rectangle.Width;
-                                        gameObject.velocity.X = 0;
+                                        gameObject.onCollisionEnter(collide, new Vector2(1, 0));
                                     }
                                 }
                             }
@@ -70,8 +68,7 @@ namespace TestProject.Component
                                 {
                                     if (!cornerOverride)
                                     {
-                                        gameObject.velocity.Y = 0;
-                                        gameObject.rectangle.Y = collide.rectangle.Top - gameObject.rectangle.Height;
+                                        gameObject.onCollisionEnter(collide, new Vector2(0, 1));
                                     }
                                 }
                             }
@@ -84,8 +81,7 @@ namespace TestProject.Component
                                 {
                                     if (!cornerOverride)
                                     {
-                                        gameObject.velocity.Y = 0;
-                                        gameObject.rectangle.Y = collide.rectangle.Bottom;
+                                        gameObject.onCollisionEnter(collide, new Vector2(0, -1));
                                     }
                                 }
                             }
@@ -93,9 +89,6 @@ namespace TestProject.Component
                     }
                 }
             }
-
-            gameObject.rectangle.X += (int)gameObject.velocity.X;
-            gameObject.rectangle.Y += (int)gameObject.velocity.Y;
         }
     }
 }
