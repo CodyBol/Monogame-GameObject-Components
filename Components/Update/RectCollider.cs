@@ -27,9 +27,6 @@ namespace TestProject.Component
                         //Left collision
                         if (gameObject.velocity.X < 0 && (gameObject.rectangle.Left >= collide.rectangle.Left && gameObject.rectangle.Left <= collide.rectangle.Right) || (gameObject.rectangle.X > collide.rectangle.X && gameObject.rectangle.X + gameObject.velocity.X < collide.rectangle.X))
                         {
-                            //prevCollision.X = -1;
-                            //                            if (gameObject.rectangle.Bottom <= collide.rectangle.Bottom && gameObject.rectangle.Bottom >= collide.rectangle.Top || gameObject.rectangle.Top <= collide.rectangle.Bottom && gameObject.rectangle.Top >= collide.rectangle.Top)
-
                             if ((gameObject.rectangle.Bottom <= collide.rectangle.Bottom && gameObject.rectangle.Left >= collide.rectangle.Right) || gameObject.rectangle.Top >= collide.rectangle.Top && (gameObject.rectangle.Left >= collide.rectangle.Right)) {
                                 gameObject.rectangle.X = collide.rectangle.Right;
                                 gameObject.velocity.X = 0;
@@ -39,7 +36,7 @@ namespace TestProject.Component
                         //Right collision
                         if (gameObject.velocity.X > 0 && (gameObject.rectangle.Right <= collide.rectangle.Right && gameObject.rectangle.Right >= collide.rectangle.Left) || (gameObject.rectangle.X < collide.rectangle.X && gameObject.rectangle.X + gameObject.velocity.X > collide.rectangle.X))
                         {
-                            if ((gameObject.rectangle.Bottom <= collide.rectangle.Bottom && gameObject.rectangle.Right <= collide.rectangle.Left) || gameObject.rectangle.Top >= collide.rectangle.Top && (gameObject.rectangle.Right <= collide.rectangle.Left))
+                            if ((gameObject.rectangle.Bottom <= collide.rectangle.Bottom && gameObject.rectangle.Right <= collide.rectangle.Left) || (gameObject.rectangle.Top >= collide.rectangle.Top && gameObject.rectangle.Right <= collide.rectangle.Left))
                             {
                                 gameObject.rectangle.X = collide.rectangle.Left - gameObject.rectangle.Width;
                                 gameObject.velocity.X = 0;
