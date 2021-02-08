@@ -8,12 +8,10 @@ namespace TestProject.Component
     class RectCollider : UpdateComponent
     {
         public Rectangle RectangleHitBox;
-        private Vector2 prevCollision;
 
         public RectCollider(Rectangle hitBox)
         {
             RectangleHitBox = hitBox;
-            prevCollision = Vector2.Zero;
         }
 
         public void initialize(GameObject gameObject) {}
@@ -24,43 +22,47 @@ namespace TestProject.Component
             foreach (GameObject collide in GameObjectManager.gameObjects) {
                 if (collide != gameObject) {
 
-                    prevCollision = Vector2.Zero;
-
                     if ((collide.rectangle.Left - gameObject.rectangle.Width <= gameObject.rectangle.Left && collide.rectangle.Right + gameObject.rectangle.Width >= gameObject.rectangle.Right) && (collide.rectangle.Top - gameObject.rectangle.Height <= gameObject.rectangle.Top && collide.rectangle.Bottom + gameObject.rectangle.Height >= gameObject.rectangle.Bottom))
                     {
                         //Left collision
                         if (gameObject.velocity.X < 0 && (gameObject.rectangle.Left >= collide.rectangle.Left && gameObject.rectangle.Left <= collide.rectangle.Right) || (gameObject.rectangle.X > collide.rectangle.X && gameObject.rectangle.X + gameObject.velocity.X < collide.rectangle.X))
                         {
                             //prevCollision.X = -1;
-                            gameObject.velocity.X = 0;
-                            gameObject.rectangle.X = collide.rectangle.Right;
-                            Debug.WriteLine("coll left");
+                            //                            if (gameObject.rectangle.Bottom <= collide.rectangle.Bottom && gameObject.rectangle.Bottom >= collide.rectangle.Top || gameObject.rectangle.Top <= collide.rectangle.Bottom && gameObject.rectangle.Top >= collide.rectangle.Top)
+
+                            if ((gameObject.rectangle.Bottom <= collide.rectangle.Bottom && gameObject.rectangle.Left >= collide.rectangle.Right) || gameObject.rectangle.Top >= collide.rectangle.Top && (gameObject.rectangle.Left >= collide.rectangle.Right)) {
+                                gameObject.rectangle.X = collide.rectangle.Right;
+                                gameObject.velocity.X = 0;
+                            }
                         }
 
                         //Right collision
                         if (gameObject.velocity.X > 0 && (gameObject.rectangle.Right <= collide.rectangle.Right && gameObject.rectangle.Right >= collide.rectangle.Left) || (gameObject.rectangle.X < collide.rectangle.X && gameObject.rectangle.X + gameObject.velocity.X > collide.rectangle.X))
                         {
-                            //prevCollision.X = 1;
-                            gameObject.velocity.X = 0;
-                            gameObject.rectangle.X = collide.rectangle.Left - gameObject.rectangle.Width;
-                            Debug.WriteLine("coll right");
+                            if ((gameObject.rectangle.Bottom <= collide.rectangle.Bottom && gameObject.rectangle.Right <= collide.rectangle.Left) || gameObject.rectangle.Top >= collide.rectangle.Top && (gameObject.rectangle.Right <= collide.rectangle.Left))
+                            {
+                                gameObject.rectangle.X = collide.rectangle.Left - gameObject.rectangle.Width;
+                                gameObject.velocity.X = 0;
+                            }
                         }
 
                         //Bottom collision
                         if (gameObject.velocity.Y > 0 && (gameObject.rectangle.Bottom >= collide.rectangle.Top && gameObject.rectangle.Bottom <= collide.rectangle.Bottom) || (gameObject.rectangle.Y < collide.rectangle.Y && gameObject.rectangle.Y + gameObject.velocity.Y > collide.rectangle.Y))
                         {
-                            //prevCollision.Y = 1;
-                            gameObject.velocity.Y = 0;
-                            gameObject.rectangle.Y = collide.rectangle.Top - gameObject.rectangle.Height;
-                            Debug.WriteLine("coll bottom");
+                            if ((gameObject.rectangle.Right <= collide.rectangle.Right && gameObject.rectangle.Bottom <= collide.rectangle.Top) || (gameObject.rectangle.Left >= collide.rectangle.Left && gameObject.rectangle.Bottom <= collide.rectangle.Top))
+                            {
+                                gameObject.velocity.Y = 0;
+                                gameObject.rectangle.Y = collide.rectangle.Top - gameObject.rectangle.Height;
+                            }
                         }
                         //Top collision
                         else if (gameObject.velocity.Y < 0 && (gameObject.rectangle.Top >= collide.rectangle.Top && gameObject.rectangle.Top <= collide.rectangle.Bottom) || (gameObject.rectangle.Y > collide.rectangle.Y && gameObject.rectangle.Y + gameObject.velocity.Y < collide.rectangle.Y))
                         {
-                            //prevCollision.Y = -1;
-                            gameObject.velocity.Y = 0;
-                            gameObject.rectangle.Y = collide.rectangle.Bottom;
-                            Debug.WriteLine("coll top");
+                            if ((gameObject.rectangle.Right <= collide.rectangle.Right && gameObject.rectangle.Top >= collide.rectangle.Bottom) || (gameObject.rectangle.Left >= collide.rectangle.Left && gameObject.rectangle.Top >= collide.rectangle.Bottom))
+                            {
+                                gameObject.velocity.Y = 0;
+                                gameObject.rectangle.Y = collide.rectangle.Bottom;
+                            }
                         }
                     }
                 }
@@ -68,48 +70,6 @@ namespace TestProject.Component
 
             gameObject.rectangle.X += (int)gameObject.velocity.X;
             gameObject.rectangle.Y += (int)gameObject.velocity.Y;
-        }
-
-        private void checkYCollision(GameObject gameObject, GameObject collide)
-        {
-            //Y collision
-            if (collide.rectangle.Left - gameObject.rectangle.Width <= gameObject.rectangle.Left && collide.rectangle.Right + -gameObject.rectangle.Width >= gameObject.rectangle.Right)
-            {
-
-                //Bottom collision
-                if (gameObject.velocity.Y > 0 && (gameObject.rectangle.Bottom >= collide.rectangle.Top && gameObject.rectangle.Bottom <= collide.rectangle.Bottom) || (gameObject.rectangle.Y < collide.rectangle.Y && gameObject.rectangle.Y + gameObject.velocity.Y > collide.rectangle.Y))
-                {
-                    gameObject.velocity.Y = 0;
-                    gameObject.rectangle.Y = collide.rectangle.Top - gameObject.rectangle.Height;
-                }
-                //Top collision
-                else if (gameObject.velocity.Y < 0 && (gameObject.rectangle.Top >= collide.rectangle.Top && gameObject.rectangle.Top <= collide.rectangle.Bottom) || (gameObject.rectangle.Y > collide.rectangle.Y && gameObject.rectangle.Y + gameObject.velocity.Y < collide.rectangle.Y))
-                {
-                    gameObject.velocity.Y = 0;
-                    gameObject.rectangle.Y = collide.rectangle.Bottom;
-                }
-            }
-        }
-
-            private void checkXCollision(GameObject gameObject, GameObject collide)
-            {
-            //X collision
-            if (collide.rectangle.Top - gameObject.rectangle.Height <= gameObject.rectangle.Top && collide.rectangle.Bottom + gameObject.rectangle.Height >= gameObject.rectangle.Bottom)
-            {
-                //Left collision
-                if (gameObject.velocity.X < 0 && (gameObject.rectangle.Left >= collide.rectangle.Left && gameObject.rectangle.Left <= collide.rectangle.Right) || (gameObject.rectangle.X > collide.rectangle.X && gameObject.rectangle.X + gameObject.velocity.X < collide.rectangle.X))
-                {
-                    gameObject.velocity.X = 0;
-                    gameObject.rectangle.X = collide.rectangle.Right;
-                }
-
-                //Right collision
-                if (gameObject.velocity.X > 0 && (gameObject.rectangle.Right <= collide.rectangle.Right && gameObject.rectangle.Right >= collide.rectangle.Left) || (gameObject.rectangle.X < collide.rectangle.X && gameObject.rectangle.X + gameObject.velocity.X > collide.rectangle.X))
-                {
-                    gameObject.velocity.X = 0;
-                    gameObject.rectangle.X = collide.rectangle.Left - gameObject.rectangle.Width;
-                }
-            }
         }
     }
 }
