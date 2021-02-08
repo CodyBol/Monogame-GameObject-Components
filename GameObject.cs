@@ -50,7 +50,9 @@ namespace TestProject
             foreach (UpdateComponent component in components.updateComponents) {
                 component.Update(this);
             }
-            //Debug.WriteLine("left : " + rectangle.Left + "right: " + rectangle.Right);
+
+            rectangle.X += (int)velocity.X;
+            rectangle.Y += (int)velocity.Y;
         }
 
         /**
@@ -62,6 +64,10 @@ namespace TestProject
             {
                 component.Draw(this, spriteBatch);
             }
+        }
+
+        public void onTriggerEnter(GameObject collision, Vector2 direction) {
+            Debug.WriteLine(direction);
         }
 
         /**
