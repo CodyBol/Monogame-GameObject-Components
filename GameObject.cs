@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
+using System.Diagnostics;
 using TestProject.Component;
 
 namespace TestProject
@@ -15,6 +16,7 @@ namespace TestProject
          * This way the gameobject is highly customizable
          */
         public Rectangle rectangle;
+        public Vector2 velocity;
         public ComponentContainer components;
 
         /**
@@ -48,6 +50,7 @@ namespace TestProject
             foreach (UpdateComponent component in components.updateComponents) {
                 component.Update(this);
             }
+            //Debug.WriteLine("left : " + rectangle.Left + "right: " + rectangle.Right);
         }
 
         /**
@@ -82,8 +85,6 @@ namespace TestProject
 
             //TODO add stacktrace
             throw new ArgumentException("Type: [" + typeof(ComponentType) + "] does not exists");
-
-            return default(ComponentType);
         }
     }
 }

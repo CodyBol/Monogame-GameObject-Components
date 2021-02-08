@@ -6,8 +6,10 @@
   <SourceFiles>
     <File>C:/Users/CodySchool/source/repos/TestProject/TestProject/Content/spr_blue_invader.png</File>
     <File>C:/Users/CodySchool/source/repos/TestProject/TestProject/Content/spr_red_invader.png</File>
+    <File>C:/Users/CodySchool/source/repos/TestProject/TestProject/Content/test_tile.png</File>
   </SourceFiles>
   <DestFiles>
+    <File xsi:nil="true" />
     <File xsi:nil="true" />
     <File xsi:nil="true" />
   </DestFiles>

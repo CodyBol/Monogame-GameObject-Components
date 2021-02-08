@@ -13,8 +13,6 @@ namespace TestProject
         private SpriteBatch _spriteBatch;
         private SpriteLoader spriteLoader;
 
-        private List<GameObject> gameObjects;
-
         public Game1()
         {
             _graphics = new GraphicsDeviceManager(this);
@@ -24,19 +22,25 @@ namespace TestProject
 
         protected override void Initialize()
         {
-            // TODO: Add your initialization logic here
-            spriteLoader = new SpriteLoader(Content, new List<string>() { "spr_blue_invader", "spr_red_invader" });
+            spriteLoader = new SpriteLoader(Content, new List<string>() { "spr_blue_invader", "spr_red_invader", "spr_tile" });
 
-            gameObjects = new List<GameObject>();
-            gameObjects.Add(new GameObject(new Rectangle(100, 100, 50, 50), ComponentBuild.Animation(2, new List<Texture2D>() { spriteLoader.getSprite("spr_blue_invader"), spriteLoader.getSprite("spr_red_invader") })));
+            ComponentContainer comp = ComponentBuild.Animation(2, new List<Texture2D>() { spriteLoader.getSprite("spr_tile") });
+            comp.updateComponents.Add(new RectCollider(new Rectangle(100, 100, 50, 50)));
 
-            foreach (GameObject gameObject in gameObjects)
+
+            GameObjectManager.gameObjects = new List<GameObject>();
+            GameObjectManager.gameObjects.Add(new GameObject(new Rectangle(300, 300, 50, 50), comp));
+
+            comp = ComponentBuild.Animation(2, new List<Texture2D>() { spriteLoader.getSprite("spr_tile") });
+            comp.updateComponents.Add(new RectCollider(new Rectangle(100, 100, 50, 50)));
+
+            GameObjectManager.gameObjects.Add(new GameObject(new Rectangle(100, 100, 100, 300), comp));
+            GameObjectManager.gameObjects.Add(new GameObject(new Rectangle(200, 100, 200, 100), comp));
+
+            foreach (GameObject gameObject in GameObjectManager.gameObjects)
             {
                 gameObject.initialize();
             }
-
-            //Debug.WriteLine(gameObjects[0].getComponent<SpriteBatch>());
-
 
             base.Initialize();
         }
@@ -50,12 +54,41 @@ namespace TestProject
 
         protected override void Update(GameTime gameTime)
         {
+
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
 
-            // TODO: Add your update logic here
 
-            foreach (GameObject gameObject in gameObjects)
+            float speed = 5;
+
+            if (Keyboard.GetState().IsKeyDown(Keys.W))
+            {
+                GameObjectManager.gameObjects[0].velocity.Y = -speed;
+            }
+            else if (Keyboard.GetState().IsKeyDown(Keys.S))
+            {
+                GameObjectManager.gameObjects[0].velocity.Y = speed;
+            }
+            else 
+            {
+                GameObjectManager.gameObjects[0].velocity.Y = 0;
+            }
+
+            if (Keyboard.GetState().IsKeyDown(Keys.A))
+            {
+                GameObjectManager.gameObjects[0].velocity.X = -speed;
+            }
+            else if (Keyboard.GetState().IsKeyDown(Keys.D))
+            {
+                GameObjectManager.gameObjects[0].velocity.X = speed;
+            }
+            else 
+            {
+                GameObjectManager.gameObjects[0].velocity.X = 0;
+            }
+
+
+            foreach (GameObject gameObject in GameObjectManager.gameObjects)
             {
                 gameObject.Update();
             }
@@ -70,7 +103,7 @@ namespace TestProject
             _spriteBatch.Begin();
             // Draw the background (and clear the screen)
 
-            foreach (GameObject gameObject in gameObjects) {
+            foreach (GameObject gameObject in GameObjectManager.gameObjects) {
                 gameObject.Draw(_spriteBatch);
             }
 

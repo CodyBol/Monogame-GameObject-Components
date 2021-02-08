@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Content;
 using System.Collections.Generic;
+using System;
 
 namespace TestProject
 {
@@ -50,8 +51,12 @@ namespace TestProject
          */
         public Texture2D getSprite(string spriteName) 
         {
-            
-            return sprites[spriteName];
+            if (sprites.ContainsKey(spriteName))
+            {
+                return sprites[spriteName];
+            }
+
+            throw new Exception("The requested sprite [" + spriteName + "] is not loaded in the SpriteLoader");
         }
     }
 }
