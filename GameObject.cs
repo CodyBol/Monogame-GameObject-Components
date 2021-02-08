@@ -86,5 +86,29 @@ namespace TestProject
             //TODO add stacktrace
             throw new ArgumentException("Type: [" + typeof(ComponentType) + "] does not exists");
         }
+
+        /**
+         * checks if component exists in gameobject
+         */
+        public bool hasComponent<ComponentType>()
+        {
+
+            foreach (UpdateComponent component in components.updateComponents)
+            {
+                if (component.GetType().Equals(typeof(ComponentType)))
+                {
+                    return true;
+                }
+            }
+            foreach (DrawComponent component in components.drawComponents)
+            {
+                if (component.GetType().Equals(typeof(ComponentType)))
+                {
+                    return true;
+                }
+            }
+
+            return false;
+        }
     }
 }
