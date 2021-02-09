@@ -4,8 +4,6 @@ namespace TestProject.Component
 {
     interface ScriptComponent : BaseComponent
     {
-        public void initialize(GameObject gameObject) { }
-
         public void update(GameObject gameObject) { }
 
         public void lateUpdate(GameObject gameObject) { }
@@ -19,5 +17,9 @@ namespace TestProject.Component
         public void collisionEnterLate(GameObject collision, Vector2 direction) { }
 
         public void triggerEnter(GameObject collision, Vector2 direction) { }
+
+        public void onHover(Vector2 mousePosition) { }
+
+        public void onPressed(Vector2 mousePosition, int mouseButton) { }
     }
 }

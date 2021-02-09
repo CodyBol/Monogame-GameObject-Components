@@ -36,6 +36,7 @@ namespace TestProject
 
             comp = ComponentBuild.Animation(2, new List<Texture2D>() { spriteLoader.getSprite("spr_tile") });
             comp.updateComponents.Add(new RectCollider("default", false));
+            comp.updateComponents.Add(new MouseEvent());
             comp.scriptComponents = new List<ScriptComponent>();
 
             GameObjectManager.gameObjects.Add(new GameObject(new Rectangle(100, 100, 100, 300), comp));

@@ -18,6 +18,7 @@ namespace TestProject
         public Rectangle rectangle;
         public Vector2 velocity;
         public ComponentContainer components;
+        public string tag;
 
         /**
          * set required variables
@@ -86,6 +87,30 @@ namespace TestProject
             foreach (ScriptComponent component in components.scriptComponents)
             {
                 component.triggerEnter(collision, direction);
+            }
+        }
+
+        /**
+         * can be added in a extended class
+         */
+        public void onHover(Vector2 mousePosition)
+        {
+            foreach (ScriptComponent component in components.scriptComponents)
+            {
+                component.onHover(mousePosition);
+            }
+        }
+
+
+
+        /**
+         * can be added in a extended class
+         */
+        public void onPressed(Vector2 mousePosition, int mouseButton)
+        {
+            foreach (ScriptComponent component in components.scriptComponents)
+            {
+                component.onPressed(mousePosition, mouseButton);
             }
         }
 
