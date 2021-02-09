@@ -40,6 +40,10 @@ namespace TestProject
             {
                 component.initialize(this);
             }
+            foreach (ScriptComponent component in components.scriptComponents)
+            {
+                component.initialize(this);
+            }
         }
 
         /**
@@ -47,12 +51,21 @@ namespace TestProject
          */
         public void Update()
         {
+            foreach (ScriptComponent component in components.scriptComponents)
+            {
+                component.update(this);
+            }
             foreach (UpdateComponent component in components.updateComponents) {
                 component.Update(this);
             }
 
             rectangle.X += (int)velocity.X;
             rectangle.Y += (int)velocity.Y;
+
+            foreach (ScriptComponent component in components.scriptComponents)
+            {
+                component.lateUpdate(this);
+            }
         }
 
         /**
@@ -70,7 +83,10 @@ namespace TestProject
          * can be added in a extended class
          */
         public void onTriggerEnter(GameObject collision, Vector2 direction) {
-            //Debug.WriteLine(direction);
+            foreach (ScriptComponent component in components.scriptComponents)
+            {
+                component.triggerEnter(collision, direction);
+            }
         }
 
         /**
@@ -78,6 +94,11 @@ namespace TestProject
          */
         public void onCollisionEnter(GameObject collision, Vector2 direction)
         {
+            foreach (ScriptComponent component in components.scriptComponents)
+            {
+                component.collisionEnter(collision, direction);
+            }
+
             if (direction == new Vector2(1, 0)) {
                 rectangle.X = collision.rectangle.Left - rectangle.Width;
                 velocity.X = 0;
@@ -99,6 +120,11 @@ namespace TestProject
             {
                 velocity.Y = 0;
                 rectangle.Y = collision.rectangle.Bottom;
+            }
+
+            foreach (ScriptComponent component in components.scriptComponents)
+            {
+                component.collisionEnterLate(collision, direction);
             }
         }
 

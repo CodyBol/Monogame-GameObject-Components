@@ -27,12 +27,16 @@ namespace TestProject
             ComponentContainer comp = ComponentBuild.Animation(2, new List<Texture2D>() { spriteLoader.getSprite("spr_tile") });
             comp.updateComponents.Add(new RectCollider("default", true));
 
+            comp.scriptComponents = new List<ScriptComponent>();
+            comp.scriptComponents.Add(new Player());
+
 
             GameObjectManager.gameObjects = new List<GameObject>();
             GameObjectManager.gameObjects.Add(new GameObject(new Rectangle(300, 300, 50, 50), comp));
 
             comp = ComponentBuild.Animation(2, new List<Texture2D>() { spriteLoader.getSprite("spr_tile") });
             comp.updateComponents.Add(new RectCollider("default", false));
+            comp.scriptComponents = new List<ScriptComponent>();
 
             GameObjectManager.gameObjects.Add(new GameObject(new Rectangle(100, 100, 100, 300), comp));
             GameObjectManager.gameObjects.Add(new GameObject(new Rectangle(200, 100, 200, 100), comp));

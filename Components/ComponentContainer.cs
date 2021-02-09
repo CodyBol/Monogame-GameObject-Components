@@ -8,5 +8,6 @@ namespace TestProject.Component
     {
         public List<UpdateComponent> updateComponents;
         public List<DrawComponent> drawComponents;
+        public List<ScriptComponent> scriptComponents;
     }
 }

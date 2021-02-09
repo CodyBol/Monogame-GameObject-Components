@@ -9,6 +9,7 @@ namespace TestProject.Component
             ComponentContainer container = new ComponentContainer();
             container.updateComponents = new List<UpdateComponent>();
             container.drawComponents = new List<DrawComponent>();
+            container.scriptComponents = new List<ScriptComponent>();
 
             return container;
         }
