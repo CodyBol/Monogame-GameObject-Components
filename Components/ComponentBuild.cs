@@ -5,7 +5,7 @@ namespace TestProject.Component
 {
     static class ComponentBuild
     {
-        private static ComponentContainer createContainer() {
+        public static ComponentContainer createContainer() {
             ComponentContainer container = new ComponentContainer();
             container.updateComponents = new List<UpdateComponent>();
             container.drawComponents = new List<DrawComponent>();
@@ -14,12 +14,17 @@ namespace TestProject.Component
             return container;
         }
 
-        public static ComponentContainer Animation(float animationSpeed, List<Texture2D> sprites) {
+        /*public static ComponentContainer Animation(float animationSpeed, Dictionary<string, AnimationState> animationState) {
             ComponentContainer container = ComponentBuild.createContainer();
-            container.updateComponents.Add(new Animate(animationSpeed, sprites));
-            container.drawComponents.Add(new SpriteRenderer(sprites[0]));
+            container.updateComponents.Add(new Animate(animationSpeed, animationState));
+
+            //get first
+            foreach (KeyValuePair<string, AnimationState> anState in animationState) {
+                container.drawComponents.Add(new SpriteRenderer(anState.Value.sprites[0]));
+            }
+            
 
             return container;
-        }
+        }*/
     }
 }

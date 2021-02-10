@@ -23,24 +23,40 @@ namespace TestProject
         protected override void Initialize()
         {
             spriteLoader = new SpriteLoader(Content, new List<string>() { "spr_blue_invader", "spr_red_invader", "spr_tile" });
+            GameObjectManager.gameObjects = new List<GameObject>();
 
-            ComponentContainer comp = ComponentBuild.Animation(2, new List<Texture2D>() { spriteLoader.getSprite("spr_tile") });
+
+
+            ComponentContainer comp = ComponentBuild.createContainer();
+            comp.drawComponents.Add(new SpriteRenderer(spriteLoader.getSprite("spr_blue_invader")));
             comp.updateComponents.Add(new RectCollider("default", true));
+
+            AnimationState states = new AnimationState();
+            states.sprites = new List<Texture2D>() { spriteLoader.getSprite("spr_blue_invader"), spriteLoader.getSprite("spr_red_invader")};
+            states.loop = true;
+
+            AnimationState states2 = new AnimationState();
+            states2.sprites = new List<Texture2D>() { spriteLoader.getSprite("spr_tile") };
+            states2.loop = false;
+
+            comp.updateComponents.Add(new Animate(2f, "animate", new Dictionary<string, AnimationState>() { {"animate", states}, {"default", states2 } }));
 
             comp.scriptComponents = new List<ScriptComponent>();
             comp.scriptComponents.Add(new Player());
 
-
-            GameObjectManager.gameObjects = new List<GameObject>();
             GameObjectManager.gameObjects.Add(new GameObject(new Rectangle(300, 300, 50, 50), comp));
 
-            comp = ComponentBuild.Animation(2, new List<Texture2D>() { spriteLoader.getSprite("spr_tile") });
-            comp.updateComponents.Add(new RectCollider("default", false));
-            comp.updateComponents.Add(new MouseEvent());
-            comp.scriptComponents = new List<ScriptComponent>();
 
-            GameObjectManager.gameObjects.Add(new GameObject(new Rectangle(100, 100, 100, 300), comp));
-            GameObjectManager.gameObjects.Add(new GameObject(new Rectangle(200, 100, 200, 100), comp));
+
+            //walls
+            ComponentContainer compWalls = ComponentBuild.createContainer();
+            compWalls.drawComponents.Add(new SpriteRenderer(spriteLoader.getSprite("spr_tile")));
+            compWalls.updateComponents.Add(new RectCollider("default", false));
+            compWalls.updateComponents.Add(new MouseEvent());
+            compWalls.scriptComponents = new List<ScriptComponent>();
+
+            GameObjectManager.gameObjects.Add(new GameObject(new Rectangle(100, 100, 100, 300), compWalls));
+            GameObjectManager.gameObjects.Add(new GameObject(new Rectangle(200, 100, 200, 100), compWalls));
 
             foreach (GameObject gameObject in GameObjectManager.gameObjects)
             {
@@ -91,7 +107,6 @@ namespace TestProject
             {
                 GameObjectManager.gameObjects[0].velocity.X = 0;
             }
-
 
             foreach (GameObject gameObject in GameObjectManager.gameObjects)
             {
