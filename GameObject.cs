@@ -18,13 +18,15 @@ namespace TestProject
         public Rectangle rectangle;
         public Vector2 velocity;
         public ComponentContainer components;
+        public Layer layer;
         public string tag;
 
         /**
          * set required variables
          */
-        public GameObject(Rectangle rect, ComponentContainer componentContainer) {
+        public GameObject(Rectangle rect, Layer objectLayer, ComponentContainer componentContainer) {
             rectangle = rect;
+            layer = objectLayer;
             components = componentContainer;
         }
 

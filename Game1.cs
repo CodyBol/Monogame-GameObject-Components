@@ -11,7 +11,8 @@ namespace TestProject
     {
         private GraphicsDeviceManager _graphics;
         private SpriteBatch _spriteBatch;
-        private SpriteLoader spriteLoader;
+        private AssetLoader assetLoader;
+        private Dictionary<string, Layer> layers;
 
         public Game1()
         {
@@ -22,21 +23,27 @@ namespace TestProject
 
         protected override void Initialize()
         {
-            spriteLoader = new SpriteLoader(Content, new List<string>() { "spr_blue_invader", "spr_red_invader", "spr_tile" });
+            layers = new Dictionary<string, Layer>();
+            layers.Add("bottom", new Layer("bottom", 0));
+            layers.Add("top", new Layer("top", 1));
+
+
+            assetLoader = new AssetLoader(Content);
+            assetLoader.addSpritesToLoader(new List<string>() { "spr_blue_invader", "spr_red_invader", "spr_tile" });
+            assetLoader.addFontToLoader("Arial");
+
             GameObjectManager.gameObjects = new List<GameObject>();
 
-
-
             ComponentContainer comp = ComponentBuild.createContainer();
-            comp.drawComponents.Add(new SpriteRenderer(spriteLoader.getSprite("spr_blue_invader")));
+            comp.drawComponents.Add(new SpriteRenderer(assetLoader.getSprite("spr_blue_invader")));
             comp.updateComponents.Add(new RectCollider("default", true));
 
             AnimationState states = new AnimationState();
-            states.sprites = new List<Texture2D>() { spriteLoader.getSprite("spr_blue_invader"), spriteLoader.getSprite("spr_red_invader")};
+            states.sprites = new List<Texture2D>() { assetLoader.getSprite("spr_blue_invader"), assetLoader.getSprite("spr_red_invader")};
             states.loop = true;
 
             AnimationState states2 = new AnimationState();
-            states2.sprites = new List<Texture2D>() { spriteLoader.getSprite("spr_tile") };
+            states2.sprites = new List<Texture2D>() { assetLoader.getSprite("spr_tile") };
             states2.loop = false;
 
             comp.updateComponents.Add(new Animate(2f, "animate", new Dictionary<string, AnimationState>() { {"animate", states}, {"default", states2 } }));
@@ -44,19 +51,25 @@ namespace TestProject
             comp.scriptComponents = new List<ScriptComponent>();
             comp.scriptComponents.Add(new Player());
 
-            GameObjectManager.gameObjects.Add(new GameObject(new Rectangle(300, 300, 50, 50), comp));
+            GameObjectManager.gameObjects.Add(new GameObject(new Rectangle(300, 300, 50, 50), layers["bottom"], comp));
 
+
+            //text
+            comp = ComponentBuild.createContainer();
+            comp.drawComponents.Add(new TextRenderer(assetLoader.getFont("Arial"), "deep deep deep", Color.HotPink));
+
+            GameObjectManager.gameObjects.Add(new GameObject(new Rectangle(100, 100, 0, 0), layers["top"], comp));
 
 
             //walls
             ComponentContainer compWalls = ComponentBuild.createContainer();
-            compWalls.drawComponents.Add(new SpriteRenderer(spriteLoader.getSprite("spr_tile")));
+            compWalls.drawComponents.Add(new SpriteRenderer(assetLoader.getSprite("spr_tile")));
             compWalls.updateComponents.Add(new RectCollider("default", false));
             compWalls.updateComponents.Add(new MouseEvent());
             compWalls.scriptComponents = new List<ScriptComponent>();
 
-            GameObjectManager.gameObjects.Add(new GameObject(new Rectangle(100, 100, 100, 300), compWalls));
-            GameObjectManager.gameObjects.Add(new GameObject(new Rectangle(200, 100, 200, 100), compWalls));
+            GameObjectManager.gameObjects.Add(new GameObject(new Rectangle(100, 100, 100, 300), layers["bottom"], compWalls));
+            GameObjectManager.gameObjects.Add(new GameObject(new Rectangle(200, 100, 200, 100), layers["bottom"], compWalls));
 
             foreach (GameObject gameObject in GameObjectManager.gameObjects)
             {
@@ -123,8 +136,15 @@ namespace TestProject
             _spriteBatch.Begin();
             // Draw the background (and clear the screen)
 
-            foreach (GameObject gameObject in GameObjectManager.gameObjects) {
-                gameObject.Draw(_spriteBatch);
+            foreach (KeyValuePair<string, Layer> stringLayer in layers)
+            {
+                foreach (GameObject gameObject in GameObjectManager.gameObjects) {
+                
+                    if (stringLayer.Value == gameObject.layer)
+                    {
+                        gameObject.Draw(_spriteBatch);
+                    }
+                }
             }
 
             _spriteBatch.End();

@@ -32,3 +32,5 @@ C:\Users\CodySchool\source\repos\TestProject\TestProject\bin\Debug\netcoreapp3.1
 C:\Users\CodySchool\source\repos\TestProject\TestProject\obj\Debug\netcoreapp3.1\TestProject.csprojAssemblyReference.cache
 C:\Users\CodySchool\source\repos\TestProject\TestProject\bin\Debug\netcoreapp3.1\Content\test_tile.xnb
 C:\Users\CodySchool\source\repos\TestProject\TestProject\bin\Debug\netcoreapp3.1\Content\spr_tile.xnb
+C:\Users\CodySchool\source\repos\TestProject\TestProject\bin\Debug\netcoreapp3.1\Content\fonts\Arial.xnb
+C:\Users\CodySchool\source\repos\TestProject\TestProject\bin\Debug\netcoreapp3.1\Content\fonts\OpenSans.xnb
