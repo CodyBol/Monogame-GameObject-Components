@@ -26,8 +26,8 @@ namespace TestProject
             }
         }
 
-        public void collisionEnter(GameObject collision, Vector2 direction) {
-            Debug.Write("test");
+        public void collisionEnter(GameObject collision, Rectangle collideRect, Vector2 direction) {
+            Debug.WriteLine("test");
         }
     }
 }

@@ -85,10 +85,10 @@ namespace GameObjects
         /**
          * can be added in a extended class
          */
-        public void onTriggerEnter(GameObject collision, Vector2 direction) {
+        public void onTriggerEnter(GameObject collision, Rectangle collideRect, Vector2 direction) {
             foreach (ScriptComponent component in components.scriptComponents)
             {
-                component.triggerEnter(collision, direction);
+                component.triggerEnter(collision, collideRect, direction);
             }
         }
 
@@ -119,39 +119,39 @@ namespace GameObjects
         /**
          * can be added in a extended class
          */
-        public void onCollisionEnter(GameObject collision, Vector2 direction)
+        public void onCollisionEnter(GameObject collision, Rectangle collideRect, Vector2 direction)
         {
             foreach (ScriptComponent component in components.scriptComponents)
             {
-                component.collisionEnter(collision, direction);
+                component.collisionEnter(collision, collideRect, direction);
             }
 
             if (direction == new Vector2(1, 0)) {
-                rectangle.X = collision.rectangle.Left - rectangle.Width;
+                rectangle.X = collideRect.Left - rectangle.Width / 2;
                 velocity.X = 0;
             }
 
             if (direction == new Vector2(-1, 0))
             {
-                rectangle.X = collision.rectangle.Right;
+                rectangle.X = collideRect.Right + rectangle.Width / 2;
                 velocity.X = 0;
             }
 
             if (direction == new Vector2(0, 1))
             {
                 velocity.Y = 0;
-                rectangle.Y = collision.rectangle.Top - rectangle.Height;
+                rectangle.Y = collideRect.Top - rectangle.Height / 2;
             }
 
             if (direction == new Vector2(0, -1))
             {
                 velocity.Y = 0;
-                rectangle.Y = collision.rectangle.Bottom;
+                rectangle.Y = collideRect.Bottom + rectangle.Height / 2;
             }
 
             foreach (ScriptComponent component in components.scriptComponents)
             {
-                component.collisionEnterLate(collision, direction);
+                component.collisionEnterLate(collision, collideRect, direction);
             }
         }
 

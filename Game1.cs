@@ -4,6 +4,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using System.Collections.Generic;
 using GameObjects;
+using System.Diagnostics;
 
 namespace TestProject
 {
@@ -52,7 +53,7 @@ namespace TestProject
             comp.scriptComponents = new List<ScriptComponent>();
             comp.scriptComponents.Add(new Player());
 
-            GameObjectManager.gameObjects.Add(new GameObject(new Rectangle(300, 300, 50, 50), layers["bottom"], comp));
+            GameObjectManager.gameObjects.Add(new GameObject(new Rectangle(400, 100, 50, 50), layers["bottom"], comp));
 
 
             //text
@@ -69,8 +70,8 @@ namespace TestProject
             compWalls.updateComponents.Add(new MouseEvent());
             compWalls.scriptComponents = new List<ScriptComponent>();
 
-            GameObjectManager.gameObjects.Add(new GameObject(new Rectangle(100, 100, 100, 300), layers["bottom"], compWalls));
-            GameObjectManager.gameObjects.Add(new GameObject(new Rectangle(200, 100, 200, 100), layers["bottom"], compWalls));
+            //GameObjectManager.gameObjects.Add(new GameObject(new Rectangle(100, 100, 100, 300), layers["bottom"], compWalls));
+            GameObjectManager.gameObjects.Add(new GameObject(new Rectangle(300, 300, 200, 100), layers["bottom"], compWalls));
 
             foreach (GameObject gameObject in GameObjectManager.gameObjects)
             {
@@ -147,6 +148,14 @@ namespace TestProject
                     }
                 }
             }
+
+            Vector2 origin = new Vector2(assetLoader.getSprite("spr_tile").Width / 2, assetLoader.getSprite("spr_tile").Height / 2);
+
+
+
+            /*_spriteBatch.Draw(assetLoader.getSprite("spr_tile"), new Rectangle(300, 300, 100, 50), null, Color.White, 1.57f, origin, SpriteEffects.None, 0f);
+            Debug.WriteLine(test);
+            test += 0.1f;*/
 
             _spriteBatch.End();
 
