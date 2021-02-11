@@ -1,10 +1,12 @@
-﻿using Microsoft.Xna.Framework;
+﻿using Component;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using System.Collections.Generic;
 using System.Diagnostics;
+using GameObjects;
 
-namespace TestProject.Component
+namespace TestProject
 {
     class Player : ScriptComponent
     {

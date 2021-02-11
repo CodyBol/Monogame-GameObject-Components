@@ -1,8 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using GameObjects;
 
-namespace TestProject.Component
+namespace Component
 {
     struct ComponentContainer
     {

@@ -1,7 +1,8 @@
 ﻿using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
+using GameObjects;
 
-namespace TestProject.Component
+namespace Component
 {
     static class ComponentBuild
     {

@@ -1,7 +1,8 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using GameObjects;
 
-namespace TestProject.Component
+namespace Component
 {
     class TextRenderer : DrawComponent
     {

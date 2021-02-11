@@ -1,8 +1,9 @@
-﻿using Microsoft.Xna.Framework;
+﻿using Component;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using System.Collections.Generic;
-using TestProject.Component;
+using GameObjects;
 
 namespace TestProject
 {
@@ -36,7 +37,7 @@ namespace TestProject
 
             ComponentContainer comp = ComponentBuild.createContainer();
             comp.drawComponents.Add(new SpriteRenderer(assetLoader.getSprite("spr_blue_invader")));
-            comp.updateComponents.Add(new RectCollider("default", true));
+            comp.updateComponents.Add(new RectCollider(layers["bottom"], true));
 
             AnimationState states = new AnimationState();
             states.sprites = new List<Texture2D>() { assetLoader.getSprite("spr_blue_invader"), assetLoader.getSprite("spr_red_invader")};
@@ -64,7 +65,7 @@ namespace TestProject
             //walls
             ComponentContainer compWalls = ComponentBuild.createContainer();
             compWalls.drawComponents.Add(new SpriteRenderer(assetLoader.getSprite("spr_tile")));
-            compWalls.updateComponents.Add(new RectCollider("default", false));
+            compWalls.updateComponents.Add(new RectCollider(layers["bottom"], false));
             compWalls.updateComponents.Add(new MouseEvent());
             compWalls.scriptComponents = new List<ScriptComponent>();
 

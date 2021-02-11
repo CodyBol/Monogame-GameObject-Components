@@ -1,10 +1,10 @@
-﻿using Microsoft.Xna.Framework;
+﻿using Component;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Diagnostics;
-using TestProject.Component;
 
-namespace TestProject
+namespace GameObjects
 {
     class GameObject
     {

@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework.Graphics;
+using GameObjects;
 
-namespace TestProject.Component
+namespace Component
 {
     interface DrawComponent : BaseComponent
     {

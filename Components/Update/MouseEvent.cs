@@ -2,8 +2,9 @@
 using Microsoft.Xna.Framework.Input;
 using System.Collections.Generic;
 using System.Diagnostics;
+using GameObjects;
 
-namespace TestProject.Component
+namespace Component
 {
     class MouseEvent : UpdateComponent
     {

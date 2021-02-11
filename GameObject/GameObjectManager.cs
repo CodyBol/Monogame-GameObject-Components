@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace TestProject.Component
+namespace GameObjects
 {
     static class GameObjectManager
     {

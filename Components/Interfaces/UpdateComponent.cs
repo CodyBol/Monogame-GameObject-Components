@@ -1,4 +1,6 @@
-﻿namespace TestProject.Component
+﻿using GameObjects;
+
+namespace Component
 {
     interface UpdateComponent : BaseComponent
     {

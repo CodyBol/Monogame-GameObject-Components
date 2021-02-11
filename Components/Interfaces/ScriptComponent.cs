@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
+using GameObjects;
 
-namespace TestProject.Component
+namespace Component
 {
     interface ScriptComponent : BaseComponent
     {

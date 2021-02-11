@@ -3,21 +3,22 @@ using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using GameObjects;
 
-namespace TestProject.Component
+namespace Component
 {
     class RectCollider : UpdateComponent
     {
-        public string layer;
+        public Layer targetLayer;
         private bool check;
 
-        public RectCollider(string layerName, bool checkSelf)
+        public RectCollider(Layer layer, bool checkSelf)
         {
-            if (layerName == null) {
+            if (layer == null) {
                 throw new Exception("Layer name can not be null.");
             }
 
-            layer = layerName;
+            targetLayer = layer;
             check = checkSelf;
         }
 
@@ -27,7 +28,7 @@ namespace TestProject.Component
         {
             if (check) {
             foreach (GameObject collide in GameObjectManager.gameObjects) {
-                if (collide != gameObject && (collide.hasComponent<RectCollider>() && collide.getComponent<RectCollider>().layer.Equals(layer))) {
+                if (collide != gameObject && collide.layer == targetLayer && collide.hasComponent<RectCollider>()) {
 
                         if ((collide.rectangle.Left - gameObject.rectangle.Width <= gameObject.rectangle.Left && collide.rectangle.Right + gameObject.rectangle.Width >= gameObject.rectangle.Right) && (collide.rectangle.Top - gameObject.rectangle.Height <= gameObject.rectangle.Top && collide.rectangle.Bottom + gameObject.rectangle.Height >= gameObject.rectangle.Bottom))
                         {
