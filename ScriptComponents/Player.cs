@@ -6,7 +6,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using GameObjects;
 
-namespace TestProject
+namespace Component
 {
     class Player : ScriptComponent
     {
@@ -18,14 +18,6 @@ namespace TestProject
         }
 
         public void update(GameObject gameObject) {
-            /*if (Keyboard.GetState().IsKeyDown(Keys.Space))
-            {
-                animate.changeState("default");
-            }
-            else {
-                animate.changeState("animate", false);
-            }*/
-
             if (Keyboard.GetState().IsKeyDown(Keys.W))
             {
                 gameObject.velocity.Y = -speed;

@@ -83,10 +83,7 @@ namespace TestProject
 
             GameObjectManager.gameObjects.Add(new GameObject(new Rectangle(80, 80, 50, 50), layers["bottom"], newComp));
 
-            foreach (GameObject gameObject in GameObjectManager.gameObjects)
-            {
-                gameObject.initialize();
-            }
+            GameObjectManager.initGameObjects();
 
             base.Initialize();
         }
@@ -105,10 +102,7 @@ namespace TestProject
                 Exit();
 
 
-            foreach (GameObject gameObject in GameObjectManager.gameObjects)
-            {
-                gameObject.Update();
-            }
+            GameObjectManager.UpdateGameObjects();
 
             base.Update(gameTime);
         }
@@ -118,26 +112,8 @@ namespace TestProject
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
             _spriteBatch.Begin();
-            // Draw the background (and clear the screen)
 
-            foreach (KeyValuePair<string, Layer> stringLayer in layers)
-            {
-                foreach (GameObject gameObject in GameObjectManager.gameObjects) {
-                
-                    if (stringLayer.Value == gameObject.layer)
-                    {
-                        gameObject.Draw(_spriteBatch);
-                    }
-                }
-            }
-
-            Vector2 origin = new Vector2(assetLoader.getSprite("spr_tile").Width / 2, assetLoader.getSprite("spr_tile").Height / 2);
-
-
-
-            /*_spriteBatch.Draw(assetLoader.getSprite("spr_tile"), new Rectangle(300, 300, 100, 50), null, Color.White, 1.57f, origin, SpriteEffects.None, 0f);
-            Debug.WriteLine(test);
-            test += 0.1f;*/
+            GameObjectManager.RenderGameObjects(_spriteBatch, layers);
 
             _spriteBatch.End();
 
