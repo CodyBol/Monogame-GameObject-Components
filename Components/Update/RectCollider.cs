@@ -30,13 +30,8 @@ namespace Component
             foreach (GameObject collide in GameObjectManager.gameObjects) {
                 if (collide != gameObject && collide.layer == targetLayer && collide.hasComponent<RectCollider>()) {
 
-                        Rectangle collideRect = new Rectangle(collide.rectangle.X - collide.rectangle.Width / 2,
-                            collide.rectangle.Y - collide.rectangle.Height/ 2,
-                            collide.rectangle.Width, collide.rectangle.Height);
-
-                        Rectangle gameObjectRect = new Rectangle(gameObject.rectangle.X - gameObject.rectangle.Width / 2,
-                            gameObject.rectangle.Y - gameObject.rectangle.Height / 2,
-                            gameObject.rectangle.Width, gameObject.rectangle.Height);
+                        Rectangle collideRect = collide.getRealRect();
+                        Rectangle gameObjectRect = gameObject.getRealRect();
 
                         if ((collideRect.Left - gameObjectRect.Width <= gameObjectRect.Left && collideRect.Right + gameObjectRect.Width >= gameObjectRect.Right) && (collideRect.Top - gameObjectRect.Height <= gameObjectRect.Top && collideRect.Bottom + gameObjectRect.Height >= gameObjectRect.Bottom))
                         {

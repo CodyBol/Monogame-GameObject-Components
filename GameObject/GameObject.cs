@@ -201,5 +201,12 @@ namespace GameObjects
 
             return false;
         }
+
+        public Rectangle getRealRect()
+        {
+            return new Rectangle(rectangle.X - rectangle.Width / 2,
+                            rectangle.Y - rectangle.Height / 2,
+                            rectangle.Width, rectangle.Height);
+        }
     }
 }

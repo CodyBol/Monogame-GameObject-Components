@@ -50,6 +50,8 @@ namespace TestProject
 
             comp.updateComponents.Add(new Animate(2f, "animate", new Dictionary<string, AnimationState>() { {"animate", states}, {"default", states2 } }));
 
+            comp.updateComponents.Add(new MouseEvent());
+
             comp.scriptComponents = new List<ScriptComponent>();
             comp.scriptComponents.Add(new Player());
 
@@ -73,6 +75,14 @@ namespace TestProject
             //GameObjectManager.gameObjects.Add(new GameObject(new Rectangle(100, 100, 100, 300), layers["bottom"], compWalls));
             GameObjectManager.gameObjects.Add(new GameObject(new Rectangle(300, 300, 200, 100), layers["bottom"], compWalls));
 
+
+            //new wall
+            ComponentContainer newComp = ComponentBuild.createContainer();
+            newComp.drawComponents.Add(new SpriteRenderer(assetLoader.getSprite("spr_tile")));
+            newComp.updateComponents.Add(new RectCollider(layers["bottom"], false));
+
+            GameObjectManager.gameObjects.Add(new GameObject(new Rectangle(80, 80, 50, 50), layers["bottom"], newComp));
+
             foreach (GameObject gameObject in GameObjectManager.gameObjects)
             {
                 gameObject.initialize();
@@ -94,34 +104,6 @@ namespace TestProject
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
 
-
-            float speed = 5;
-
-            if (Keyboard.GetState().IsKeyDown(Keys.W))
-            {
-                GameObjectManager.gameObjects[0].velocity.Y = -speed;
-            }
-            else if (Keyboard.GetState().IsKeyDown(Keys.S))
-            {
-                GameObjectManager.gameObjects[0].velocity.Y = speed;
-            }
-            else 
-            {
-                GameObjectManager.gameObjects[0].velocity.Y = 0;
-            }
-
-            if (Keyboard.GetState().IsKeyDown(Keys.A))
-            {
-                GameObjectManager.gameObjects[0].velocity.X = -speed;
-            }
-            else if (Keyboard.GetState().IsKeyDown(Keys.D))
-            {
-                GameObjectManager.gameObjects[0].velocity.X = speed;
-            }
-            else 
-            {
-                GameObjectManager.gameObjects[0].velocity.X = 0;
-            }
 
             foreach (GameObject gameObject in GameObjectManager.gameObjects)
             {
