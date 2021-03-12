@@ -4,7 +4,7 @@ using GameObjects;
 
 namespace Component
 {
-    class SpriteRenderer : DrawComponent
+    class SpriteRenderer : BaseComponent, IDraw
     {
         public Texture2D sprite;
         public float rotation;
@@ -20,13 +20,11 @@ namespace Component
             rotation = angle;
         }
 
-        public void initialize(GameObject gameObject) {}
-
-        public void Draw(GameObject gameObject, SpriteBatch spriteBatch) {
+        public void Draw(SpriteBatch spriteBatch) {
             //spriteBatch.Draw(sprite, gameObject.rectangle, Color.White);
 
             Vector2 origin = new Vector2(sprite.Width / 2, sprite.Height / 2);
-            spriteBatch.Draw(sprite, gameObject.rectangle, null, Color.White, rotation, origin, SpriteEffects.None, 0f);
+            spriteBatch.Draw(sprite, GameObject.rectangle, null, Color.White, rotation, origin, SpriteEffects.None, 0f);
 
 
         }

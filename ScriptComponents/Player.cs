@@ -8,40 +8,36 @@ using GameObjects;
 
 namespace Component
 {
-    class Player : ScriptComponent
+    class Player : BaseComponent, IUpdate, IMouse, ICollision
     {
-        private Animate animate;
         private float speed = 5;
 
-        public void initialize(GameObject gameObject) {
-            animate = gameObject.getComponent<Animate>();
-        }
-
-        public void update(GameObject gameObject) {
+        public void Update() {
+            //walk
             if (Keyboard.GetState().IsKeyDown(Keys.W))
             {
-                gameObject.velocity.Y = -speed;
+                GameObject.velocity.Y = -speed;
             }
             else if (Keyboard.GetState().IsKeyDown(Keys.S))
             {
-                gameObject.velocity.Y = speed;
+                GameObject.velocity.Y = speed;
             }
             else
             {
-                gameObject.velocity.Y = 0;
+                GameObject.velocity.Y = 0;
             }
 
             if (Keyboard.GetState().IsKeyDown(Keys.A))
             {
-                gameObject.velocity.X = -speed;
+                GameObject.velocity.X = -speed;
             }
             else if (Keyboard.GetState().IsKeyDown(Keys.D))
             {
-                gameObject.velocity.X = speed;
+                GameObject.velocity.X = speed;
             }
             else
             {
-                gameObject.velocity.X = 0;
+                GameObject.velocity.X = 0;
             }
         }
 

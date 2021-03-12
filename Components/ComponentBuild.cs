@@ -8,8 +8,8 @@ namespace Component
     {
         public static ComponentContainer createContainer() {
             ComponentContainer container = new ComponentContainer();
-            container.updateComponents = new List<UpdateComponent>();
-            container.drawComponents = new List<DrawComponent>();
+            container.updateComponents = new List<IUpdate>();
+            container.drawComponents = new List<IDraw>();
             container.scriptComponents = new List<ScriptComponent>();
 
             return container;

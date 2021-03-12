@@ -7,7 +7,7 @@ using GameObjects;
 
 namespace Component
 {
-    class RectCollider : UpdateComponent
+    class RectCollider : BaseComponent, IUpdate
     {
         public Layer targetLayer;
         private bool check;
@@ -22,21 +22,19 @@ namespace Component
             check = checkSelf;
         }
 
-        public void initialize(GameObject gameObject) {}
-
-        public void Update(GameObject gameObject)
+        public void Update()
         {
             if (check) {
             foreach (GameObject collide in GameObjectManager.gameObjects) {
-                if (collide != gameObject && collide.layer == targetLayer && collide.hasComponent<RectCollider>()) {
+                if (collide != GameObject && collide.layer == targetLayer && collide.hasComponent<RectCollider>()) {
 
                         Rectangle collideRect = collide.getRealRect();
-                        Rectangle gameObjectRect = gameObject.getRealRect();
+                        Rectangle gameObjectRect = GameObject.getRealRect();
 
                         if ((collideRect.Left - gameObjectRect.Width <= gameObjectRect.Left && collideRect.Right + gameObjectRect.Width >= gameObjectRect.Right) && (collideRect.Top - gameObjectRect.Height <= gameObjectRect.Top && collideRect.Bottom + gameObjectRect.Height >= gameObjectRect.Bottom))
                         {
                             //Left collision
-                            if (gameObject.velocity.X < 0 && (gameObjectRect.Left >= collideRect.Left && gameObjectRect.Left <= collideRect.Right) || (gameObjectRect.X > collideRect.X && gameObjectRect.X + gameObject.velocity.X < collideRect.X))
+                            if (GameObject.velocity.X < 0 && (gameObjectRect.Left >= collideRect.Left && gameObjectRect.Left <= collideRect.Right) || (gameObjectRect.X > collideRect.X && gameObjectRect.X + GameObject.velocity.X < collideRect.X))
                             {
                                 bool cornerOverride = (gameObjectRect.Bottom == collideRect.Top && gameObjectRect.Left == collideRect.Right) || (gameObjectRect.Top == collideRect.Bottom && gameObjectRect.Left == collideRect.Right);
 
@@ -44,13 +42,13 @@ namespace Component
                                 {
                                     if (!cornerOverride)
                                     {
-                                        gameObject.onCollisionEnter(collide, collideRect, new Vector2(-1, 0));
+                                        GameObject.onCollisionEnter(collide, collideRect, new Vector2(-1, 0));
                                     }
                                 }
                             }
 
                             //Right collision
-                            if (gameObject.velocity.X > 0 && (gameObjectRect.Right <= collideRect.Right && gameObjectRect.Right >= collideRect.Left) || (gameObjectRect.X < collideRect.X && gameObjectRect.X + gameObject.velocity.X > collideRect.X))
+                            if (GameObject.velocity.X > 0 && (gameObjectRect.Right <= collideRect.Right && gameObjectRect.Right >= collideRect.Left) || (gameObjectRect.X < collideRect.X && gameObjectRect.X + GameObject.velocity.X > collideRect.X))
                             {
                                 bool cornerOverride = (gameObjectRect.Top == collideRect.Bottom && gameObjectRect.Right == collideRect.Left) || (gameObjectRect.Bottom == collideRect.Top && gameObjectRect.Right == collideRect.Left);
 
@@ -58,13 +56,13 @@ namespace Component
                                 {
                                     if (!cornerOverride)
                                     {
-                                        gameObject.onCollisionEnter(collide, collideRect, new Vector2(1, 0));
+                                        GameObject.onCollisionEnter(collide, collideRect, new Vector2(1, 0));
                                     }
                                 }
                             }
 
                             //Bottom collision
-                            if (gameObject.velocity.Y > 0 && (gameObjectRect.Bottom >= collideRect.Top && gameObjectRect.Bottom <= collideRect.Bottom) || (gameObjectRect.Y < collideRect.Y && gameObjectRect.Y + gameObject.velocity.Y > collideRect.Y))
+                            if (GameObject.velocity.Y > 0 && (gameObjectRect.Bottom >= collideRect.Top && gameObjectRect.Bottom <= collideRect.Bottom) || (gameObjectRect.Y < collideRect.Y && gameObjectRect.Y + GameObject.velocity.Y > collideRect.Y))
                             {
                                 bool cornerOverride = (gameObjectRect.Bottom == collideRect.Top && gameObjectRect.Right == collideRect.Left) || (gameObjectRect.Bottom == collideRect.Top && gameObjectRect.Left == collideRect.Right);
 
@@ -72,12 +70,12 @@ namespace Component
                                 {
                                     if (!cornerOverride)
                                     {
-                                        gameObject.onCollisionEnter(collide, collideRect, new Vector2(0, 1));
+                                        GameObject.onCollisionEnter(collide, collideRect, new Vector2(0, 1));
                                     }
                                 }
                             }
                             //Top collision
-                            else if (gameObject.velocity.Y < 0 && (gameObjectRect.Top >= collideRect.Top && gameObjectRect.Top <= collideRect.Bottom) || (gameObjectRect.Y > collideRect.Y && gameObjectRect.Y + gameObject.velocity.Y < collideRect.Y))
+                            else if (GameObject.velocity.Y < 0 && (gameObjectRect.Top >= collideRect.Top && gameObjectRect.Top <= collideRect.Bottom) || (gameObjectRect.Y > collideRect.Y && gameObjectRect.Y + GameObject.velocity.Y < collideRect.Y))
                             {
                                 bool cornerOverride = (gameObjectRect.Top == collideRect.Bottom && gameObjectRect.Left == collideRect.Right) || (gameObjectRect.Top == collideRect.Bottom && gameObjectRect.Right == collideRect.Left);
 
@@ -85,7 +83,7 @@ namespace Component
                                 {
                                     if (!cornerOverride)
                                     {
-                                        gameObject.onCollisionEnter(collide, collideRect, new Vector2(0, -1));
+                                        GameObject.onCollisionEnter(collide, collideRect, new Vector2(0, -1));
                                     }
                                 }
                             }
