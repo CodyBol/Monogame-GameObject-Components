@@ -4,7 +4,7 @@ using GameObjects;
 
 namespace Component
 {
-    class TextRenderer : DrawComponent
+    class TextRenderer : BaseComponent, IDraw
     {
         public SpriteFont font;
         public string content;
@@ -17,10 +17,8 @@ namespace Component
             color = textColor;
         }
 
-        public void initialize(GameObject gameObject) {}
-
-        public void Draw(GameObject gameObject, SpriteBatch spriteBatch) {
-            spriteBatch.DrawString(font, content, gameObject.rectangle.Location.ToVector2(), color);
+        public void Draw(SpriteBatch spriteBatch) {
+            spriteBatch.DrawString(font, content, GameObject.rectangle.Location.ToVector2(), color);
         }
     }
 }

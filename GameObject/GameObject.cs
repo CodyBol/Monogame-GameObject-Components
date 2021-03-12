@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 
 namespace GameObjects
@@ -17,17 +18,17 @@ namespace GameObjects
          */
         public Rectangle rectangle;
         public Vector2 velocity;
-        public ComponentContainer components;
+        public List<BaseComponent> components;
         public Layer layer;
         public string tag;
 
         /**
          * set required variables
          */
-        public GameObject(Rectangle rect, Layer objectLayer, ComponentContainer componentContainer) {
+        public GameObject(Rectangle rect, Layer objectLayer, List<BaseComponent> componentsList) {
             rectangle = rect;
             layer = objectLayer;
-            components = componentContainer;
+            components = componentsList;
         }
 
         /**
@@ -35,17 +36,14 @@ namespace GameObjects
          * This can be used to communicate between the components and the gameobject
          */
         public void initialize() {
-            foreach (UpdateComponent component in components.updateComponents)
+            foreach (BaseComponent component in components)
             {
-                component.initialize(this);
+                component.Init(this);
             }
-            foreach (DrawComponent component in components.drawComponents)
+
+            foreach (BaseComponent component in components)
             {
-                component.initialize(this);
-            }
-            foreach (ScriptComponent component in components.scriptComponents)
-            {
-                component.initialize(this);
+                (component as IStart)?.Start();
             }
         }
 
@@ -54,20 +52,17 @@ namespace GameObjects
          */
         public void Update()
         {
-            foreach (ScriptComponent component in components.scriptComponents)
+            foreach (BaseComponent component in components)
             {
-                component.update(this);
-            }
-            foreach (UpdateComponent component in components.updateComponents) {
-                component.Update(this);
+                (component as IUpdate)?.Update();
             }
 
             rectangle.X += (int)velocity.X;
             rectangle.Y += (int)velocity.Y;
 
-            foreach (ScriptComponent component in components.scriptComponents)
+            foreach (BaseComponent component in components)
             {
-                component.lateUpdate(this);
+                (component as ILateUpdate)?.LateUpdate();
             }
         }
 
@@ -76,9 +71,9 @@ namespace GameObjects
          */
         public void Draw(SpriteBatch spriteBatch) 
         {
-            foreach (DrawComponent component in components.drawComponents)
+            foreach (BaseComponent component in components)
             {
-                component.Draw(this, spriteBatch);
+                (component as IDraw)?.Draw(spriteBatch);
             }
         }
 
@@ -86,9 +81,9 @@ namespace GameObjects
          * can be added in a extended class
          */
         public void onTriggerEnter(GameObject collision, Rectangle collideRect, Vector2 direction) {
-            foreach (ScriptComponent component in components.scriptComponents)
+            foreach (BaseComponent component in components)
             {
-                component.triggerEnter(collision, collideRect, direction);
+                (component as ITrigger)?.triggerEnter(collision, collideRect, direction);
             }
         }
 
@@ -97,9 +92,9 @@ namespace GameObjects
          */
         public void onHover(Vector2 mousePosition)
         {
-            foreach (ScriptComponent component in components.scriptComponents)
+            foreach (BaseComponent component in components)
             {
-                component.onHover(mousePosition);
+                (component as IMouse)?.onHover(mousePosition);
             }
         }
 
@@ -110,9 +105,9 @@ namespace GameObjects
          */
         public void onPressed(Vector2 mousePosition, int mouseButton)
         {
-            foreach (ScriptComponent component in components.scriptComponents)
+            foreach (BaseComponent component in components)
             {
-                component.onPressed(mousePosition, mouseButton);
+                (component as IMouse)?.onPressed(mousePosition, mouseButton);
             }
         }
 
@@ -121,9 +116,9 @@ namespace GameObjects
          */
         public void onCollisionEnter(GameObject collision, Rectangle collideRect, Vector2 direction)
         {
-            foreach (ScriptComponent component in components.scriptComponents)
+            foreach (BaseComponent component in components)
             {
-                component.collisionEnter(collision, collideRect, direction);
+                (component as ICollision)?.collisionEnter(collision, collideRect, direction);
             }
 
             if (direction == new Vector2(1, 0)) {
@@ -148,11 +143,6 @@ namespace GameObjects
                 velocity.Y = 0;
                 rectangle.Y = collideRect.Bottom + rectangle.Height / 2;
             }
-
-            foreach (ScriptComponent component in components.scriptComponents)
-            {
-                component.collisionEnterLate(collision, collideRect, direction);
-            }
         }
 
         /**
@@ -160,17 +150,10 @@ namespace GameObjects
          */
         public ComponentType getComponent<ComponentType>() {
 
-            foreach (UpdateComponent component in components.updateComponents)
+            foreach (BaseComponent component in components)
             {
-                if (component.GetType().Equals(typeof(ComponentType))) {
-                    return (ComponentType)component;
-                }
-            }
-            foreach (DrawComponent component in components.drawComponents)
-            {
-                if (component.GetType().Equals(typeof(ComponentType)))
-                {
-                    return (ComponentType)component;
+                if (component is ComponentType) {
+                    return (ComponentType)(object)component;
                 }
             }
 
@@ -184,16 +167,9 @@ namespace GameObjects
         public bool hasComponent<ComponentType>()
         {
 
-            foreach (UpdateComponent component in components.updateComponents)
+            foreach (IUpdate component in components)
             {
-                if (component.GetType().Equals(typeof(ComponentType)))
-                {
-                    return true;
-                }
-            }
-            foreach (DrawComponent component in components.drawComponents)
-            {
-                if (component.GetType().Equals(typeof(ComponentType)))
+                if (component is ComponentType)
                 {
                     return true;
                 }

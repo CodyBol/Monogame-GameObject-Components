@@ -36,10 +36,16 @@ namespace TestProject
 
             GameObjectManager.gameObjects = new List<GameObject>();
 
-            ComponentContainer comp = ComponentBuild.createContainer();
-            comp.drawComponents.Add(new SpriteRenderer(assetLoader.getSprite("spr_blue_invader")));
-            comp.updateComponents.Add(new RectCollider(layers["bottom"], true));
+            //Maak nieuwe ComponentContainer
+            List<BaseComponent> comp = new List<BaseComponent>(); ;
 
+            //Voeg sprite drawer toe
+            comp.Add(new SpriteRenderer(assetLoader.getSprite("spr_blue_invader")));
+
+            //Voeg Collision toe aan dit object
+            comp.Add(new RectCollider(layers["bottom"], true));
+
+            //begin animatie
             AnimationState states = new AnimationState();
             states.sprites = new List<Texture2D>() { assetLoader.getSprite("spr_blue_invader"), assetLoader.getSprite("spr_red_invader")};
             states.loop = true;
@@ -48,40 +54,15 @@ namespace TestProject
             states2.sprites = new List<Texture2D>() { assetLoader.getSprite("spr_tile") };
             states2.loop = false;
 
-            comp.updateComponents.Add(new Animate(2f, "animate", new Dictionary<string, AnimationState>() { {"animate", states}, {"default", states2 } }));
+            //voeg animatie toe
+            comp.Add(new Animate(2f, "animate", new Dictionary<string, AnimationState>() { {"animate", states}, {"default", states2 } }));
+            //eind animatie
 
-            comp.updateComponents.Add(new MouseEvent());
+            //Voeg custom player script toe (bevat nu alleen movement)
+            comp.Add(new Player());
 
-            comp.scriptComponents = new List<ScriptComponent>();
-            comp.scriptComponents.Add(new Player());
-
+            //Voeg gameObject toe aan de manager
             GameObjectManager.gameObjects.Add(new GameObject(new Rectangle(400, 100, 50, 50), layers["bottom"], comp));
-
-
-            //text
-            comp = ComponentBuild.createContainer();
-            comp.drawComponents.Add(new TextRenderer(assetLoader.getFont("Arial"), "deep deep deep", Color.HotPink));
-
-            GameObjectManager.gameObjects.Add(new GameObject(new Rectangle(100, 100, 0, 0), layers["top"], comp));
-
-
-            //walls
-            ComponentContainer compWalls = ComponentBuild.createContainer();
-            compWalls.drawComponents.Add(new SpriteRenderer(assetLoader.getSprite("spr_tile")));
-            compWalls.updateComponents.Add(new RectCollider(layers["bottom"], false));
-            compWalls.updateComponents.Add(new MouseEvent());
-            compWalls.scriptComponents = new List<ScriptComponent>();
-
-            //GameObjectManager.gameObjects.Add(new GameObject(new Rectangle(100, 100, 100, 300), layers["bottom"], compWalls));
-            GameObjectManager.gameObjects.Add(new GameObject(new Rectangle(300, 300, 200, 100), layers["bottom"], compWalls));
-
-
-            //new wall
-            ComponentContainer newComp = ComponentBuild.createContainer();
-            newComp.drawComponents.Add(new SpriteRenderer(assetLoader.getSprite("spr_tile")));
-            newComp.updateComponents.Add(new RectCollider(layers["bottom"], false));
-
-            GameObjectManager.gameObjects.Add(new GameObject(new Rectangle(80, 80, 50, 50), layers["bottom"], newComp));
 
             GameObjectManager.initGameObjects();
 

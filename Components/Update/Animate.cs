@@ -4,7 +4,7 @@ using GameObjects;
 
 namespace Component
 {
-    class Animate : UpdateComponent
+    class Animate : BaseComponent, IStart, IUpdate
     {
         private string state;
 
@@ -31,11 +31,13 @@ namespace Component
             animationState = new Dictionary<string, AnimationState>() { {stateName, newAnimationState} };
         }
 
-        public void initialize(GameObject gameObject) {
-            spriteComponent = gameObject.getComponent<SpriteRenderer>();
+
+        public void Start()
+        {
+            spriteComponent = GameObject.getComponent<SpriteRenderer>();
         }
 
-        public void Update(GameObject gameObject) {
+        public void Update() {
             if (clicks <= 0)
             {
                 animationState[state].index = animationState[state].index + 1 < animationState[state].sprites.Count ? animationState[state].index + 1 : (!animationState[state].loop ? animationState[state].index : 0);

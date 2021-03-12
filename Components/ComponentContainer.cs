@@ -7,8 +7,8 @@ namespace Component
 {
     struct ComponentContainer
     {
-        public List<UpdateComponent> updateComponents;
-        public List<DrawComponent> drawComponents;
+        public List<IUpdate> updateComponents;
+        public List<IDraw> drawComponents;
         public List<ScriptComponent> scriptComponents;
     }
 }

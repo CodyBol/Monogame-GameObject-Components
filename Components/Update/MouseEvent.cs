@@ -7,10 +7,10 @@ using Microsoft.Xna.Framework;
 
 namespace Component
 {
-    class MouseEvent : UpdateComponent
+    class MouseEvent : BaseComponent, IUpdate
     {
-        public void Update(GameObject gameObject) {
-            Rectangle gameObjectRect = gameObject.getRealRect();
+        public void Update() {
+            Rectangle gameObjectRect = GameObject.getRealRect();
 
 
             if ((gameObjectRect.Left <= Mouse.GetState().X && gameObjectRect.Right >= Mouse.GetState().X) && (gameObjectRect.Top <= Mouse.GetState().Y && gameObjectRect.Bottom >= Mouse.GetState().Y)) {
@@ -18,10 +18,10 @@ namespace Component
                 {
                     int button = Mouse.GetState().LeftButton == ButtonState.Pressed ? 0 : (Mouse.GetState().RightButton == ButtonState.Pressed ? 1 : 2);
 
-                    gameObject.onPressed(Mouse.GetState().Position.ToVector2(), button);
+                    GameObject.onPressed(Mouse.GetState().Position.ToVector2(), button);
                 }
                 else {
-                    gameObject.onHover(Mouse.GetState().Position.ToVector2());
+                    GameObject.onHover(Mouse.GetState().Position.ToVector2());
                 }
             }
         }
