@@ -8,7 +8,7 @@ using GameObjects;
 
 namespace Component
 {
-    class Player : BaseComponent, IUpdate, ILateUpdate, IMouse, ICollision
+    class Player : BaseComponent, IUpdate, ILateUpdate, IMouse, ITrigger
     {
         private float speed = 5;
         private Camera camera;
@@ -61,8 +61,9 @@ namespace Component
             Debug.WriteLine("hover");
         }
 
-        public void collisionEnter(GameObject collision, Rectangle collideRect, Vector2 direction) {
-            //Debug.WriteLine("test");
+        public void triggerEnter(GameObject collision, Rectangle collideRect, Vector2 direction)
+        {
+            GameObjectManager.RemoveGameObject(collision);
         }
     }
 }

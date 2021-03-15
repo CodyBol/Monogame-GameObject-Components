@@ -27,7 +27,7 @@ namespace Component
         {
             if (check)
             {
-                foreach (GameObject collide in GameObjectManager.gameObjects)
+                foreach (GameObject collide in GameObjectManager.gameObjects.ToArray())
                 {
                     if (collide != GameObject && collide.layer == targetLayer && collide.hasComponent<RectTrigger>())
                     {

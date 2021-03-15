@@ -12,7 +12,7 @@ namespace GameObjects
 
         public static void initGameObjects()
         {
-            foreach (GameObject gameObject in gameObjects)
+            foreach (GameObject gameObject in gameObjects.ToArray())
             {
                 gameObject.initialize();
             }
@@ -20,7 +20,7 @@ namespace GameObjects
 
         public static void UpdateGameObjects() 
         {
-            foreach (GameObject gameObject in gameObjects)
+            foreach (GameObject gameObject in gameObjects.ToArray())
             {
                 gameObject.Update();
             }
@@ -29,7 +29,7 @@ namespace GameObjects
         public static void RenderGameObjects(SpriteBatch spriteBatch, Dictionary<string, Layer> layers) {
             foreach (KeyValuePair<string, Layer> stringLayer in layers)
             {
-                foreach (GameObject gameObject in gameObjects)
+                foreach (GameObject gameObject in gameObjects.ToArray())
                 {
 
                     if (stringLayer.Value == gameObject.layer)
@@ -37,6 +37,20 @@ namespace GameObjects
                         gameObject.Draw(spriteBatch);
                     }
                 }
+            }
+        }
+
+        public static void RemoveGameObject(GameObject toRemove)
+        {
+            int i = 0;
+            foreach (GameObject gameObject in gameObjects.ToArray())
+            {
+                if (gameObject == toRemove)
+                {
+                    gameObjects.RemoveAt(i);
+                    return;
+                }
+                i++;
             }
         }
     }
