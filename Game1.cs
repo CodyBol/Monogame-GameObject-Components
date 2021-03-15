@@ -55,9 +55,6 @@ namespace TestProject
             //Voeg sprite drawer toe
             comp.Add(new SpriteRenderer(assetLoader.getSprite("spr_blue_invader")));
 
-            //Voeg Collision toe aan dit object
-            comp.Add(new RectCollider(layers["bottom"], true));
-
             //begin animatie
             AnimationState states = new AnimationState();
             states.sprites = new List<Texture2D>() { assetLoader.getSprite("spr_blue_invader"), assetLoader.getSprite("spr_red_invader")};
@@ -73,6 +70,10 @@ namespace TestProject
 
             //Voeg custom player script toe (bevat nu alleen movement)
             comp.Add(new Player(_camera));
+
+            //Voeg Collision toe aan dit object
+            comp.Add(new RectCollider(layers["bottom"], true));
+
 
             //Voeg gameObject toe aan de manager
             GameObjectManager.gameObjects.Add(new GameObject(new Rectangle(400, 100, 50, 50), layers["bottom"], comp));
@@ -111,6 +112,8 @@ namespace TestProject
 
         protected override void Draw(GameTime gameTime)
         {
+            _camera.Target = (new Vector2(GameObjectManager.gameObjects[1].rectangle.X, GameObjectManager.gameObjects[1].rectangle.Y));
+
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
             _spriteBatch.Begin(transformMatrix: _camera.Transform);

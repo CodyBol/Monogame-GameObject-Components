@@ -49,7 +49,7 @@ namespace Component
 
         public void LateUpdate() 
         {
-            camera.Target = new Vector2(GameObject.rectangle.X, GameObject.rectangle.Y);
+            camera.Target = new Vector2(GameObject.rectangle.X + GameObject.velocity.X, GameObject.rectangle.Y + GameObject.velocity.Y);
         }
 
         public void onPressed(Vector2 mousePosition, int mouseButton) {
