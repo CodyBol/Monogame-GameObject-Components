@@ -8,9 +8,15 @@ using GameObjects;
 
 namespace Component
 {
-    class Player : BaseComponent, IUpdate, IMouse, ICollision
+    class Player : BaseComponent, IUpdate, ILateUpdate, IMouse, ICollision
     {
         private float speed = 5;
+        private Camera camera;
+
+        public Player(Camera cam)
+        {
+            camera = cam;
+        }
 
         public void Update() {
             //walk
@@ -39,6 +45,11 @@ namespace Component
             {
                 GameObject.velocity.X = 0;
             }
+        }
+
+        public void LateUpdate() 
+        {
+            camera.Target = new Vector2(GameObject.rectangle.X, GameObject.rectangle.Y);
         }
 
         public void onPressed(Vector2 mousePosition, int mouseButton) {

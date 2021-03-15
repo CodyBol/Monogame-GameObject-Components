@@ -167,7 +167,7 @@ namespace GameObjects
         public bool hasComponent<ComponentType>()
         {
 
-            foreach (IUpdate component in components)
+            foreach (BaseComponent component in components)
             {
                 if (component is ComponentType)
                 {

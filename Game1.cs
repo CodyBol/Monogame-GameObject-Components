@@ -16,6 +16,9 @@ namespace TestProject
         private AssetLoader assetLoader;
         private Dictionary<string, Layer> layers;
 
+        private Vector2 ScreenSize;
+        private Camera _camera;
+
         public Game1()
         {
             _graphics = new GraphicsDeviceManager(this);
@@ -25,6 +28,8 @@ namespace TestProject
 
         protected override void Initialize()
         {
+            ScreenSize = new Vector2(_graphics.PreferredBackBufferWidth, _graphics.PreferredBackBufferHeight);
+
             layers = new Dictionary<string, Layer>();
             layers.Add("bottom", new Layer("bottom", 0));
             layers.Add("top", new Layer("top", 1));
@@ -36,8 +41,16 @@ namespace TestProject
 
             GameObjectManager.gameObjects = new List<GameObject>();
 
-            //Maak nieuwe ComponentContainer
             List<BaseComponent> comp = new List<BaseComponent>(); ;
+
+            _camera = new Camera(ScreenSize);
+
+            comp.Add(_camera);
+
+            GameObjectManager.gameObjects.Add(new GameObject(new Rectangle(0, 0, 0, 0), layers["bottom"], comp));
+
+            //Maak nieuwe ComponentContainer
+            comp = new List<BaseComponent>(); ;
 
             //Voeg sprite drawer toe
             comp.Add(new SpriteRenderer(assetLoader.getSprite("spr_blue_invader")));
@@ -59,10 +72,18 @@ namespace TestProject
             //eind animatie
 
             //Voeg custom player script toe (bevat nu alleen movement)
-            comp.Add(new Player());
+            comp.Add(new Player(_camera));
 
             //Voeg gameObject toe aan de manager
             GameObjectManager.gameObjects.Add(new GameObject(new Rectangle(400, 100, 50, 50), layers["bottom"], comp));
+
+
+            comp = new List<BaseComponent>(); ;
+
+            comp.Add(new SpriteRenderer(assetLoader.getSprite("spr_tile")));
+            comp.Add(new RectCollider(layers["bottom"], false));
+            GameObjectManager.gameObjects.Add(new GameObject(new Rectangle(250, 100, 50, 50), layers["bottom"], comp));
+
 
             GameObjectManager.initGameObjects();
 
@@ -92,7 +113,7 @@ namespace TestProject
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
-            _spriteBatch.Begin();
+            _spriteBatch.Begin(transformMatrix: _camera.Transform);
 
             GameObjectManager.RenderGameObjects(_spriteBatch, layers);
 
