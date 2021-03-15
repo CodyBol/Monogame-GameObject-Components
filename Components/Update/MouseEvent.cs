@@ -10,7 +10,7 @@ namespace Component
     class MouseEvent : BaseComponent, IUpdate
     {
         public void Update() {
-            Rectangle gameObjectRect = GameObject.getRealRect();
+            Rectangle gameObjectRect = GameObject.rectangle;
 
 
             if ((gameObjectRect.Left <= Mouse.GetState().X && gameObjectRect.Right >= Mouse.GetState().X) && (gameObjectRect.Top <= Mouse.GetState().Y && gameObjectRect.Bottom >= Mouse.GetState().Y)) {

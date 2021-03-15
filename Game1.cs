@@ -62,7 +62,13 @@ namespace TestProject
             comp.Add(new Player());
 
             //Voeg gameObject toe aan de manager
-            GameObjectManager.gameObjects.Add(new GameObject(new Rectangle(400, 100, 50, 50), layers["bottom"], comp));
+            GameObjectManager.gameObjects.Add(new GameObject(new Vector2(300, 100), new Vector2(1, 1), layers["bottom"], comp));
+
+            comp = new List<BaseComponent>(); ;
+
+            comp.Add(new SpriteRenderer(assetLoader.getSprite("spr_tile")));
+            comp.Add(new RectCollider(layers["bottom"], false));
+            GameObjectManager.gameObjects.Add(new GameObject(new Vector2(100, 100), new Vector2(2, 2), layers["bottom"], comp));
 
             GameObjectManager.initGameObjects();
 

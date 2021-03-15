@@ -17,6 +17,10 @@ namespace GameObjects
          * This way the gameobject is highly customizable
          */
         public Rectangle rectangle;
+        public Vector2 position;
+        public Vector2 scale = new Vector2(1, 1);
+        public Vector2 size;
+
         public Vector2 velocity;
         public List<BaseComponent> components;
         public Layer layer;
@@ -25,10 +29,13 @@ namespace GameObjects
         /**
          * set required variables
          */
-        public GameObject(Rectangle rect, Layer objectLayer, List<BaseComponent> componentsList) {
-            rectangle = rect;
+        public GameObject(Vector2 pos, Vector2 scl, Layer objectLayer, List<BaseComponent> componentsList) {
+            position = pos;
+            scale = scl;
             layer = objectLayer;
             components = componentsList;
+
+            rectangle = NormalizeRectangle();
         }
 
         /**
@@ -57,8 +64,10 @@ namespace GameObjects
                 (component as IUpdate)?.Update();
             }
 
-            rectangle.X += (int)velocity.X;
-            rectangle.Y += (int)velocity.Y;
+            position.X += (int)velocity.X;
+            position.Y += (int)velocity.Y;
+
+            rectangle = NormalizeRectangle();
 
             foreach (BaseComponent component in components)
             {
@@ -122,26 +131,27 @@ namespace GameObjects
             }
 
             if (direction == new Vector2(1, 0)) {
-                rectangle.X = collideRect.Left - rectangle.Width / 2;
+                position.X = collision.RevertRectangle().Left - RevertRectangle().Width;
                 velocity.X = 0;
             }
 
             if (direction == new Vector2(-1, 0))
             {
-                rectangle.X = collideRect.Right + rectangle.Width / 2;
+                Debug.WriteLine(rectangle.Width);
+                position.X = collision.RevertRectangle().Right;
                 velocity.X = 0;
             }
 
             if (direction == new Vector2(0, 1))
             {
                 velocity.Y = 0;
-                rectangle.Y = collideRect.Top - rectangle.Height / 2;
+                position.Y = collision.RevertRectangle().Top - RevertRectangle().Width;
             }
 
             if (direction == new Vector2(0, -1))
             {
                 velocity.Y = 0;
-                rectangle.Y = collideRect.Bottom + rectangle.Height / 2;
+                position.Y = collision.RevertRectangle().Bottom;
             }
         }
 
@@ -167,7 +177,7 @@ namespace GameObjects
         public bool hasComponent<ComponentType>()
         {
 
-            foreach (IUpdate component in components)
+            foreach (BaseComponent component in components)
             {
                 if (component is ComponentType)
                 {
@@ -178,11 +188,20 @@ namespace GameObjects
             return false;
         }
 
-        public Rectangle getRealRect()
+        public Rectangle NormalizeRectangle()
         {
-            return new Rectangle(rectangle.X - rectangle.Width / 2,
-                            rectangle.Y - rectangle.Height / 2,
-                            rectangle.Width, rectangle.Height);
+            return new Rectangle((int)(position.X - size.X),
+                (int)(position.Y - size.Y),
+                (int)(size.X * scale.X),
+                (int)(size.Y * scale.Y));
+        }
+
+        public Rectangle RevertRectangle()
+        {
+            return new Rectangle((int)(position.X),
+                (int)(position.Y),
+                (int)(size.X * scale.X),
+                (int)(size.Y * scale.Y));
         }
     }
 }

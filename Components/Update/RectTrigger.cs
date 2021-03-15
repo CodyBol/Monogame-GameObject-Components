@@ -32,11 +32,12 @@ namespace Component
                     if (collide != GameObject && collide.layer == targetLayer && collide.hasComponent<RectTrigger>())
                     {
 
-                        Rectangle collideRect = collide.getRealRect();
-                        Rectangle gameObjectRect = GameObject.getRealRect();
+                        Rectangle collideRect = collide.rectangle;
+                        Rectangle gameObjectRect = GameObject.rectangle;
 
                         if ((collideRect.Left - gameObjectRect.Width <= gameObjectRect.Left && collideRect.Right + gameObjectRect.Width >= gameObjectRect.Right) && (collideRect.Top - gameObjectRect.Height <= gameObjectRect.Top && collideRect.Bottom + gameObjectRect.Height >= gameObjectRect.Bottom))
                         {
+                            Debug.WriteLine("col");
 
                             //Left collision
                             if ((gameObjectRect.Left >= collideRect.Left && gameObjectRect.Left <= collideRect.Right) || (gameObjectRect.X > collideRect.X && gameObjectRect.X + GameObject.velocity.X < collideRect.X))

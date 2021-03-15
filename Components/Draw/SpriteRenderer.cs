@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using GameObjects;
+using System.Diagnostics;
 
 namespace Component
 {
@@ -8,7 +9,8 @@ namespace Component
     {
         public Texture2D sprite;
         public float rotation;
-        public SpriteEffects SpriteEffect = SpriteEffects.None; 
+        public SpriteEffects SpriteEffect = SpriteEffects.None;
+        public Vector2 SpriteOrigin;
 
         public SpriteRenderer(Texture2D spr)
         {
@@ -28,13 +30,19 @@ namespace Component
             SpriteEffect = spriteEffect;
         }
 
-        public void Draw(SpriteBatch spriteBatch) {
-            //spriteBatch.Draw(sprite, gameObject.rectangle, Color.White);
+        public override void Init(GameObject gameObject)
+        {
+            base.Init(gameObject);
 
-            Vector2 origin = new Vector2(sprite.Width / 2, sprite.Height / 2);
-            spriteBatch.Draw(sprite, GameObject.rectangle, null, Color.White, rotation, origin, SpriteEffect, 0f);
+            GameObject.size = new Vector2(sprite.Width, sprite.Height);
 
+            SpriteOrigin = GameObject.size / 2;
 
+            GameObject.rectangle = GameObject.NormalizeRectangle();
         }
+
+        public void Draw(SpriteBatch spriteBatch) {
+            spriteBatch.Draw(sprite, GameObject.position, null, Color.White, rotation, SpriteOrigin, GameObject.scale, SpriteEffect, 0f);
+        }        
     }
 }
