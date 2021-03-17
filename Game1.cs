@@ -86,7 +86,7 @@ namespace TestProject
             GameObjectManager.gameObjects.Add(new GameObject(new Rectangle(250, 100, 50, 50), layers["bottom"], comp));
 
 
-            GameObjectManager.initGameObjects();
+            
 
             base.Initialize();
         }
@@ -112,8 +112,6 @@ namespace TestProject
 
         protected override void Draw(GameTime gameTime)
         {
-            _camera.Target = (new Vector2(GameObjectManager.gameObjects[1].rectangle.X, GameObjectManager.gameObjects[1].rectangle.Y));
-
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
             _spriteBatch.Begin(transformMatrix: _camera.Transform);
