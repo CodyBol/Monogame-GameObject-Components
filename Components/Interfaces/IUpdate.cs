@@ -2,7 +2,7 @@
 
 namespace Component
 {
-    interface IUpdate
+    public interface IUpdate
     {
         public void Update();
     }

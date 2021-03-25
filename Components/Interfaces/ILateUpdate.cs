@@ -2,7 +2,7 @@
 
 namespace Component
 {
-    interface ILateUpdate
+    public interface ILateUpdate
     {
         public void LateUpdate();
     }

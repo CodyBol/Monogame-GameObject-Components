@@ -3,7 +3,7 @@ using Microsoft.Xna.Framework;
 
 namespace Component
 {
-    interface IMouse
+    public interface IMouse
     {
         public void onHover(Vector2 mousePosition);
 

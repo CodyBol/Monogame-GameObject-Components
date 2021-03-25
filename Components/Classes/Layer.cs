@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Component
 {
-    class Layer
+    public class Layer
     {
         public string name;
         public int zIndex;

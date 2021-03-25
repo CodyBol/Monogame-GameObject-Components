@@ -7,7 +7,7 @@ using Microsoft.Xna.Framework;
 
 namespace Component
 {
-    class MouseEvent : BaseComponent, IUpdate
+    public class MouseEvent : BaseComponent, IUpdate
     {
         public void Update() {
             Rectangle gameObjectRect = GameObject.getRealRect();

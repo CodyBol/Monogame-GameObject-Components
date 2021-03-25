@@ -5,7 +5,7 @@ using System;
 
 namespace TestProject
 {
-    class AssetLoader
+    public class AssetLoader
     {
         private Dictionary<string, Texture2D> sprites;
         private Dictionary<string, SpriteFont> fonts;

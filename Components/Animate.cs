@@ -4,7 +4,7 @@ using GameObjects;
 
 namespace Component
 {
-    class Animate : BaseComponent, IStart, IUpdate
+    public class Animate : BaseComponent, IStart, IUpdate
     {
         private string state;
 
@@ -73,7 +73,7 @@ namespace Component
         }
     }
 
-    class AnimationState {
+    public class AnimationState {
         public List<Texture2D> sprites;
         public bool loop;
         public int index;

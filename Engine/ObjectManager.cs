@@ -3,14 +3,15 @@ using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using GameObjects;
 
-namespace GameObjects
+namespace Engine
 {
-    static class GameObjectManager
+    public class ObjectManager
     {
-        public static List<GameObject> gameObjects;
+        public List<GameObject> gameObjects;
 
-        public static void initGameObjects()
+        public void initGameObjects()
         {
             foreach (GameObject gameObject in gameObjects.ToArray())
             {
@@ -18,7 +19,7 @@ namespace GameObjects
             }
         }
 
-        public static void UpdateGameObjects() 
+        public void UpdateGameObjects() 
         {
             foreach (GameObject gameObject in gameObjects.ToArray())
             {
@@ -26,7 +27,7 @@ namespace GameObjects
             }
         }
 
-        public static void RenderGameObjects(SpriteBatch spriteBatch, Dictionary<string, Layer> layers) {
+        public void RenderGameObjects(SpriteBatch spriteBatch, Dictionary<string, Layer> layers) {
             foreach (KeyValuePair<string, Layer> stringLayer in layers)
             {
                 foreach (GameObject gameObject in gameObjects.ToArray())
@@ -40,7 +41,7 @@ namespace GameObjects
             }
         }
 
-        public static void RemoveGameObject(GameObject toRemove)
+        public void RemoveGameObject(GameObject toRemove)
         {
             int i = 0;
             foreach (GameObject gameObject in gameObjects.ToArray())

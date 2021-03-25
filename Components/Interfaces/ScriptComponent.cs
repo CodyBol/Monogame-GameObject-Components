@@ -3,7 +3,7 @@ using GameObjects;
 
 namespace Component
 {
-    interface ScriptComponent
+    public interface ScriptComponent
     {
         public void update(GameObject gameObject) { }
 

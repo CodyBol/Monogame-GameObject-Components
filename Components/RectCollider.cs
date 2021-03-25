@@ -3,11 +3,12 @@ using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using Engine;
 using GameObjects;
 
 namespace Component
 {
-    class RectCollider : BaseComponent, IUpdate
+    public class RectCollider : BaseComponent, IUpdate
     {
         public Layer targetLayer;
         private bool check;
@@ -25,7 +26,7 @@ namespace Component
         public void Update()
         {
             if (check) {
-            foreach (GameObject collide in GameObjectManager.gameObjects) {
+            foreach (GameObject collide in GameCore.GameObjectManager.gameObjects.ToArray()) {
                 if (collide != GameObject && collide.layer == targetLayer && collide.hasComponent<RectCollider>()) {
 
                         Rectangle collideRect = collide.getRealRect();

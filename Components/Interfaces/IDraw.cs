@@ -3,7 +3,7 @@ using GameObjects;
 
 namespace Component
 {
-    interface IDraw
+    public interface IDraw
     {
         public void Draw(SpriteBatch spriteBatch);
     }

@@ -4,7 +4,7 @@ using GameObjects;
 
 namespace Component
 {
-    class SpriteRenderer : BaseComponent, IDraw
+    public class SpriteRenderer : BaseComponent, IDraw
     {
         public Texture2D sprite;
         public float rotation;

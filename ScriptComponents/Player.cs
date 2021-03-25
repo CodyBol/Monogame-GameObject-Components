@@ -4,11 +4,12 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using System.Collections.Generic;
 using System.Diagnostics;
+using Engine;
 using GameObjects;
 
 namespace Component
 {
-    class Player : BaseComponent, IUpdate, ILateUpdate, IMouse, ITrigger
+    public class Player : BaseComponent, IUpdate, ILateUpdate, IMouse, ITrigger
     {
         private float speed = 5;
         private Camera camera;
@@ -63,7 +64,7 @@ namespace Component
 
         public void triggerEnter(GameObject collision, Rectangle collideRect, Vector2 direction)
         {
-            GameObjectManager.RemoveGameObject(collision);
+            GameCore.GameObjectManager.RemoveGameObject(collision);
         }
     }
 }

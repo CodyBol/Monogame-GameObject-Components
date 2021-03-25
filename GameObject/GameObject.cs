@@ -7,7 +7,7 @@ using System.Diagnostics;
 
 namespace GameObjects
 {
-    class GameObject
+    public class GameObject
     {
         /**
          * rectangle is one of the only variables that is not in a component,

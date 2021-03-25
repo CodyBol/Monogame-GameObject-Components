@@ -2,7 +2,7 @@
 
 namespace Component
 {
-    abstract class BaseComponent
+    public abstract class BaseComponent
     {
         protected GameObject GameObject;
 

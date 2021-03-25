@@ -4,7 +4,7 @@ using GameObjects;
 
 namespace Component
 {
-    class TextRenderer : BaseComponent, IDraw
+    public class TextRenderer : BaseComponent, IDraw
     {
         public SpriteFont font;
         public string content;

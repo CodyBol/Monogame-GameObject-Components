@@ -2,7 +2,7 @@
 
 namespace Component
 {
-    interface IStart
+    public interface IStart
     {
         public void Start();
     }

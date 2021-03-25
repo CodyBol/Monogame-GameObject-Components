@@ -3,11 +3,12 @@ using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using Engine;
 using GameObjects;
 
 namespace Component
 {
-    class RectTrigger : BaseComponent, IUpdate
+    public class RectTrigger : BaseComponent, IUpdate
     {
         public Layer targetLayer;
         private bool check;
@@ -27,7 +28,7 @@ namespace Component
         {
             if (check)
             {
-                foreach (GameObject collide in GameObjectManager.gameObjects.ToArray())
+                foreach (GameObject collide in GameCore.GameObjectManager.gameObjects.ToArray())
                 {
                     if (collide != GameObject && collide.layer == targetLayer && collide.hasComponent<RectTrigger>())
                     {
