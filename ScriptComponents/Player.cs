@@ -1,4 +1,5 @@
-﻿using Component;
+﻿using System;
+using Component;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
@@ -14,11 +15,19 @@ namespace Component
         private float speed = 5;
         private Camera camera;
         private Layer _bulletLayer;
+        private SpriteRenderer _renderer;
 
         public Player(Camera cam, Layer bulletLayer)
         {
             camera = cam;
             _bulletLayer = bulletLayer;
+        }
+
+        public override void Init(GameObject gameObject)
+        {
+            base.Init(gameObject);
+            
+            _renderer = GameObject.getComponent<SpriteRenderer>();
         }
 
         public void Update() {
@@ -48,6 +57,9 @@ namespace Component
             {
                 GameObject.velocity.X = 0;
             }
+            
+            Vector2 mousePos = Mouse.GetState().Position.ToVector2() - new Vector2(GameObject.rectangle.X, GameObject.rectangle.Y);
+            _renderer.rotation = (float)Math.Atan2(mousePos.Y, mousePos.X);
 
             if (Keyboard.GetState().IsKeyDown(Keys.E))
             {

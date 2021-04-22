@@ -21,6 +21,7 @@ namespace GameObjects
         public List<BaseComponent> components;
         public Layer layer;
         public string tag;
+        public List<GameObject> children;
 
         /**
          * set required variables
@@ -39,6 +40,11 @@ namespace GameObjects
             foreach (BaseComponent component in components)
             {
                 component.Init(this);
+            }
+
+            foreach (GameObject child in children)
+            {
+                child.initialize();
             }
         }
 
@@ -59,6 +65,11 @@ namespace GameObjects
             {
                 (component as ILateUpdate)?.LateUpdate();
             }
+            
+            foreach (GameObject child in children)
+            {
+                child.Update();
+            }
         }
 
         /**
@@ -69,6 +80,11 @@ namespace GameObjects
             foreach (BaseComponent component in components)
             {
                 (component as IDraw)?.Draw(spriteBatch);
+            }
+            
+            foreach (GameObject child in children)
+            {
+                child.Draw(spriteBatch);
             }
         }
 
