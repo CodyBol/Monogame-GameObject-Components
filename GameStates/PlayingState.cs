@@ -21,16 +21,14 @@ namespace TestProject.GameStates
 
             GameObjectManager.gameObjects = new List<GameObject>();
 
-            List<BaseComponent> comp = new List<BaseComponent>(); ;
+            List<BaseComponent> cam = new List<BaseComponent>(); ;
 
             _camera = new Camera(GameCore.ScreenSize);
 
-            comp.Add(_camera);
-
-            GameObjectManager.gameObjects.Add(new GameObject(new Rectangle(0, 0, 0, 0), layers["bottom"], comp));
-
+            cam.Add(_camera);
+            
             //Maak nieuwe ComponentContainer
-            comp = new List<BaseComponent>(); ;
+            List<BaseComponent> comp = new List<BaseComponent>(); ;
 
             //Voeg sprite drawer toe
             comp.Add(new SpriteRenderer(GameCore.assetLoader.getSprite("spr_blue_invader")));
@@ -64,6 +62,9 @@ namespace TestProject.GameStates
             comp.Add(new SpriteRenderer(GameCore.assetLoader.getSprite("spr_tile")));
             comp.Add(new RectCollider(layers["bottom"], false));
             GameObjectManager.gameObjects.Add(new GameObject(new Rectangle(250, 100, 50, 50), layers["bottom"], comp));
+
+            
+            GameObjectManager.gameObjects.Add(new GameObject(new Rectangle(0, 0, 0, 0), layers["bottom"], cam));
 
             base.Initialize();
         }

@@ -7,7 +7,7 @@ using Microsoft.Xna.Framework;
 
 namespace Component
 {
-    public class Camera : BaseComponent, IUpdate
+    public class Camera : BaseComponent, ILateUpdate
     {
         public Matrix Transform;
         public Vector2 Target;
@@ -19,7 +19,7 @@ namespace Component
             _offset = Matrix.CreateTranslation(GameSize.X / 2, GameSize.Y / 2, 0);
         }
 
-        public void Update() {
+        public void LateUpdate() {
             Debug.WriteLine(Transform);
             Transform = Matrix.CreateTranslation(-Target.X, -Target.Y, 0) * _offset;
         }
