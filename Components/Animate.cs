@@ -4,7 +4,7 @@ using GameObjects;
 
 namespace Component
 {
-    public class Animate : BaseComponent, IStart, IUpdate
+    public class Animate : BaseComponent, IUpdate
     {
         private string state;
 
@@ -32,8 +32,10 @@ namespace Component
         }
 
 
-        public void Start()
+        public override void Init(GameObject gameObject)
         {
+            base.Init(gameObject);
+            
             spriteComponent = GameObject.getComponent<SpriteRenderer>();
         }
 

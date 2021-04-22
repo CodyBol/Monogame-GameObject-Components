@@ -47,7 +47,7 @@ namespace TestProject.GameStates
             //eind animatie
 
             //Voeg custom player script toe (bevat nu alleen movement)
-            comp.Add(new Player(_camera));
+            comp.Add(new Player(_camera, layers["bottom"]));
 
             //Voeg Collision toe aan dit object
             comp.Add(new RectCollider(layers["bottom"], true));

@@ -1,4 +1,6 @@
-﻿using Microsoft.Xna.Framework;
+﻿using System;
+using Engine;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using GameObjects;
 
@@ -15,16 +17,16 @@ namespace Component
             sprite = spr;
         }
 
-        public SpriteRenderer(Texture2D spr, float angle)
+        public SpriteRenderer(Texture2D spr, float angleDegrees)
         {
             sprite = spr;
-            rotation = angle;
+            rotation = MathUtility.DegreesToRadian(angleDegrees);
         }
 
-        public SpriteRenderer(Texture2D spr, float angle = 0, SpriteEffects spriteEffect = SpriteEffects.None)
+        public SpriteRenderer(Texture2D spr, float angleDegrees = 0, SpriteEffects spriteEffect = SpriteEffects.None)
         {
             sprite = spr;
-            rotation = angle;
+            rotation = MathUtility.DegreesToRadian(angleDegrees);;
             SpriteEffect = spriteEffect;
         }
 

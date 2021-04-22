@@ -13,10 +13,12 @@ namespace Component
     {
         private float speed = 5;
         private Camera camera;
+        private Layer _bulletLayer;
 
-        public Player(Camera cam)
+        public Player(Camera cam, Layer bulletLayer)
         {
             camera = cam;
+            _bulletLayer = bulletLayer;
         }
 
         public void Update() {
@@ -45,6 +47,15 @@ namespace Component
             else
             {
                 GameObject.velocity.X = 0;
+            }
+
+            if (Keyboard.GetState().IsKeyDown(Keys.E))
+            {
+                List<BaseComponent> comp = new List<BaseComponent>();
+                comp.Add(new SpriteRenderer(GameCore.assetLoader.getSprite("spr_blue_invader")));
+                comp.Add(new Bullet());
+
+                GameCore.GameObjectManager.Instantiate(new GameObject(GameObject.getRealRect(), _bulletLayer, comp));
             }
         }
 

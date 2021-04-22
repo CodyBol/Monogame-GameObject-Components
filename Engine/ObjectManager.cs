@@ -11,6 +11,12 @@ namespace Engine
     {
         public List<GameObject> gameObjects;
 
+        public void Instantiate(GameObject obj)
+        {
+            obj.initialize();
+            gameObjects.Add(obj);
+        }
+
         public void initGameObjects()
         {
             foreach (GameObject gameObject in gameObjects.ToArray())

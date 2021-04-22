@@ -40,11 +40,6 @@ namespace GameObjects
             {
                 component.Init(this);
             }
-
-            foreach (BaseComponent component in components)
-            {
-                (component as IStart)?.Start();
-            }
         }
 
         /**
