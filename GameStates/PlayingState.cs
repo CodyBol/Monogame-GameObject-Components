@@ -7,6 +7,7 @@ using Engine.Misc;
 using GameObjects;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using BoundingBox = Engine.Misc.BoundingBox;
 
 namespace TestProject.GameStates
 {
@@ -56,7 +57,7 @@ namespace TestProject.GameStates
 
 
             //Voeg gameObject toe aan de manager
-            GameObjectManager.gameObjects.Add(new GameObject(new Rectangle(400, 100, 50, 50), layers["bottom"], comp));
+            GameObjectManager.gameObjects.Add(new GameObject(new BoundingBox(new Vector2(0, 0), new Vector2(2, 2), new Vector2(GameCore.assetLoader.getSprite("spr_blue_invader").Width, GameCore.assetLoader.getSprite("spr_blue_invader").Height)), layers["bottom"], comp));
 
 
             comp = new List<BaseComponent>();
@@ -67,12 +68,23 @@ namespace TestProject.GameStates
             Console.WriteLine(sheet.Sprites[0]);
             
             //comp.Add(new Test(sheet.Sprites[0]));
-            comp.Add(new Test(sheet.Sprites[0]));
+            comp.Add(new SpriteRenderer(GameCore.assetLoader.getSprite("spr_tile")));
             comp.Add(new RectCollider(layers["bottom"], false));
-            GameObjectManager.gameObjects.Add(new GameObject(new Rectangle(250, 100, 50, 50), layers["bottom"], comp));
+            GameObjectManager.gameObjects.Add(new GameObject(new BoundingBox(new Vector2(300, 300), new Vector2(6, 6), new Vector2(GameCore.assetLoader.getSprite("spr_tile").Width, GameCore.assetLoader.getSprite("spr_tile").Height)), layers["bottom"], comp));
 
             
-            GameObjectManager.gameObjects.Add(new GameObject(new Rectangle(0, 0, 0, 0), layers["bottom"], cam));
+            comp = new List<BaseComponent>();
+            comp.Add(new SpriteRenderer(GameCore.assetLoader.getSprite("spr_tile")));
+
+            //Voeg custom player script toe (bevat nu alleen movement)
+            comp.Add(new Player2(_camera, layers["bottom"]));
+
+            //Voeg Collision toe aan dit object
+            comp.Add(new RectCollider(layers["bottom"], true));
+            GameObjectManager.gameObjects.Add(new GameObject(new BoundingBox(new Vector2(500, 300), new Vector2(3, 3), new Vector2(GameCore.assetLoader.getSprite("spr_tile").Width, GameCore.assetLoader.getSprite("spr_tile").Height)), layers["bottom"], comp));
+
+            
+            GameObjectManager.gameObjects.Add(new GameObject(new BoundingBox(), layers["bottom"], cam));
 
             base.Initialize();
         }

@@ -11,6 +11,8 @@ namespace Engine.GameStates
     public abstract class GameState
     {
         public bool initialized = false;
+        protected bool _useCamera = false;
+        
         public ObjectManager GameObjectManager;
         public ElapsedTime ElapsedTime;
         public List<Timer> Timers;
@@ -47,7 +49,15 @@ namespace Engine.GameStates
 
         public virtual void Draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.Begin(samplerState: SamplerState.PointClamp, transformMatrix: (_camera != null ? _camera.Transform : new Matrix()));
+            //
+            if (_useCamera)
+            {
+                spriteBatch.Begin(samplerState: SamplerState.PointClamp, transformMatrix: (_camera != null ? _camera.Transform : default));
+            }
+            else
+            {
+                spriteBatch.Begin(samplerState: SamplerState.PointClamp);
+            }
 
             GameObjectManager.RenderGameObjects(spriteBatch, layers);
 

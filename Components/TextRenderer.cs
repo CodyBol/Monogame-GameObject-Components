@@ -18,7 +18,7 @@ namespace Component
         }
 
         public void Draw(SpriteBatch spriteBatch) {
-            spriteBatch.DrawString(font, content, GameObject.rectangle.Location.ToVector2(), color);
+            spriteBatch.DrawString(font, content, GameObject.BoundingBox.Position, color);
         }
     }
 }

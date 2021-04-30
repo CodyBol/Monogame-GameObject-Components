@@ -9,13 +9,13 @@ using GameObjects;
 
 namespace Component
 {
-    public class Player : BaseComponent, IUpdate, ILateUpdate, IMouse, ITrigger
+    public class Player2 : BaseComponent, IUpdate, ILateUpdate, IMouse, ITrigger
     {
         private float speed = 5;
         private Camera camera;
         private Layer _bulletLayer;
 
-        public Player(Camera cam, Layer bulletLayer)
+        public Player2(Camera cam, Layer bulletLayer)
         {
             camera = cam;
             _bulletLayer = bulletLayer;
@@ -23,11 +23,11 @@ namespace Component
 
         public void Update() {
             //walk
-            if (Keyboard.GetState().IsKeyDown(Keys.W))
+            if (Keyboard.GetState().IsKeyDown(Keys.Up))
             {
                 GameObject.velocity.Y = -speed;
             }
-            else if (Keyboard.GetState().IsKeyDown(Keys.S))
+            else if (Keyboard.GetState().IsKeyDown(Keys.Down))
             {
                 GameObject.velocity.Y = speed;
             }
@@ -36,11 +36,11 @@ namespace Component
                 GameObject.velocity.Y = 0;
             }
 
-            if (Keyboard.GetState().IsKeyDown(Keys.A))
+            if (Keyboard.GetState().IsKeyDown(Keys.Left))
             {
                 GameObject.velocity.X = -speed;
             }
-            else if (Keyboard.GetState().IsKeyDown(Keys.D))
+            else if (Keyboard.GetState().IsKeyDown(Keys.Right))
             {
                 GameObject.velocity.X = speed;
             }

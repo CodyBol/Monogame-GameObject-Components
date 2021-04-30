@@ -4,6 +4,7 @@ using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using BoundingBox = Engine.Misc.BoundingBox;
 
 namespace GameObjects
 {
@@ -16,7 +17,9 @@ namespace GameObjects
          * The components contains the components needed for this gameobject
          * This way the gameobject is highly customizable
          */
-        public Rectangle rectangle;
+        //public Rectangle rectangle;
+        public BoundingBox BoundingBox;
+
         public Vector2 velocity;
         public List<BaseComponent> components;
         public Layer layer;
@@ -25,8 +28,9 @@ namespace GameObjects
         /**
          * set required variables
          */
-        public GameObject(Rectangle rect, Layer objectLayer, List<BaseComponent> componentsList) {
-            rectangle = rect;
+        public GameObject(BoundingBox boundingBox, Layer objectLayer, List<BaseComponent> componentsList)
+        {
+            BoundingBox = boundingBox;
             layer = objectLayer;
             components = componentsList;
         }
@@ -35,7 +39,8 @@ namespace GameObjects
          * initialize all components.
          * This can be used to communicate between the components and the gameobject
          */
-        public void initialize() {
+        public void initialize()
+        {
             foreach (BaseComponent component in components)
             {
                 component.Init(this);
@@ -52,8 +57,8 @@ namespace GameObjects
                 (component as IUpdate)?.Update();
             }
 
-            rectangle.X += (int)velocity.X;
-            rectangle.Y += (int)velocity.Y;
+            BoundingBox.Position.X += (int) velocity.X;
+            BoundingBox.Position.Y += (int) velocity.Y;
 
             foreach (BaseComponent component in components)
             {
@@ -64,7 +69,7 @@ namespace GameObjects
         /**
          * run all draw components
          */
-        public void Draw(SpriteBatch spriteBatch) 
+        public void Draw(SpriteBatch spriteBatch)
         {
             foreach (BaseComponent component in components)
             {
@@ -75,10 +80,11 @@ namespace GameObjects
         /**
          * can be added in a extended class
          */
-        public void onTriggerEnter(GameObject collision, Rectangle collideRect, Vector2 direction) {
+        public void onTriggerEnter(GameObject collision)
+        {
             foreach (BaseComponent component in components)
             {
-                (component as ITrigger)?.triggerEnter(collision, collideRect, direction);
+                (component as ITrigger)?.triggerEnter(collision);
             }
         }
 
@@ -92,7 +98,6 @@ namespace GameObjects
                 (component as IMouse)?.onHover(mousePosition);
             }
         }
-
 
 
         /**
@@ -109,46 +114,48 @@ namespace GameObjects
         /**
          * can be added in a extended class
          */
-        public void onCollisionEnter(GameObject collision, Rectangle collideRect, Vector2 direction)
+        public void onCollisionEnter(GameObject collision, Vector2 direction)
         {
             foreach (BaseComponent component in components)
             {
-                (component as ICollision)?.collisionEnter(collision, collideRect, direction);
-            }
-
-            if (direction == new Vector2(1, 0)) {
-                rectangle.X = collideRect.Left - rectangle.Width / 2;
-                velocity.X = 0;
+                (component as ICollision)?.collisionEnter(collision, direction);
             }
 
             if (direction == new Vector2(-1, 0))
             {
-                rectangle.X = collideRect.Right + rectangle.Width / 2;
+                BoundingBox.Position.X = collision.BoundingBox.Left().X - BoundingBox.Width() / 2;
                 velocity.X = 0;
             }
 
-            if (direction == new Vector2(0, 1))
+            if (direction == new Vector2(1, 0))
             {
-                velocity.Y = 0;
-                rectangle.Y = collideRect.Top - rectangle.Height / 2;
+                BoundingBox.Position.X = collision.BoundingBox.Right().X + BoundingBox.Width() / 2;
+                velocity.X = 0;
             }
 
             if (direction == new Vector2(0, -1))
             {
                 velocity.Y = 0;
-                rectangle.Y = collideRect.Bottom + rectangle.Height / 2;
+                BoundingBox.Position.Y = collision.BoundingBox.Top().Y - BoundingBox.Height() / 2;
+            }
+
+            if (direction == new Vector2(0, 1))
+            {
+                velocity.Y = 0;
+                BoundingBox.Position.Y = collision.BoundingBox.Bottom().Y + BoundingBox.Height() / 2;
             }
         }
 
         /**
          * find components in this gameobject
          */
-        public ComponentType getComponent<ComponentType>() {
-
+        public ComponentType getComponent<ComponentType>()
+        {
             foreach (BaseComponent component in components)
             {
-                if (component is ComponentType) {
-                    return (ComponentType)(object)component;
+                if (component is ComponentType)
+                {
+                    return (ComponentType) (object) component;
                 }
             }
 
@@ -161,7 +168,6 @@ namespace GameObjects
          */
         public bool hasComponent<ComponentType>()
         {
-
             foreach (BaseComponent component in components)
             {
                 if (component is ComponentType)
@@ -171,13 +177,6 @@ namespace GameObjects
             }
 
             return false;
-        }
-
-        public Rectangle getRealRect()
-        {
-            return new Rectangle(rectangle.X - rectangle.Width / 2,
-                            rectangle.Y - rectangle.Height / 2,
-                            rectangle.Width, rectangle.Height);
         }
     }
 }

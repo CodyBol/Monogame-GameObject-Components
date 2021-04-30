@@ -34,9 +34,7 @@ namespace Component
             //spriteBatch.Draw(sprite, gameObject.rectangle, Color.White);
 
             Vector2 origin = new Vector2(sprite.Width / 2, sprite.Height / 2);
-            spriteBatch.Draw(sprite, GameObject.rectangle, null, Color.White, rotation, origin, SpriteEffect, 0f);
-
-
+            spriteBatch.Draw(sprite, GameObject.BoundingBox.Position, null, Color.White, rotation, origin, GameObject.BoundingBox.Scale, SpriteEffect, 0f);
         }
     }
 }
