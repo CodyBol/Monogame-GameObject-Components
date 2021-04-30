@@ -1,7 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Component;
 using Engine;
 using Engine.GameStates;
+using Engine.Misc;
 using GameObjects;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -16,7 +18,7 @@ namespace TestProject.GameStates
             layers.Add("bottom", new Layer("bottom", 0));
             layers.Add("top", new Layer("top", 1));
             
-            GameCore.assetLoader.addSpritesToLoader(new List<string>() { "spr_blue_invader", "spr_red_invader", "spr_tile" });
+            GameCore.assetLoader.addSpritesToLoader(new List<string>() { "spr_blue_invader", "spr_red_invader", "spr_tile", "Sheet" });
             GameCore.assetLoader.addFontToLoader("Arial");
 
             GameObjectManager.gameObjects = new List<GameObject>();
@@ -57,9 +59,15 @@ namespace TestProject.GameStates
             GameObjectManager.gameObjects.Add(new GameObject(new Rectangle(400, 100, 50, 50), layers["bottom"], comp));
 
 
-            comp = new List<BaseComponent>(); ;
+            comp = new List<BaseComponent>();
 
-            comp.Add(new SpriteRenderer(GameCore.assetLoader.getSprite("spr_tile")));
+            //Sprite Sheet = new Sprite() {Texture2D = GameCore.assetLoader.getSprite("Sheet"), Size = new Rectangle(0, 0, 16, 16)};
+            
+            SpriteSheet sheet = new SpriteSheet(GameCore.assetLoader.getSprite("Sheet"), new Rectangle(0, 0, 18, 16), new Vector2(0, 0));
+            Console.WriteLine(sheet.Sprites[0]);
+            
+            //comp.Add(new Test(sheet.Sprites[0]));
+            comp.Add(new Test(sheet.Sprites[0]));
             comp.Add(new RectCollider(layers["bottom"], false));
             GameObjectManager.gameObjects.Add(new GameObject(new Rectangle(250, 100, 50, 50), layers["bottom"], comp));
 

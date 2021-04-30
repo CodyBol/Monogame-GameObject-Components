@@ -47,7 +47,7 @@ namespace Engine.GameStates
 
         public virtual void Draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.Begin(transformMatrix: (_camera != null ? _camera.Transform : new Matrix()));
+            spriteBatch.Begin(samplerState: SamplerState.PointClamp, transformMatrix: (_camera != null ? _camera.Transform : new Matrix()));
 
             GameObjectManager.RenderGameObjects(spriteBatch, layers);
 
