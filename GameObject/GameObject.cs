@@ -41,7 +41,7 @@ namespace GameObjects
          */
         public void initialize()
         {
-            foreach (BaseComponent component in components)
+            foreach (BaseComponent component in components.ToArray())
             {
                 component.Init(this);
             }
@@ -52,7 +52,7 @@ namespace GameObjects
          */
         public void Update()
         {
-            foreach (BaseComponent component in components)
+            foreach (BaseComponent component in components.ToArray())
             {
                 (component as IUpdate)?.Update();
             }
@@ -60,7 +60,7 @@ namespace GameObjects
             BoundingBox.Position.X += (int) velocity.X;
             BoundingBox.Position.Y += (int) velocity.Y;
 
-            foreach (BaseComponent component in components)
+            foreach (BaseComponent component in components.ToArray())
             {
                 (component as ILateUpdate)?.LateUpdate();
             }
@@ -71,7 +71,7 @@ namespace GameObjects
          */
         public void Draw(SpriteBatch spriteBatch)
         {
-            foreach (BaseComponent component in components)
+            foreach (BaseComponent component in components.ToArray())
             {
                 (component as IDraw)?.Draw(spriteBatch);
             }
@@ -82,7 +82,7 @@ namespace GameObjects
          */
         public void onTriggerEnter(GameObject collision)
         {
-            foreach (BaseComponent component in components)
+            foreach (BaseComponent component in components.ToArray())
             {
                 (component as ITrigger)?.triggerEnter(collision);
             }
@@ -93,7 +93,7 @@ namespace GameObjects
          */
         public void onHover(Vector2 mousePosition)
         {
-            foreach (BaseComponent component in components)
+            foreach (BaseComponent component in components.ToArray())
             {
                 (component as IMouse)?.onHover(mousePosition);
             }
@@ -105,7 +105,7 @@ namespace GameObjects
          */
         public void onPressed(Vector2 mousePosition, int mouseButton)
         {
-            foreach (BaseComponent component in components)
+            foreach (BaseComponent component in components.ToArray())
             {
                 (component as IMouse)?.onPressed(mousePosition, mouseButton);
             }
@@ -116,7 +116,7 @@ namespace GameObjects
          */
         public void onCollisionEnter(GameObject collision, Vector2 direction)
         {
-            foreach (BaseComponent component in components)
+            foreach (BaseComponent component in components.ToArray())
             {
                 (component as ICollision)?.collisionEnter(collision, direction);
             }
@@ -151,7 +151,7 @@ namespace GameObjects
          */
         public ComponentType getComponent<ComponentType>()
         {
-            foreach (BaseComponent component in components)
+            foreach (BaseComponent component in components.ToArray())
             {
                 if (component is ComponentType)
                 {
@@ -168,7 +168,7 @@ namespace GameObjects
          */
         public bool hasComponent<ComponentType>()
         {
-            foreach (BaseComponent component in components)
+            foreach (BaseComponent component in components.ToArray())
             {
                 if (component is ComponentType)
                 {

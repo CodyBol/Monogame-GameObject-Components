@@ -48,7 +48,14 @@ namespace Component
         public override void Init(GameObject gameObject)
         {
             base.Init(gameObject);
-            
+
+            if (!GameObject.hasComponent<SpriteRenderer>())
+            {
+                SpriteRenderer renderer = new SpriteRenderer();
+                renderer.Init(GameObject);
+                GameObject.components.Add(renderer);
+            }
+
             spriteComponent = GameObject.getComponent<SpriteRenderer>();
             if (spriteComponent.sprite == null)
             {
