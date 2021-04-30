@@ -38,13 +38,13 @@ namespace TestProject.GameStates
             comp.Add(new SpriteRenderer(GameCore.assetLoader.getSprite("spr_blue_invader")));
 
             //begin animatie
-            AnimationState states = new AnimationState();
-            states.sprites = new List<Sprite>() { GameCore.assetLoader.getSprite("spr_blue_invader"), GameCore.assetLoader.getSprite("spr_red_invader")};
-            states.loop = true;
+            AnimationListState states = new AnimationListState();
+            states.Sprites = new List<Sprite>() { GameCore.assetLoader.getSprite("spr_blue_invader"), GameCore.assetLoader.getSprite("spr_red_invader")};
+            states.Loop = true;
 
-            AnimationState states2 = new AnimationState();
-            states2.sprites = new List<Sprite>() { GameCore.assetLoader.getSprite("spr_tile") };
-            states2.loop = false;
+            AnimationListState states2 = new AnimationListState();
+            states2.Sprites = new List<Sprite>() { GameCore.assetLoader.getSprite("spr_tile") };
+            states2.Loop = false;
 
             //voeg animatie toe
             comp.Add(new Animate(2f, "animate", new Dictionary<string, AnimationState>() { {"animate", states}, {"default", states2 } }));
@@ -65,7 +65,8 @@ namespace TestProject.GameStates
 
             //Sprite Sheet = new Sprite() {Texture2D = GameCore.assetLoader.getSprite("Sheet"), Size = new Rectangle(0, 0, 16, 16)};
             
-            comp.Add(new SpriteRenderer(GameCore.assetLoader.getSpriteSheet("Sheet")));
+            comp.Add(new SpriteRenderer());
+            comp.Add(new Animate(10, "idle", GameCore.assetLoader.getSpriteSheet("Sheet"), true));
             comp.Add(new RectCollider(layers["bottom"], false));
             GameObjectManager.gameObjects.Add(new GameObject(new BoundingBox(new Vector2(300, 300), new Vector2(6, 6), new Vector2(GameCore.assetLoader.getSpriteSheet("Sheet").SpriteDimensions.Width, GameCore.assetLoader.getSpriteSheet("Sheet").SpriteDimensions.Height)), layers["bottom"], comp));
 

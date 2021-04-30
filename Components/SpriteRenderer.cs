@@ -14,7 +14,7 @@ namespace Component
         public SpriteEffects SpriteEffect = SpriteEffects.None;
         public int SheetIndex;
 
-        public SpriteRenderer(Sprite spr)
+        public SpriteRenderer(Sprite spr = null)
         {
             sprite = spr;
         }

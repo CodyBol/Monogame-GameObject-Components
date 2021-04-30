@@ -22,9 +22,6 @@ namespace Engine.Misc
             
             int maxColumns = Texture2D.Width / (SpriteDimensions.Width + (int)(Offset.X));
             int maxRows = Texture2D.Height / (SpriteDimensions.Height + (int)(Offset.Y));
-            
-            Console.WriteLine("max Columns" + maxColumns.ToString());
-            Console.WriteLine("max Rows" + maxColumns.ToString());
 
             for (int row = 0; row < maxRows; row++)
             {
