@@ -2,12 +2,14 @@
 using Microsoft.Xna.Framework.Content;
 using System.Collections.Generic;
 using System;
+using Engine.Misc;
+using Microsoft.Xna.Framework;
 
 namespace TestProject
 {
     public class AssetLoader
     {
-        private Dictionary<string, Texture2D> sprites;
+        private Dictionary<string, Sprite> sprites;
         private Dictionary<string, SpriteFont> fonts;
         private ContentManager content;
 
@@ -33,7 +35,7 @@ namespace TestProject
          * clears the AssetLoader
          */
         public void clearSpriteLoader() {
-            sprites = new Dictionary<string, Texture2D>();
+            sprites = new Dictionary<string, Sprite>();
         }
 
         /**
@@ -89,19 +91,44 @@ namespace TestProject
         /**
          * adds a single sprite to the AssetLoader
          */
-        public void addSpriteToLoader(string spriteName) 
+        public void addSpriteToLoader(string spriteName)
         {
-            sprites.Add(spriteName, content.Load<Texture2D>(spriteName));
+            Sprite sprite = new Sprite(content.Load<Texture2D>(spriteName));
+            
+            sprites.Add(spriteName, sprite);
+        }
+
+        /**
+         * adds a single sprite to the AssetLoader
+         */
+        public void AddSpriteSheetToLoader(string spriteName, Rectangle singleDimensions, Vector2 offset, SpriteSheetType type = SpriteSheetType.SpriteSheet)
+        {
+            SpriteSheet sheet = new SpriteSheet(content.Load<Texture2D>(spriteName), singleDimensions, offset, type);
+            
+            sprites.Add(spriteName, sheet);
         }
 
         /**
          * get a single sprite
          */
-        public Texture2D getSprite(string spriteName) 
+        public Sprite getSprite(string spriteName) 
         {
             if (sprites.ContainsKey(spriteName))
             {
                 return sprites[spriteName];
+            }
+
+            throw new Exception("The requested sprite [" + spriteName + "] is not loaded in the AssetLoader");
+        }
+
+        /**
+         * get a single sprite
+         */
+        public SpriteSheet getSpriteSheet(string spriteName) 
+        {
+            if (sprites.ContainsKey(spriteName))
+            {
+                return sprites[spriteName] as SpriteSheet;
             }
 
             throw new Exception("The requested sprite [" + spriteName + "] is not loaded in the AssetLoader");

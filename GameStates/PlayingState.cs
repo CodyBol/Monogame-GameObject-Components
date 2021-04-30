@@ -19,7 +19,8 @@ namespace TestProject.GameStates
             layers.Add("bottom", new Layer("bottom", 0));
             layers.Add("top", new Layer("top", 1));
             
-            GameCore.assetLoader.addSpritesToLoader(new List<string>() { "spr_blue_invader", "spr_red_invader", "spr_tile", "Sheet" });
+            GameCore.assetLoader.addSpritesToLoader(new List<string>() { "spr_blue_invader", "spr_red_invader", "spr_tile" });
+            GameCore.assetLoader.AddSpriteSheetToLoader("Sheet", new Rectangle(0, 0, 16, 16), new Vector2(1, 1));
             GameCore.assetLoader.addFontToLoader("Arial");
 
             GameObjectManager.gameObjects = new List<GameObject>();
@@ -38,11 +39,11 @@ namespace TestProject.GameStates
 
             //begin animatie
             AnimationState states = new AnimationState();
-            states.sprites = new List<Texture2D>() { GameCore.assetLoader.getSprite("spr_blue_invader"), GameCore.assetLoader.getSprite("spr_red_invader")};
+            states.sprites = new List<Sprite>() { GameCore.assetLoader.getSprite("spr_blue_invader"), GameCore.assetLoader.getSprite("spr_red_invader")};
             states.loop = true;
 
             AnimationState states2 = new AnimationState();
-            states2.sprites = new List<Texture2D>() { GameCore.assetLoader.getSprite("spr_tile") };
+            states2.sprites = new List<Sprite>() { GameCore.assetLoader.getSprite("spr_tile") };
             states2.loop = false;
 
             //voeg animatie toe
@@ -57,20 +58,16 @@ namespace TestProject.GameStates
 
 
             //Voeg gameObject toe aan de manager
-            GameObjectManager.gameObjects.Add(new GameObject(new BoundingBox(new Vector2(0, 0), new Vector2(2, 2), new Vector2(GameCore.assetLoader.getSprite("spr_blue_invader").Width, GameCore.assetLoader.getSprite("spr_blue_invader").Height)), layers["bottom"], comp));
+            GameObjectManager.gameObjects.Add(new GameObject(new BoundingBox(new Vector2(0, 0), new Vector2(2, 2), new Vector2(GameCore.assetLoader.getSprite("spr_blue_invader").Size.Width, GameCore.assetLoader.getSprite("spr_blue_invader").Size.Height)), layers["bottom"], comp));
 
 
             comp = new List<BaseComponent>();
 
             //Sprite Sheet = new Sprite() {Texture2D = GameCore.assetLoader.getSprite("Sheet"), Size = new Rectangle(0, 0, 16, 16)};
             
-            SpriteSheet sheet = new SpriteSheet(GameCore.assetLoader.getSprite("Sheet"), new Rectangle(0, 0, 16, 16), new Vector2(1, 1));
-            Console.WriteLine(sheet.Sprites.Count);
-            
-            //comp.Add(new Test(sheet.Sprites[0]));
-            comp.Add(new Test(sheet.Sprites[3]));
+            comp.Add(new SpriteRenderer(GameCore.assetLoader.getSpriteSheet("Sheet")));
             comp.Add(new RectCollider(layers["bottom"], false));
-            GameObjectManager.gameObjects.Add(new GameObject(new BoundingBox(new Vector2(300, 300), new Vector2(6, 6), new Vector2(sheet.Sprites[0].Size.Width, sheet.Sprites[0].Size.Height)), layers["bottom"], comp));
+            GameObjectManager.gameObjects.Add(new GameObject(new BoundingBox(new Vector2(300, 300), new Vector2(6, 6), new Vector2(GameCore.assetLoader.getSpriteSheet("Sheet").SpriteDimensions.Width, GameCore.assetLoader.getSpriteSheet("Sheet").SpriteDimensions.Height)), layers["bottom"], comp));
 
             
             comp = new List<BaseComponent>();
@@ -81,7 +78,7 @@ namespace TestProject.GameStates
 
             //Voeg Collision toe aan dit object
             comp.Add(new RectCollider(layers["bottom"], true));
-            GameObjectManager.gameObjects.Add(new GameObject(new BoundingBox(new Vector2(500, 300), new Vector2(3, 3), new Vector2(GameCore.assetLoader.getSprite("spr_tile").Width, GameCore.assetLoader.getSprite("spr_tile").Height)), layers["bottom"], comp));
+            GameObjectManager.gameObjects.Add(new GameObject(new BoundingBox(new Vector2(500, 300), new Vector2(3, 3), new Vector2(GameCore.assetLoader.getSprite("spr_tile").Size.Width, GameCore.assetLoader.getSprite("spr_tile").Size.Height)), layers["bottom"], comp));
 
             
             GameObjectManager.gameObjects.Add(new GameObject(new BoundingBox(), layers["bottom"], cam));
