@@ -64,13 +64,13 @@ namespace TestProject.GameStates
 
             //Sprite Sheet = new Sprite() {Texture2D = GameCore.assetLoader.getSprite("Sheet"), Size = new Rectangle(0, 0, 16, 16)};
             
-            SpriteSheet sheet = new SpriteSheet(GameCore.assetLoader.getSprite("Sheet"), new Rectangle(0, 0, 18, 16), new Vector2(0, 0));
-            Console.WriteLine(sheet.Sprites[0]);
+            SpriteSheet sheet = new SpriteSheet(GameCore.assetLoader.getSprite("Sheet"), new Rectangle(0, 0, 16, 16), new Vector2(1, 1));
+            Console.WriteLine(sheet.Sprites.Count);
             
             //comp.Add(new Test(sheet.Sprites[0]));
-            comp.Add(new SpriteRenderer(GameCore.assetLoader.getSprite("spr_tile")));
+            comp.Add(new Test(sheet.Sprites[3]));
             comp.Add(new RectCollider(layers["bottom"], false));
-            GameObjectManager.gameObjects.Add(new GameObject(new BoundingBox(new Vector2(300, 300), new Vector2(6, 6), new Vector2(GameCore.assetLoader.getSprite("spr_tile").Width, GameCore.assetLoader.getSprite("spr_tile").Height)), layers["bottom"], comp));
+            GameObjectManager.gameObjects.Add(new GameObject(new BoundingBox(new Vector2(300, 300), new Vector2(6, 6), new Vector2(sheet.Sprites[0].Size.Width, sheet.Sprites[0].Size.Height)), layers["bottom"], comp));
 
             
             comp = new List<BaseComponent>();
