@@ -9,15 +9,13 @@ using GameObjects;
 
 namespace Component
 {
-    public class Player2 : BaseComponent, IUpdate, ILateUpdate, IMouse, ITrigger
+    public class Player2 : BaseComponent, IUpdate, IMouse, ITrigger
     {
         private float speed = 5;
-        private Camera camera;
         private Layer _bulletLayer;
 
-        public Player2(Camera cam, Layer bulletLayer)
+        public Player2(Layer bulletLayer)
         {
-            camera = cam;
             _bulletLayer = bulletLayer;
         }
 
@@ -57,11 +55,6 @@ namespace Component
 
                 GameCore.GameObjectManager.Instantiate(new GameObject(GameObject.BoundingBox, _bulletLayer, comp));
             }
-        }
-
-        public void LateUpdate() 
-        {
-            camera.Target = GameObject.BoundingBox.Position;
         }
 
         public void onPressed(Vector2 mousePosition, int mouseButton) {

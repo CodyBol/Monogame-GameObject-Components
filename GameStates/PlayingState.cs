@@ -15,6 +15,8 @@ namespace TestProject.GameStates
     {
         public override void Initialize()
         {
+            _useCamera = true;
+            
             layers = new Dictionary<string, Layer>();
             layers.Add("bottom", new Layer("bottom", 0));
             layers.Add("top", new Layer("top", 1));
@@ -75,7 +77,7 @@ namespace TestProject.GameStates
             comp.Add(new SpriteRenderer(GameCore.assetLoader.getSprite("spr_tile")));
 
             //Voeg custom player script toe (bevat nu alleen movement)
-            comp.Add(new Player2(_camera, layers["bottom"]));
+            comp.Add(new Player2(layers["bottom"]));
 
             //Voeg Collision toe aan dit object
             comp.Add(new RectCollider(layers["bottom"], true));
