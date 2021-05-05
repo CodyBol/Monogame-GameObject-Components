@@ -59,8 +59,9 @@ namespace TestProject.GameStates
             comp.Add(new RectCollider(layers["bottom"], true));
 
 
+            GameObject player;
             //Voeg gameObject toe aan de manager
-            GameObjectManager.gameObjects.Add(new GameObject(new BoundingBox(new Vector2(0, 0), new Vector2(2, 2), new Vector2(GameCore.assetLoader.getSprite("spr_blue_invader").Size.Width, GameCore.assetLoader.getSprite("spr_blue_invader").Size.Height)), layers["bottom"], comp));
+            GameObjectManager.gameObjects.Add(player = new GameObject(new BoundingBox(new Vector2(0, 0), new Vector2(2, 2), new Vector2(GameCore.assetLoader.getSprite("spr_blue_invader").Size.Width, GameCore.assetLoader.getSprite("spr_blue_invader").Size.Height)), layers["bottom"], comp));
 
 
             comp = new List<BaseComponent>();
@@ -68,9 +69,9 @@ namespace TestProject.GameStates
             //Sprite Sheet = new Sprite() {Texture2D = GameCore.assetLoader.getSprite("Sheet"), Size = new Rectangle(0, 0, 16, 16)};
             
             //comp.Add(new SpriteRenderer());
-            comp.Add(new Animate(10, "idle", GameCore.assetLoader.getSpriteSheet("Sheet"), false));
+            comp.Add(new Animate(10, "idle", GameCore.assetLoader.getSpriteSheet("Sheet"), true));
             comp.Add(new RectCollider(layers["bottom"], false));
-            GameObjectManager.gameObjects.Add(new GameObject(new BoundingBox(new Vector2(300, 300), new Vector2(6, 6), new Vector2(GameCore.assetLoader.getSpriteSheet("Sheet").SpriteDimensions.Width, GameCore.assetLoader.getSpriteSheet("Sheet").SpriteDimensions.Height)), layers["bottom"], comp));
+            player.AddChild(new GameObject(new BoundingBox(new Vector2(100, 100), new Vector2(6, 6), new Vector2(GameCore.assetLoader.getSpriteSheet("Sheet").SpriteDimensions.Width, GameCore.assetLoader.getSpriteSheet("Sheet").SpriteDimensions.Height)), layers["bottom"], comp));
 
             
             comp = new List<BaseComponent>();

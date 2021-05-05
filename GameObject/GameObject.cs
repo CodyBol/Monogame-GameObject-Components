@@ -10,6 +10,8 @@ namespace GameObjects
 {
     public class GameObject
     {
+        private BoundingBox _boundingBox;
+        
         /**
          * rectangle is one of the only variables that is not in a component,
          * because it is needed in most of the components
@@ -18,10 +20,30 @@ namespace GameObjects
          * This way the gameobject is highly customizable
          */
         //public Rectangle rectangle;
-        public BoundingBox BoundingBox;
+        public BoundingBox BoundingBox
+        {
+            get
+            {
+                if (Parent != null)
+                {
+                    BoundingBox box = new BoundingBox();
+                    box.Position = _boundingBox.Position + Parent.BoundingBox.Position;
+                        box.Scale = _boundingBox.Scale + Parent.BoundingBox.Scale;
+                            box.Size = _boundingBox.Size;
+                            
+                            return box;
+                }
+                
+                return _boundingBox;
+            }
+
+            set { _boundingBox = value; }
+        }
 
         public Vector2 velocity;
         public List<BaseComponent> components;
+        public GameObject Parent;
+        public List<GameObject> Children { private set; get; }
         public Layer layer;
         public string tag;
 
@@ -33,6 +55,7 @@ namespace GameObjects
             BoundingBox = boundingBox;
             layer = objectLayer;
             components = componentsList;
+            Children = new List<GameObject>();
         }
 
         /**
@@ -44,6 +67,11 @@ namespace GameObjects
             foreach (BaseComponent component in components.ToArray())
             {
                 component.Init(this);
+            }
+            
+            foreach (GameObject child in Children)
+            {
+                child.initialize();
             }
         }
 
@@ -64,6 +92,11 @@ namespace GameObjects
             {
                 (component as ILateUpdate)?.LateUpdate();
             }
+            
+            foreach (GameObject child in Children)
+            {
+                child.Update();
+            }
         }
 
         /**
@@ -74,6 +107,11 @@ namespace GameObjects
             foreach (BaseComponent component in components.ToArray())
             {
                 (component as IDraw)?.Draw(spriteBatch);
+            }
+            
+            foreach (GameObject child in Children)
+            {
+                child.Draw(spriteBatch);
             }
         }
 
@@ -177,6 +215,12 @@ namespace GameObjects
             }
 
             return false;
+        }
+
+        public void AddChild(GameObject child)
+        {
+            Children.Add(child);
+            child.Parent = this;
         }
     }
 }
