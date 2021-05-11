@@ -71,7 +71,7 @@ namespace TestProject.GameStates
             //comp.Add(new SpriteRenderer());
             comp.Add(new Animate(10, "idle", GameCore.assetLoader.getSpriteSheet("Sheet"), true));
             comp.Add(new RectCollider(layers["bottom"], false));
-            player.AddChild(new GameObject(new BoundingBox(new Vector2(100, 100), new Vector2(6, 6), new Vector2(GameCore.assetLoader.getSpriteSheet("Sheet").SpriteDimensions.Width, GameCore.assetLoader.getSpriteSheet("Sheet").SpriteDimensions.Height)), layers["bottom"], comp));
+            GameObjectManager.gameObjects.Add(new GameObject(new BoundingBox(new Vector2(100, 100), new Vector2(6, 6), new Vector2(GameCore.assetLoader.getSpriteSheet("Sheet").SpriteDimensions.Width, GameCore.assetLoader.getSpriteSheet("Sheet").SpriteDimensions.Height)), layers["bottom"], comp));
 
             
             comp = new List<BaseComponent>();

@@ -4,6 +4,8 @@ using System.Collections.Generic;
 using System;
 using Engine.Misc;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Audio;
+using Microsoft.Xna.Framework.Media;
 
 namespace TestProject
 {
@@ -11,6 +13,8 @@ namespace TestProject
     {
         private Dictionary<string, Sprite> sprites;
         private Dictionary<string, SpriteFont> fonts;
+        private Dictionary<string, Song> _songs;
+        private Dictionary<string, SoundEffect> _soundEffects;
         private ContentManager content;
 
         /**
@@ -44,6 +48,22 @@ namespace TestProject
         public void clearFontLoader()
         {
             fonts = new Dictionary<string, SpriteFont>();
+        }
+
+        /**
+         * clears the AssetLoader
+         */
+        public void ClearsongLoader()
+        {
+            _songs = new Dictionary<string, Song>();
+        }
+
+        /**
+         * clears the AssetLoader
+         */
+        public void ClearSoundEffectLoader()
+        {
+            _soundEffects = new Dictionary<string, SoundEffect>();
         }
 
         /**
@@ -132,6 +152,70 @@ namespace TestProject
             }
 
             throw new Exception("The requested sprite [" + spriteName + "] is not loaded in the AssetLoader");
+        }
+        
+        /**
+         * adds multiple songs to the AssetLoader
+         */
+        public void addSongToLoader(List<string> songNames)
+        {
+            foreach (string songName in songNames)
+            {
+                addSongToLoader(songName);
+            }
+        }
+
+        /**
+         * adds a single song to the AssetLoader
+         */
+        public void addSongToLoader(string songName)
+        {
+            _songs.Add(songName, content.Load<Song>("songs/" + songName));
+        }
+
+        /**
+        * get a single song
+        */
+        public Song getSong(string songName)
+        {
+            if (_songs.ContainsKey(songName))
+            {
+                return _songs[songName];
+            }
+
+            throw new Exception("The requested sprite [" + songName + "] is not loaded in the AssetLoader");
+        }
+        
+        /**
+         * adds multiple sound effect to the AssetLoader
+         */
+        public void addSoundEffectToLoader(List<string> soundNames)
+        {
+            foreach (string soundName in soundNames)
+            {
+                addSoundEffectToLoader(soundName);
+            }
+        }
+
+        /**
+         * adds a single song to the AssetLoader
+         */
+        public void addSoundEffectToLoader(string soundName)
+        {
+            _soundEffects.Add(soundName, content.Load<SoundEffect>("sound_effects/" + soundName));
+        }
+
+        /**
+        * get a single song
+        */
+        public SoundEffect getSoundEffect(string soundName)
+        {
+            if (_soundEffects.ContainsKey(soundName))
+            {
+                return _soundEffects[soundName];
+            }
+
+            throw new Exception("The requested sprite [" + soundName + "] is not loaded in the AssetLoader");
         }
     }
 }
