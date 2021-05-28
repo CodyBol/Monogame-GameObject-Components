@@ -11,11 +11,12 @@ using TestProject.GameStates;
 namespace TestProject
 {
    
-    public class Game1 : GameCore
+    public class GameMain : GameCore
     {
         protected override void LoadContent()
         {
             base.LoadContent();
+            DevMode = true;
 
             GameStateManager.AddState("Playing", new PlayingState());
             GameStateManager.ChangeState("Playing");

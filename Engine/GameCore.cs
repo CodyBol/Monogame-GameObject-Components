@@ -15,6 +15,7 @@ namespace Engine
 
         public static AssetLoader assetLoader;
         public static GameStateManager GameStateManager;
+        public static bool DevMode {get; protected set; }
 
         public static ObjectManager GameObjectManager
         {

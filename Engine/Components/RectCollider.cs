@@ -34,12 +34,12 @@ namespace Component
                 {
                     if (collide != GameObject && collide.layer == targetLayer && collide.hasComponent<RectCollider>())
                     {
-                        BoundingBox futureBox = GameObject.BoundingBox.Copy();
+                        BoundingBox futureBox = GameObject.HitBox.Copy();
                         futureBox.Position += GameObject.velocity;
-                        if (GameObject.BoundingBox.CollidesWith(collide.BoundingBox) &&
-                            futureBox.CollidesWith(collide.BoundingBox))
+                        if (GameObject.HitBox.CollidesWith(collide.HitBox) &&
+                            futureBox.CollidesWith(collide.HitBox))
                         {
-                            GameObject.onCollisionEnter(collide, GameObject.BoundingBox.SmallestDistance(collide.BoundingBox));
+                            GameObject.onCollisionEnter(collide, GameObject.HitBox.SmallestDistance(collide.HitBox));
                         }
                     }
                 }

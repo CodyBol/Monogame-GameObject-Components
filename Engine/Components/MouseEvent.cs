@@ -11,7 +11,7 @@ namespace Component
     public class MouseEvent : BaseComponent, IUpdate
     {
         public void Update() {
-            BoundingBox gameObjectRect = GameObject.BoundingBox;
+            BoundingBox gameObjectRect = GameObject.HitBox;
 
 
             if ((gameObjectRect.Left().X <= Mouse.GetState().X && gameObjectRect.Right().X >= Mouse.GetState().X) && (gameObjectRect.Top().Y <= Mouse.GetState().Y && gameObjectRect.Bottom().Y >= Mouse.GetState().Y)) {

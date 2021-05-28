@@ -62,7 +62,7 @@ namespace TestProject.GameStates
             GameObject player;
             //Voeg gameObject toe aan de manager
             GameObjectManager.gameObjects.Add(player = new GameObject(new BoundingBox(new Vector2(0, 0), new Vector2(2, 2)), layers["bottom"], comp));
-
+            player.HitBox = new BoundingBox(Vector2.Zero, new Vector2(6), new Vector2(32, 23));
 
             comp = new List<BaseComponent>();
 

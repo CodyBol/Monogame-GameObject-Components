@@ -32,7 +32,7 @@ namespace Component
                 {
                     if (collide != GameObject && collide.layer == targetLayer && collide.hasComponent<RectTrigger>())
                     {
-                        if (GameObject.BoundingBox.CollidesWith(collide.BoundingBox))
+                        if (GameObject.HitBox.CollidesWith(collide.HitBox))
                         {
                             GameObject.onTriggerEnter(collide);
                         }

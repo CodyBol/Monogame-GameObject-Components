@@ -4,6 +4,7 @@ using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using Engine.Misc;
 using BoundingBox = Engine.Misc.BoundingBox;
 
 namespace GameObjects
@@ -11,7 +12,8 @@ namespace GameObjects
     public class GameObject
     {
         private BoundingBox _boundingBox;
-        
+        public HitBox _hitbox;
+
         /**
          * rectangle is one of the only variables that is not in a component,
          * because it is needed in most of the components
@@ -28,18 +30,37 @@ namespace GameObjects
                 {
                     BoundingBox box = new BoundingBox();
                     box.Position = _boundingBox.Position + Parent.BoundingBox.Position;
-                        box.Scale = _boundingBox.Scale + Parent.BoundingBox.Scale;
-                            box.Size = _boundingBox.Size;
-                            
-                            return box;
+                    box.Scale = _boundingBox.Scale + Parent.BoundingBox.Scale;
+                    box.Size = _boundingBox.Size;
+
+                    return box;
                 }
-                
+
                 return _boundingBox;
             }
 
             set { _boundingBox = value; }
         }
 
+        public BoundingBox HitBox
+        {
+            get
+            {
+                BoundingBox box = BoundingBox.Copy();
+
+                if (_hitbox != null)
+                {
+                    box.Scale = _hitbox.Scale;
+                    box.Size = _hitbox.Size;
+                }
+
+                return box;
+            }
+            
+            set { _hitbox = new HitBox(value.Scale, value.Size); }
+
+        }
+        
         public Vector2 velocity;
         public List<BaseComponent> components;
         public GameObject Parent;
@@ -68,12 +89,12 @@ namespace GameObjects
             {
                 component.Init(this);
             }
-            
+
             foreach (GameObject child in Children)
             {
                 child.initialize();
             }
-            
+
             foreach (BaseComponent component in components.ToArray())
             {
                 (component as ILateInit)?.LateInit();
@@ -97,7 +118,7 @@ namespace GameObjects
             {
                 (component as ILateUpdate)?.LateUpdate();
             }
-            
+
             foreach (GameObject child in Children)
             {
                 child.Update();
@@ -113,7 +134,7 @@ namespace GameObjects
             {
                 (component as IDraw)?.Draw(spriteBatch);
             }
-            
+
             foreach (GameObject child in Children)
             {
                 child.Draw(spriteBatch);
@@ -166,26 +187,26 @@ namespace GameObjects
 
             if (direction == new Vector2(-1, 0))
             {
-                BoundingBox.Position.X = collision.BoundingBox.Left().X - BoundingBox.Width() / 2;
+                BoundingBox.Position.X = collision.HitBox.Left().X - HitBox.Width() / 2;
                 velocity.X = 0;
             }
 
             if (direction == new Vector2(1, 0))
             {
-                BoundingBox.Position.X = collision.BoundingBox.Right().X + BoundingBox.Width() / 2;
+                BoundingBox.Position.X = collision.HitBox.Right().X + HitBox.Width() / 2;
                 velocity.X = 0;
             }
 
             if (direction == new Vector2(0, -1))
             {
                 velocity.Y = 0;
-                BoundingBox.Position.Y = collision.BoundingBox.Top().Y - BoundingBox.Height() / 2;
+                BoundingBox.Position.Y = collision.HitBox.Top().Y - HitBox.Height() / 2;
             }
 
             if (direction == new Vector2(0, 1))
             {
                 velocity.Y = 0;
-                BoundingBox.Position.Y = collision.BoundingBox.Bottom().Y + BoundingBox.Height() / 2;
+                BoundingBox.Position.Y = collision.HitBox.Bottom().Y + HitBox.Height() / 2;
             }
         }
 
