@@ -13,6 +13,7 @@ namespace Component
         public float rotation;
         public SpriteEffects SpriteEffect = SpriteEffects.None;
         public int SheetIndex;
+        public Color Color = Color.White;
 
         public SpriteRenderer(Sprite spr = null)
         {
@@ -47,12 +48,12 @@ namespace Component
                 Sprite currentSprite = sheet.Sprites[SheetIndex];
                 
                 Vector2 origin = new Vector2(currentSprite.Size.Width / 2, currentSprite.Size.Height / 2);
-                spriteBatch.Draw(currentSprite.Texture2D, GameObject.BoundingBox.Position, currentSprite.Size, Color.White, rotation, origin, GameObject.BoundingBox.Scale, SpriteEffect, 0f);
+                spriteBatch.Draw(currentSprite.Texture2D, GameObject.BoundingBox.Position, currentSprite.Size, Color, rotation, origin, GameObject.BoundingBox.Scale, SpriteEffect, 0f);
             }
             else
             {
                 Vector2 origin = new Vector2(sprite.Size.Width / 2, sprite.Size.Height / 2);
-                spriteBatch.Draw(sprite.Texture2D, GameObject.BoundingBox.Position, null, Color.White, rotation, origin, GameObject.BoundingBox.Scale, SpriteEffect, 0f);
+                spriteBatch.Draw(sprite.Texture2D, GameObject.BoundingBox.Position, null, Color, rotation, origin, GameObject.BoundingBox.Scale, SpriteEffect, 0f);
             }
         }
     }

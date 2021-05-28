@@ -23,6 +23,7 @@ namespace TestProject.GameStates
             
             GameCore.assetLoader.addSpritesToLoader(new List<string>() { "spr_blue_invader", "spr_red_invader", "spr_tile" });
             GameCore.assetLoader.AddSpriteSheetToLoader("Sheet", new Rectangle(0, 0, 16, 16), new Vector2(1, 1));
+            GameCore.assetLoader.AddSpriteSheetToLoader("shadow_sheet", new Rectangle(0, 0, 40, 24), new Vector2(1, 0));
             GameCore.assetLoader.addFontToLoader("Arial");
 
             GameObjectManager.gameObjects = new List<GameObject>();
@@ -84,6 +85,15 @@ namespace TestProject.GameStates
             comp.Add(new RectCollider(layers["bottom"], true));
             GameObjectManager.gameObjects.Add(new GameObject(new BoundingBox(new Vector2(500, 300), new Vector2(3, 3), new Vector2(GameCore.assetLoader.getSprite("spr_tile").Size.Width, GameCore.assetLoader.getSprite("spr_tile").Size.Height)), layers["bottom"], comp));
 
+            //-----------------
+            
+            comp = new List<BaseComponent>();
+            comp.Add(new Animate(0.9f, "idle", GameCore.assetLoader.getSpriteSheet("shadow_sheet"), true));
+            
+            comp.Add(new Follow(player));
+            GameObjectManager.gameObjects.Add(new GameObject(new BoundingBox(new Vector2(0, 0), new Vector2(20, 20), new Vector2(GameCore.assetLoader.getSprite("shadow_sheet").Size.Width, GameCore.assetLoader.getSprite("shadow_sheet").Size.Height)), layers["top"], comp));
+            
+            //-----------------
             
             GameObjectManager.gameObjects.Add(new GameObject(new BoundingBox(), layers["bottom"], cam));
 

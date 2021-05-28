@@ -5,12 +5,14 @@
   <Config />
   <SourceFiles>
     <File>C:/Users/CodySchool/source/repos/TestProject/TestProject/Content/fonts/Arial.spritefont</File>
+    <File>C:/Users/CodySchool/source/repos/TestProject/TestProject/Content/shadow_sheet.png</File>
     <File>C:/Users/CodySchool/source/repos/TestProject/TestProject/Content/Sheet.png</File>
     <File>C:/Users/CodySchool/source/repos/TestProject/TestProject/Content/spr_blue_invader.png</File>
     <File>C:/Users/CodySchool/source/repos/TestProject/TestProject/Content/spr_red_invader.png</File>
     <File>C:/Users/CodySchool/source/repos/TestProject/TestProject/Content/spr_tile.png</File>
   </SourceFiles>
   <DestFiles>
+    <File xsi:nil="true" />
     <File xsi:nil="true" />
     <File xsi:nil="true" />
     <File xsi:nil="true" />
