@@ -73,6 +73,11 @@ namespace GameObjects
             {
                 child.initialize();
             }
+            
+            foreach (BaseComponent component in components.ToArray())
+            {
+                (component as ILateInit)?.LateInit();
+            }
         }
 
         /**

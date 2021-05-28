@@ -7,7 +7,7 @@ using GameObjects;
 
 namespace Component
 {
-    public class SpriteRenderer : BaseComponent, IDraw
+    public class SpriteRenderer : BaseComponent, ILateInit, IDraw
     {
         public Sprite sprite;
         public float rotation;
@@ -36,6 +36,26 @@ namespace Component
             sprite = spr;
             rotation = MathUtility.DegreesToRadian(angleDegrees);;
             SpriteEffect = spriteEffect;
+        }
+        
+        
+        public void LateInit()
+        {
+            if (GameObject.BoundingBox.Size == Vector2.Zero)
+            {
+                Vector2 size = Vector2.Zero;
+                if (!(sprite is SpriteSheet))
+                {
+                    size = new Vector2(sprite.Size.Width, sprite.Size.Height);
+                }
+                else
+                {
+                    SpriteSheet sheet = sprite as SpriteSheet;
+                    size = new Vector2(sheet.SpriteDimensions.Size.X, sheet.SpriteDimensions.Size.Y);
+                }
+
+                GameObject.BoundingBox.Size = size;
+            }
         }
 
         public void Draw(SpriteBatch spriteBatch) {

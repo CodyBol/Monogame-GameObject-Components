@@ -35,3 +35,4 @@ C:\Users\CodySchool\source\repos\TestProject\TestProject\bin\Debug\netcoreapp3.1
 C:\Users\CodySchool\source\repos\TestProject\TestProject\bin\Debug\netcoreapp3.1\Content\fonts\Arial.xnb
 C:\Users\CodySchool\source\repos\TestProject\TestProject\bin\Debug\netcoreapp3.1\Content\fonts\OpenSans.xnb
 C:\Users\CodySchool\source\repos\TestProject\TestProject\bin\Debug\netcoreapp3.1\Content\Sheet.xnb
+C:\Users\CodySchool\source\repos\TestProject\TestProject\bin\Debug\netcoreapp3.1\Content\shadow_sheet.xnb

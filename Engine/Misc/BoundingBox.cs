@@ -26,6 +26,20 @@ namespace Engine.Misc
             Size = size;
         }
 
+        public BoundingBox(Vector2 position, Vector2 scale)
+        {
+            Position = position;
+            Scale = scale;
+            Size = Vector2.Zero;
+        }
+
+        public BoundingBox(Vector2 position)
+        {
+            Position = position;
+            Scale = Vector2.One;
+            Size = Vector2.Zero;
+        }
+
         public BoundingBox Copy()
         {
             return new BoundingBox(Position, Scale, Size);
