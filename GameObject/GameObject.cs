@@ -12,7 +12,8 @@ namespace GameObjects
     public class GameObject
     {
         private BoundingBox _boundingBox;
-        public HitBox _hitbox;
+        private HitBox _hitbox;
+        public bool UseParent = true;
 
         /**
          * rectangle is one of the only variables that is not in a component,
@@ -27,7 +28,7 @@ namespace GameObjects
             get
             {
                 BoundingBox box;
-                if (Parent != null)
+                if (Parent != null && UseParent)
                 {
                     box = _boundingBox.Copy();
                     box.Position = _boundingBox.Position + Parent.BoundingBox.Position;
@@ -235,6 +236,12 @@ namespace GameObjects
         {
             Children.Add(child);
             child.Parent = this;
+        }
+
+        public void SetParent(GameObject parent)
+        {
+            Parent = parent;
+            parent.Children.Add(this);
         }
     }
 }

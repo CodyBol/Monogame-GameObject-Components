@@ -86,13 +86,13 @@ namespace TestProject.GameStates
             comp = new List<BaseComponent>();
             comp.Add(new SpriteRenderer(GameCore.assetLoader.getSprite("spr_tile")));
             GameObjectManager.gameObjects.Add(gridItem = new GameObject(new BoundingBox(new Vector2(0)), layers["bottom"], comp));
-            grid.Children.Add(gridItem);
+            grid.AddChild(gridItem);
             grid.getComponent<Grid>().AddGameObject(gridItem, 0, 0);
             
             comp = new List<BaseComponent>();
             comp.Add(new SpriteRenderer(GameCore.assetLoader.getSprite("spr_tile")));
             GameObjectManager.gameObjects.Add(gridItem = new GameObject(new BoundingBox(new Vector2(0)), layers["bottom"], comp));
-            grid.Children.Add(gridItem);
+            gridItem.SetParent(grid);
             grid.getComponent<Grid>().AddGameObject(gridItem, 1, 0);
 
             
@@ -100,14 +100,14 @@ namespace TestProject.GameStates
             comp.Add(new SpriteRenderer(GameCore.assetLoader.getSprite("spr_tile")));
             //comp.Add(new RectCollider(layers["bottom"], false));
             GameObjectManager.gameObjects.Add(gridItem = new GameObject(new BoundingBox(new Vector2(0)), layers["bottom"], comp));
-            grid.Children.Add(gridItem);
+            grid.AddChild(gridItem);
             grid.getComponent<Grid>().AddGameObject(gridItem, 1, 1);
             
             comp = new List<BaseComponent>();
             comp.Add(new SpriteRenderer(GameCore.assetLoader.getSprite("spr_tile")));
             //comp.Add(new RectCollider(layers["bottom"], false));
             GameObjectManager.gameObjects.Add(gridItem = new GameObject(new BoundingBox(new Vector2(0)), layers["bottom"], comp));
-            grid.Children.Add(gridItem);
+            grid.AddChild(gridItem);
             grid.getComponent<Grid>().AddGameObject(gridItem, 1, 2);
 
             
@@ -115,7 +115,7 @@ namespace TestProject.GameStates
             comp.Add(new SpriteRenderer(GameCore.assetLoader.getSprite("spr_tile")));
             //comp.Add(new RectCollider(layers["bottom"], false));
             GameObjectManager.gameObjects.Add(gridItem = new GameObject(new BoundingBox(new Vector2(0)), layers["bottom"], comp));
-            grid.Children.Add(gridItem);
+            grid.AddChild(gridItem);
             grid.getComponent<Grid>().AddGameObject(gridItem, 2, 1);
 
             
@@ -123,7 +123,7 @@ namespace TestProject.GameStates
             comp.Add(new SpriteRenderer(GameCore.assetLoader.getSprite("spr_tile")));
             //comp.Add(new RectCollider(layers["bottom"], false));
             GameObjectManager.gameObjects.Add(gridItem = new GameObject(new BoundingBox(new Vector2(0)), layers["bottom"], comp));
-            grid.Children.Add(gridItem);
+            grid.AddChild(gridItem);
             grid.getComponent<Grid>().AddGameObject(gridItem, 2, 2);
 
             
@@ -131,7 +131,7 @@ namespace TestProject.GameStates
             comp.Add(new SpriteRenderer(GameCore.assetLoader.getSprite("spr_tile")));
             comp.Add(new RectCollider(layers["bottom"], false));
             GameObjectManager.gameObjects.Add(gridItem = new GameObject(new BoundingBox(new Vector2(0)), layers["bottom"], comp));
-            grid.Children.Add(gridItem);
+            grid.AddChild(gridItem);
             grid.getComponent<Grid>().AddGameObject(gridItem, 3, 3);
 
             

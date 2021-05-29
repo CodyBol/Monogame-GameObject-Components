@@ -50,6 +50,8 @@ namespace Component
                 {
                     if (gridItems[x, y] != null)
                     {
+                        gridItems[x, y].UseParent = false;
+                        
                         BoundingBox box = gridItems[x, y].BoundingBox;
                         box.Position.X = GameObject.BoundingBox.Position.X + x * ((GameObject.BoundingBox.Size.X + TileMargin.X) * GameObject.BoundingBox.Scale.X);
                         box.Position.Y = GameObject.BoundingBox.Position.Y + y * ((GameObject.BoundingBox.Size.Y + TileMargin.Y) * GameObject.BoundingBox.Scale.Y);
@@ -57,12 +59,6 @@ namespace Component
                         box.Scale = GameObject.BoundingBox.Scale;
 
                         gridItems[x, y].BoundingBox = box;
-
-                        /*
-                         gridItems[x, y].BoundingBox = new BoundingBox(new Vector2(
-                            (x * ((GameObject.BoundingBox.Size.X + TileMargin.X) * GameObject.BoundingBox.Scale.X)),
-                            (y * ((GameObject.BoundingBox.Size.Y + TileMargin.Y) * GameObject.BoundingBox.Scale.Y))), Vector2.One, GameObject.BoundingBox.Size);
-                         */
                     }
                 }
             }
