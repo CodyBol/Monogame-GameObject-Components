@@ -18,6 +18,7 @@ namespace TestProject.GameStates
             _useCamera = true;
             
             layers = new Dictionary<string, Layer>();
+            layers.Add("background", new Layer("background", -1));
             layers.Add("bottom", new Layer("bottom", 0));
             layers.Add("top", new Layer("top", 1));
             
@@ -62,7 +63,6 @@ namespace TestProject.GameStates
             GameObject player;
             //Voeg gameObject toe aan de manager
             GameObjectManager.gameObjects.Add(player = new GameObject(new BoundingBox(new Vector2(0, 0), new Vector2(2, 2)), layers["bottom"], comp));
-            player.HitBox = new BoundingBox(Vector2.Zero, new Vector2(6), new Vector2(32, 23));
 
             comp = new List<BaseComponent>();
 
@@ -71,18 +71,68 @@ namespace TestProject.GameStates
             //comp.Add(new SpriteRenderer());
             comp.Add(new Animate(10, "idle", GameCore.assetLoader.getSpriteSheet("Sheet"), true));
             comp.Add(new RectCollider(layers["bottom"], false));
-            GameObjectManager.gameObjects.Add(new GameObject(new BoundingBox(new Vector2(100, 100), new Vector2(6, 6)), layers["bottom"], comp));
+            GameObjectManager.gameObjects.Add(new GameObject(new BoundingBox(new Vector2(400, 400), new Vector2(6, 6)), layers["bottom"], comp));
+
+            //grid
+            GameObject grid;
+            
+            comp = new List<BaseComponent>();
+            comp.Add(new Grid(new Vector2(4), new Vector2(3)));
+            GameObjectManager.gameObjects.Add(grid = new GameObject(new BoundingBox(new Vector2(0), new Vector2(2)), layers["background"], comp));
+            
+            //grid items
+            GameObject gridItem;
+            
+            comp = new List<BaseComponent>();
+            comp.Add(new SpriteRenderer(GameCore.assetLoader.getSprite("spr_tile")));
+            GameObjectManager.gameObjects.Add(gridItem = new GameObject(new BoundingBox(new Vector2(0)), layers["bottom"], comp));
+            grid.Children.Add(gridItem);
+            grid.getComponent<Grid>().AddGameObject(gridItem, 0, 0);
+            
+            comp = new List<BaseComponent>();
+            comp.Add(new SpriteRenderer(GameCore.assetLoader.getSprite("spr_tile")));
+            GameObjectManager.gameObjects.Add(gridItem = new GameObject(new BoundingBox(new Vector2(0)), layers["bottom"], comp));
+            grid.Children.Add(gridItem);
+            grid.getComponent<Grid>().AddGameObject(gridItem, 1, 0);
 
             
             comp = new List<BaseComponent>();
             comp.Add(new SpriteRenderer(GameCore.assetLoader.getSprite("spr_tile")));
+            //comp.Add(new RectCollider(layers["bottom"], false));
+            GameObjectManager.gameObjects.Add(gridItem = new GameObject(new BoundingBox(new Vector2(0)), layers["bottom"], comp));
+            grid.Children.Add(gridItem);
+            grid.getComponent<Grid>().AddGameObject(gridItem, 1, 1);
+            
+            comp = new List<BaseComponent>();
+            comp.Add(new SpriteRenderer(GameCore.assetLoader.getSprite("spr_tile")));
+            //comp.Add(new RectCollider(layers["bottom"], false));
+            GameObjectManager.gameObjects.Add(gridItem = new GameObject(new BoundingBox(new Vector2(0)), layers["bottom"], comp));
+            grid.Children.Add(gridItem);
+            grid.getComponent<Grid>().AddGameObject(gridItem, 1, 2);
 
-            //Voeg custom player script toe (bevat nu alleen movement)
-            comp.Add(new Player2(layers["bottom"]));
+            
+            comp = new List<BaseComponent>();
+            comp.Add(new SpriteRenderer(GameCore.assetLoader.getSprite("spr_tile")));
+            //comp.Add(new RectCollider(layers["bottom"], false));
+            GameObjectManager.gameObjects.Add(gridItem = new GameObject(new BoundingBox(new Vector2(0)), layers["bottom"], comp));
+            grid.Children.Add(gridItem);
+            grid.getComponent<Grid>().AddGameObject(gridItem, 2, 1);
 
-            //Voeg Collision toe aan dit object
-            comp.Add(new RectCollider(layers["bottom"], true));
-            GameObjectManager.gameObjects.Add(new GameObject(new BoundingBox(new Vector2(500, 300), new Vector2(3, 3)), layers["bottom"], comp));
+            
+            comp = new List<BaseComponent>();
+            comp.Add(new SpriteRenderer(GameCore.assetLoader.getSprite("spr_tile")));
+            //comp.Add(new RectCollider(layers["bottom"], false));
+            GameObjectManager.gameObjects.Add(gridItem = new GameObject(new BoundingBox(new Vector2(0)), layers["bottom"], comp));
+            grid.Children.Add(gridItem);
+            grid.getComponent<Grid>().AddGameObject(gridItem, 2, 2);
+
+            
+            comp = new List<BaseComponent>();
+            comp.Add(new SpriteRenderer(GameCore.assetLoader.getSprite("spr_tile")));
+            comp.Add(new RectCollider(layers["bottom"], false));
+            GameObjectManager.gameObjects.Add(gridItem = new GameObject(new BoundingBox(new Vector2(0)), layers["bottom"], comp));
+            grid.Children.Add(gridItem);
+            grid.getComponent<Grid>().AddGameObject(gridItem, 3, 3);
 
             
             GameObjectManager.gameObjects.Add(new GameObject(new BoundingBox(), layers["bottom"], cam));

@@ -6,11 +6,12 @@ using System.Diagnostics;
 using Engine;
 using Engine.Misc;
 using GameObjects;
+using TestProject;
 using BoundingBox = Engine.Misc.BoundingBox;
 
 namespace Component
 {
-    public class RectCollider : BaseComponent, IUpdate
+    public class RectCollider : BaseComponent, IUpdate, IDraw
     {
         public Layer targetLayer;
         private bool check;
@@ -43,6 +44,20 @@ namespace Component
                         }
                     }
                 }
+            }
+        }
+
+        public void Draw(SpriteBatch spriteBatch)
+        {
+            if (GameMain.DevMode && (GameObject.hasComponent<RectCollider>() || GameObject.hasComponent<RectTrigger>() || GameObject.hasComponent<MouseEvent>()))
+            {
+                Texture2D collisionLine = new Texture2D(spriteBatch.GraphicsDevice, 1, 1, false, SurfaceFormat.Color);
+                collisionLine.SetData(new[] {Color.LimeGreen});
+            
+                spriteBatch.Draw(collisionLine, new Vector2(GameObject.HitBox.Left().X, GameObject.HitBox.Top().Y), null, Color.White, 0, Vector2.Zero, new Vector2(GameObject.HitBox.Width(), 1), SpriteEffects.None, 0);
+                spriteBatch.Draw(collisionLine, new Vector2(GameObject.HitBox.Left().X, GameObject.HitBox.Bottom().Y), null, Color.White, 0, Vector2.Zero, new Vector2(GameObject.HitBox.Width(), 1), SpriteEffects.None, 0);
+                spriteBatch.Draw(collisionLine, new Vector2(GameObject.HitBox.Right().X, GameObject.HitBox.Top().Y), null, Color.White, 0, Vector2.Zero, new Vector2(1, GameObject.HitBox.Height()), SpriteEffects.None, 0);
+                spriteBatch.Draw(collisionLine, new Vector2(GameObject.HitBox.Left().X, GameObject.HitBox.Top().Y), null, Color.White, 0, Vector2.Zero, new Vector2(1, GameObject.HitBox.Height()), SpriteEffects.None, 0);
             }
         }
     }

@@ -45,17 +45,6 @@ namespace Engine
                     {
                         gameObject.Draw(spriteBatch);
                     }
-
-                    if (GameMain.DevMode && (gameObject.hasComponent<RectCollider>() || gameObject.hasComponent<RectTrigger>() || gameObject.hasComponent<MouseEvent>()))
-                    {
-                        Texture2D collisionLine = new Texture2D(spriteBatch.GraphicsDevice, 1, 1, false, SurfaceFormat.Color);
-                        collisionLine.SetData(new[] {Color.LimeGreen});
-            
-                        spriteBatch.Draw(collisionLine, new Vector2(gameObject.HitBox.Left().X, gameObject.HitBox.Top().Y), null, Color.White, 0, Vector2.Zero, new Vector2(gameObject.HitBox.Width(), 1), SpriteEffects.None, 0);
-                        spriteBatch.Draw(collisionLine, new Vector2(gameObject.HitBox.Left().X, gameObject.HitBox.Bottom().Y), null, Color.White, 0, Vector2.Zero, new Vector2(gameObject.HitBox.Width(), 1), SpriteEffects.None, 0);
-                        spriteBatch.Draw(collisionLine, new Vector2(gameObject.HitBox.Right().X, gameObject.HitBox.Top().Y), null, Color.White, 0, Vector2.Zero, new Vector2(1, gameObject.HitBox.Height()), SpriteEffects.None, 0);
-                        spriteBatch.Draw(collisionLine, new Vector2(gameObject.HitBox.Left().X, gameObject.HitBox.Top().Y), null, Color.White, 0, Vector2.Zero, new Vector2(1, gameObject.HitBox.Height()), SpriteEffects.None, 0);
-                    }
                 }
             }
         }

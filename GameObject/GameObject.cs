@@ -26,17 +26,20 @@ namespace GameObjects
         {
             get
             {
+                BoundingBox box;
                 if (Parent != null)
                 {
-                    BoundingBox box = new BoundingBox();
+                    box = _boundingBox.Copy();
                     box.Position = _boundingBox.Position + Parent.BoundingBox.Position;
                     box.Scale = _boundingBox.Scale + Parent.BoundingBox.Scale;
-                    box.Size = _boundingBox.Size;
 
-                    return box;
+                }
+                else
+                {
+                    box = _boundingBox;
                 }
 
-                return _boundingBox;
+                return box;
             }
 
             set { _boundingBox = value; }
@@ -90,11 +93,6 @@ namespace GameObjects
                 component.Init(this);
             }
 
-            foreach (GameObject child in Children)
-            {
-                child.initialize();
-            }
-
             foreach (BaseComponent component in components.ToArray())
             {
                 (component as ILateInit)?.LateInit();
@@ -118,11 +116,6 @@ namespace GameObjects
             {
                 (component as ILateUpdate)?.LateUpdate();
             }
-
-            foreach (GameObject child in Children)
-            {
-                child.Update();
-            }
         }
 
         /**
@@ -133,11 +126,6 @@ namespace GameObjects
             foreach (BaseComponent component in components.ToArray())
             {
                 (component as IDraw)?.Draw(spriteBatch);
-            }
-
-            foreach (GameObject child in Children)
-            {
-                child.Draw(spriteBatch);
             }
         }
 
