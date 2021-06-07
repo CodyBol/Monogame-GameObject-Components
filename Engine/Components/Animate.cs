@@ -1,44 +1,56 @@
 ﻿using System.Collections.Generic;
+using Engine.Component.Misc;
 using Engine.Misc;
 
 namespace Engine.Component
 {
     public class Animate : BaseComponent, IUpdate
     {
-        private string state;
+        private string _state;
 
-        private Dictionary<string, AnimationState> animationState;
+        public string State
+        {
+            get { return _state; }
+            set
+            {
+                _state = value;
+                _animationState[_state].Index = 0;
+                ChangeSprite(false);
+            }
+        }
 
-        private float neededClicks;
-        private float clicks;
+        private Dictionary<string, AnimationState> _animationState;
 
-        private SpriteRenderer spriteComponent;
+        private float _neededClicks;
+        private float _clicks;
+
+        private SpriteRenderer _spriteComponent;
 
         public Animate(float time, string beginState, Dictionary<string, AnimationState> animationStateDictonary) 
         {
-            neededClicks = time;
-            clicks = neededClicks;
-            state = beginState;
-            animationState = animationStateDictonary;
+            _neededClicks = time;
+            _clicks = _neededClicks;
+            _state = beginState;
+            _animationState = animationStateDictonary;
         }
 
         public Animate(float time, string stateName, AnimationState newAnimationState)
         {
-            neededClicks = time;
-            clicks = neededClicks;
-            state = stateName;
-            animationState = new Dictionary<string, AnimationState>() { {stateName, newAnimationState} };
+            _neededClicks = time;
+            _clicks = _neededClicks;
+            _state = stateName;
+            _animationState = new Dictionary<string, AnimationState>() { {stateName, newAnimationState} };
         }
 
         public Animate(float time, string stateName, SpriteSheet sheet, bool loop = false, int start = 0)
         {
-            neededClicks = time;
-            clicks = neededClicks;
-            state = stateName;
+            _neededClicks = time;
+            _clicks = _neededClicks;
+            _state = stateName;
 
             AnimationState newAnimationState = new AnimationSheetState() {Sheet = sheet, Loop = loop, Index = start}; 
             
-            animationState = new Dictionary<string, AnimationState>() { {stateName, newAnimationState} };
+            _animationState = new Dictionary<string, AnimationState>() { {stateName, newAnimationState} };
         }
 
 
@@ -50,11 +62,11 @@ namespace Engine.Component
             {
                 SpriteRenderer renderer = new SpriteRenderer();
                 renderer.Init(GameObject);
-                GameObject.components.Add(renderer);
+                GameObject.Components.Add(renderer);
             }
 
-            spriteComponent = GameObject.getComponent<SpriteRenderer>();
-            if (spriteComponent.sprite == null)
+            _spriteComponent = GameObject.getComponent<SpriteRenderer>();
+            if (_spriteComponent.sprite == null)
             {
                 ChangeSprite(false);
             }
@@ -62,88 +74,50 @@ namespace Engine.Component
 
         private void ChangeSprite(bool update)
         {
-            if (animationState[state].getSprite() is SpriteSheet)
+            if (_animationState[_state].getSprite() is SpriteSheet)
             {
                 if (update)
                 {
-                    animationState[state].Index = animationState[state].Index + 1 < (animationState[state] as AnimationSheetState).Sheet.Sprites.Count ? animationState[state].Index + 1 : (!animationState[state].Loop ? animationState[state].Index : 0);
+                    _animationState[_state].Index = _animationState[_state].Index + 1 < (_animationState[_state] as AnimationSheetState).Sheet.Sprites.Count ? _animationState[_state].Index + 1 : (!_animationState[_state].Loop ? _animationState[_state].Index : 0);
 
                 }
                 
-                spriteComponent.SheetIndex = animationState[state].Index;
-                spriteComponent.sprite = animationState[state].getSprite();
+                _spriteComponent.SheetIndex = _animationState[_state].Index;
+                _spriteComponent.sprite = _animationState[_state].getSprite();
             }
             else
             {
                 if (update)
                 {
-                    animationState[state].Index = animationState[state].Index + 1 < (animationState[state] as AnimationListState).Sprites.Count ? animationState[state].Index + 1 : (!animationState[state].Loop ? animationState[state].Index : 0);
+                    _animationState[_state].Index = _animationState[_state].Index + 1 < (_animationState[_state] as AnimationListState).Sprites.Count ? _animationState[_state].Index + 1 : (!_animationState[_state].Loop ? _animationState[_state].Index : 0);
 
                 }
                 
-                spriteComponent.sprite = animationState[state].getSprite();
+                _spriteComponent.sprite = _animationState[_state].getSprite();
             }
         }
 
         public void Update() {
-            if (clicks <= 0)
+            if (_clicks <= 0)
             {
-                clicks = neededClicks;
+                _clicks = _neededClicks;
                 ChangeSprite(true);
             }
             else {
-                clicks -= 0.1f;
+                _clicks -= 0.1f;
             }
         }
 
-        public void changeState(string newState)
+        public void ChangeState(string newState, bool reset)
         {
-            state = newState;
-            animationState[state].Index = 0;
-            ChangeSprite(false);
-        }
-
-        public void changeState(string newState, bool reset)
-        {
-            state = newState;
+            _state = newState;
             if (reset)
             {
-                animationState[state].Index = 0;
+                _animationState[_state].Index = 0;
             }
             ChangeSprite(false);
         }
-
-        public string getState()
-        {
-            return state;
-        }
     }
 
-    public abstract class AnimationState {
-        public bool Loop;
-        public int Index;
 
-        public virtual Sprite getSprite()
-        {
-            return null;
-        }
-    }
-
-    public class AnimationListState : AnimationState {
-        public List<Sprite> Sprites;
-        
-        public override Sprite getSprite()
-        {
-            return Sprites[Index];
-        }
-    }
-
-    public class AnimationSheetState : AnimationState {
-        public SpriteSheet Sheet;
-        
-        public override Sprite getSprite()
-        {
-            return Sheet;
-        }
-    }
 }

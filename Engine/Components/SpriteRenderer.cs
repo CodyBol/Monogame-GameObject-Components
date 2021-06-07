@@ -7,7 +7,7 @@ namespace Engine.Component
     public class SpriteRenderer : BaseComponent, ILateInit, IDraw
     {
         public Sprite sprite;
-        public float rotation;
+        public float Rotation;
         public SpriteEffects SpriteEffect = SpriteEffects.None;
         public int SheetIndex;
 
@@ -25,13 +25,13 @@ namespace Engine.Component
         public SpriteRenderer(Sprite spr, float angleDegrees)
         {
             sprite = spr;
-            rotation = MathUtility.DegreesToRadian(angleDegrees);
+            Rotation = MathUtility.DegreesToRadian(angleDegrees);
         }
 
         public SpriteRenderer(Sprite spr, float angleDegrees = 0, SpriteEffects spriteEffect = SpriteEffects.None)
         {
             sprite = spr;
-            rotation = MathUtility.DegreesToRadian(angleDegrees);;
+            Rotation = MathUtility.DegreesToRadian(angleDegrees);;
             SpriteEffect = spriteEffect;
         }
         
@@ -56,20 +56,18 @@ namespace Engine.Component
         }
 
         public void Draw(SpriteBatch spriteBatch) {
-            //spriteBatch.Draw(sprite, gameObject.rectangle, Color.White);
-
             if (sprite is SpriteSheet)
             {
                 SpriteSheet sheet = sprite as SpriteSheet;
                 Sprite currentSprite = sheet.Sprites[SheetIndex];
                 
                 Vector2 origin = new Vector2(currentSprite.Size.Width / 2, currentSprite.Size.Height / 2);
-                spriteBatch.Draw(currentSprite.Texture2D, GameObject.BoundingBox.Position, currentSprite.Size, Color.White, rotation, origin, GameObject.BoundingBox.Scale, SpriteEffect, 0f);
+                spriteBatch.Draw(currentSprite.Texture2D, GameObject.BoundingBox.Position, currentSprite.Size, Color.White, Rotation, origin, GameObject.BoundingBox.Scale, SpriteEffect, 0f);
             }
             else
             {
                 Vector2 origin = new Vector2(sprite.Size.Width / 2, sprite.Size.Height / 2);
-                spriteBatch.Draw(sprite.Texture2D, GameObject.BoundingBox.Position, null, Color.White, rotation, origin, GameObject.BoundingBox.Scale, SpriteEffect, 0f);
+                spriteBatch.Draw(sprite.Texture2D, GameObject.BoundingBox.Position, null, Color.White, Rotation, origin, GameObject.BoundingBox.Scale, SpriteEffect, 0f);
             }
         }
     }

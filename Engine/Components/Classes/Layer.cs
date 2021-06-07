@@ -6,12 +6,12 @@ namespace Engine.Component
 {
     public class Layer
     {
-        public string name;
-        public int zIndex;
+        public string Name;
+        public int ZIndex;
 
         public Layer(string layerName, int zPos) {
-            name = layerName;
-            zIndex = zPos;
+            Name = layerName;
+            ZIndex = zPos;
         }
     }
 }

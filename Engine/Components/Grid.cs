@@ -9,19 +9,19 @@ namespace Engine.Component
         public Vector2 GridSize;
         public Vector2 TileMargin;
 
-        private GameObject[,] gridItems;
+        private GameObject[,] _gridItems;
 
         public Grid(Vector2 gridSize)
         {
             GridSize = gridSize;
-            gridItems = new GameObject[(int) gridSize.Y, (int) gridSize.X];
+            _gridItems = new GameObject[(int) gridSize.Y, (int) gridSize.X];
             TileMargin = Vector2.Zero;
         }
 
         public Grid(Vector2 gridSize, Vector2 tileMargin)
         {
             GridSize = gridSize;
-            gridItems = new GameObject[(int) gridSize.X + 1, (int) gridSize.Y + 1];
+            _gridItems = new GameObject[(int) gridSize.X + 1, (int) gridSize.Y + 1];
             TileMargin = tileMargin;
         }
 
@@ -44,17 +44,17 @@ namespace Engine.Component
             {
                 for (int y = 0; y < GridSize.Y; y++)
                 {
-                    if (gridItems[x, y] != null)
+                    if (_gridItems[x, y] != null)
                     {
-                        gridItems[x, y].UseParent = false;
+                        _gridItems[x, y].UseParent = false;
                         
-                        BoundingBox box = gridItems[x, y].BoundingBox;
+                        BoundingBox box = _gridItems[x, y].BoundingBox;
                         box.Position.X = GameObject.BoundingBox.Position.X + x * ((GameObject.BoundingBox.Size.X + TileMargin.X) * GameObject.BoundingBox.Scale.X);
                         box.Position.Y = GameObject.BoundingBox.Position.Y + y * ((GameObject.BoundingBox.Size.Y + TileMargin.Y) * GameObject.BoundingBox.Scale.Y);
                         box.Size = GameObject.BoundingBox.Size;
                         box.Scale = GameObject.BoundingBox.Scale;
 
-                        gridItems[x, y].BoundingBox = box;
+                        _gridItems[x, y].BoundingBox = box;
                     }
                 }
             }
@@ -67,7 +67,7 @@ namespace Engine.Component
                 throw new Exception("Given grid position exceeds the grid size");
             }
 
-            gridItems[x, y] = gameObject;
+            _gridItems[x, y] = gameObject;
         }
     }
 }

@@ -12,7 +12,7 @@ namespace Engine
         protected GraphicsDeviceManager _graphics;
         protected SpriteBatch _spriteBatch;
 
-        public static AssetLoader assetLoader;
+        public static AssetLoader AssetLoader;
         public static GameStateManager GameStateManager;
         public static bool DevMode {get; protected set; }
 
@@ -34,7 +34,7 @@ namespace Engine
         {
             GameStateManager = new GameStateManager();
             ScreenSize = new Vector2(_graphics.PreferredBackBufferWidth, _graphics.PreferredBackBufferHeight);
-            assetLoader = new AssetLoader(Content);
+            AssetLoader = new AssetLoader(Content);
 
             base.Initialize();
         }

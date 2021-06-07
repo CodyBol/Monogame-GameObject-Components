@@ -16,7 +16,7 @@ namespace Engine
         public ElapsedTime ElapsedTime;
         public List<Timer> Timers;
 
-        protected Dictionary<string, Layer> layers;
+        protected Dictionary<string, Layer> Layers;
         protected Camera _camera;
 
         public GameState()
@@ -58,7 +58,7 @@ namespace Engine
                 spriteBatch.Begin(samplerState: SamplerState.PointClamp);
             }
 
-            GameObjectManager.RenderGameObjects(spriteBatch, layers);
+            GameObjectManager.RenderGameObjects(spriteBatch, Layers);
 
             spriteBatch.End();
         }

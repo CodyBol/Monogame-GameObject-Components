@@ -7,7 +7,7 @@ namespace TestProject.Component
     {
         public void Update()
         {
-            GameObject.velocity = new Vector2(0, 20);
+            GameObject.Velocity = new Vector2(0, 20);
         }
     }
 }

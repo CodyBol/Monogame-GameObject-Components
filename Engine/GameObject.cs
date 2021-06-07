@@ -13,6 +13,13 @@ namespace Engine
         private BoundingBox _boundingBox;
         private HitBox _hitbox;
         public bool UseParent = true;
+        
+        public Vector2 Velocity;
+        public List<BaseComponent> Components;
+        public GameObject Parent;
+        public List<GameObject> Children { private set; get; }
+        public Layer Layer;
+        public string Tag;
 
         /**
          * rectangle is one of the only variables that is not in a component,
@@ -59,26 +66,19 @@ namespace Engine
 
                 return box;
             }
-            
+
             set { _hitbox = new HitBox(value.Scale, value.Size); }
 
         }
-        
-        public Vector2 velocity;
-        public List<BaseComponent> components;
-        public GameObject Parent;
-        public List<GameObject> Children { private set; get; }
-        public Layer layer;
-        public string tag;
 
         /**
          * set required variables
          */
-        public GameObject(BoundingBox boundingBox, Layer objectLayer, List<BaseComponent> componentsList)
+        public GameObject(BoundingBox boundingBox, Layer layer, List<BaseComponent> componentsList)
         {
             BoundingBox = boundingBox;
-            layer = objectLayer;
-            components = componentsList;
+            Layer = layer;
+            Components = componentsList;
             Children = new List<GameObject>();
         }
 
@@ -88,12 +88,12 @@ namespace Engine
          */
         public void initialize()
         {
-            foreach (BaseComponent component in components.ToArray())
+            foreach (BaseComponent component in Components.ToArray())
             {
                 component.Init(this);
             }
 
-            foreach (BaseComponent component in components.ToArray())
+            foreach (BaseComponent component in Components.ToArray())
             {
                 (component as ILateInit)?.LateInit();
             }
@@ -104,15 +104,15 @@ namespace Engine
          */
         public void Update()
         {
-            foreach (BaseComponent component in components.ToArray())
+            foreach (BaseComponent component in Components.ToArray())
             {
                 (component as IUpdate)?.Update();
             }
 
-            BoundingBox.Position.X += (int) velocity.X;
-            BoundingBox.Position.Y += (int) velocity.Y;
+            BoundingBox.Position.X += (int) Velocity.X;
+            BoundingBox.Position.Y += (int) Velocity.Y;
 
-            foreach (BaseComponent component in components.ToArray())
+            foreach (BaseComponent component in Components.ToArray())
             {
                 (component as ILateUpdate)?.LateUpdate();
             }
@@ -123,7 +123,7 @@ namespace Engine
          */
         public void Draw(SpriteBatch spriteBatch)
         {
-            foreach (BaseComponent component in components.ToArray())
+            foreach (BaseComponent component in Components.ToArray())
             {
                 (component as IDraw)?.Draw(spriteBatch);
             }
@@ -134,9 +134,9 @@ namespace Engine
          */
         public void onTriggerEnter(GameObject collision)
         {
-            foreach (BaseComponent component in components.ToArray())
+            foreach (BaseComponent component in Components.ToArray())
             {
-                (component as ITrigger)?.triggerEnter(collision);
+                (component as ITrigger)?.TriggerEnter(collision);
             }
         }
 
@@ -145,9 +145,9 @@ namespace Engine
          */
         public void onHover(Vector2 mousePosition)
         {
-            foreach (BaseComponent component in components.ToArray())
+            foreach (BaseComponent component in Components.ToArray())
             {
-                (component as IMouse)?.onHover(mousePosition);
+                (component as IMouse)?.OnHover(mousePosition);
             }
         }
 
@@ -157,9 +157,9 @@ namespace Engine
          */
         public void onPressed(Vector2 mousePosition, int mouseButton)
         {
-            foreach (BaseComponent component in components.ToArray())
+            foreach (BaseComponent component in Components.ToArray())
             {
-                (component as IMouse)?.onPressed(mousePosition, mouseButton);
+                (component as IMouse)?.OnPressed(mousePosition, mouseButton);
             }
         }
 
@@ -168,32 +168,32 @@ namespace Engine
          */
         public void onCollisionEnter(GameObject collision, Vector2 direction)
         {
-            foreach (BaseComponent component in components.ToArray())
+            foreach (BaseComponent component in Components.ToArray())
             {
-                (component as ICollision)?.collisionEnter(collision, direction);
+                (component as ICollision)?.CollisionEnter(collision, direction);
             }
 
             if (direction == new Vector2(-1, 0))
             {
                 BoundingBox.Position.X = collision.HitBox.Left().X - HitBox.Width() / 2;
-                velocity.X = 0;
+                Velocity.X = 0;
             }
 
             if (direction == new Vector2(1, 0))
             {
                 BoundingBox.Position.X = collision.HitBox.Right().X + HitBox.Width() / 2;
-                velocity.X = 0;
+                Velocity.X = 0;
             }
 
             if (direction == new Vector2(0, -1))
             {
-                velocity.Y = 0;
+                Velocity.Y = 0;
                 BoundingBox.Position.Y = collision.HitBox.Top().Y - HitBox.Height() / 2;
             }
 
             if (direction == new Vector2(0, 1))
             {
-                velocity.Y = 0;
+                Velocity.Y = 0;
                 BoundingBox.Position.Y = collision.HitBox.Bottom().Y + HitBox.Height() / 2;
             }
         }
@@ -203,7 +203,7 @@ namespace Engine
          */
         public ComponentType getComponent<ComponentType>()
         {
-            foreach (BaseComponent component in components.ToArray())
+            foreach (BaseComponent component in Components.ToArray())
             {
                 if (component is ComponentType)
                 {
@@ -220,7 +220,7 @@ namespace Engine
          */
         public bool hasComponent<ComponentType>()
         {
-            foreach (BaseComponent component in components.ToArray())
+            foreach (BaseComponent component in Components.ToArray())
             {
                 if (component is ComponentType)
                 {

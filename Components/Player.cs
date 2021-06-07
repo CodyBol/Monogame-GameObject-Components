@@ -23,34 +23,34 @@ namespace TestProject.Component
             //walk
             if (Keyboard.GetState().IsKeyDown(Keys.W))
             {
-                GameObject.velocity.Y = -speed;
+                GameObject.Velocity.Y = -speed;
             }
             else if (Keyboard.GetState().IsKeyDown(Keys.S))
             {
-                GameObject.velocity.Y = speed;
+                GameObject.Velocity.Y = speed;
             }
             else
             {
-                GameObject.velocity.Y = 0;
+                GameObject.Velocity.Y = 0;
             }
 
             if (Keyboard.GetState().IsKeyDown(Keys.A))
             {
-                GameObject.velocity.X = -speed;
+                GameObject.Velocity.X = -speed;
             }
             else if (Keyboard.GetState().IsKeyDown(Keys.D))
             {
-                GameObject.velocity.X = speed;
+                GameObject.Velocity.X = speed;
             }
             else
             {
-                GameObject.velocity.X = 0;
+                GameObject.Velocity.X = 0;
             }
 
             if (Keyboard.GetState().IsKeyDown(Keys.E))
             {
                 List<BaseComponent> comp = new List<BaseComponent>();
-                comp.Add(new SpriteRenderer(GameCore.assetLoader.getSprite("spr_blue_invader")));
+                comp.Add(new SpriteRenderer(GameCore.AssetLoader.getSprite("spr_blue_invader")));
                 comp.Add(new Bullet());
 
                 GameCore.GameObjectManager.Instantiate(new GameObject(GameObject.BoundingBox, _bulletLayer, comp));
@@ -62,16 +62,16 @@ namespace TestProject.Component
             camera.Target = GameObject.BoundingBox.Position;
         }
 
-        public void onPressed(Vector2 mousePosition, int mouseButton) {
+        public void OnPressed(Vector2 mousePosition, int mouseButton) {
             Debug.WriteLine("pressed");
         }
 
-        public void onHover(Vector2 mousePosition)
+        public void OnHover(Vector2 mousePosition)
         {
             Debug.WriteLine("hover");
         }
 
-        public void triggerEnter(GameObject collision)
+        public void TriggerEnter(GameObject collision)
         {
             GameCore.GameObjectManager.RemoveGameObject(collision);
         }

@@ -2,6 +2,6 @@
 {
     public interface ITrigger
     {
-        public void triggerEnter(GameObject collision);
+        public void TriggerEnter(GameObject collision);
     }
 }

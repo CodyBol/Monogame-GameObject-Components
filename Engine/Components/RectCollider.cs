@@ -8,8 +8,8 @@ namespace Engine.Component
 {
     public class RectCollider : BaseComponent, IUpdate, IDraw
     {
-        public Layer targetLayer;
-        private bool check;
+        public Layer TargetLayer;
+        private bool _check;
 
         public RectCollider(Layer layer, bool checkSelf)
         {
@@ -18,20 +18,20 @@ namespace Engine.Component
                 throw new Exception("Layer name can not be null.");
             }
 
-            targetLayer = layer;
-            check = checkSelf;
+            TargetLayer = layer;
+            _check = checkSelf;
         }
 
         public void Update()
         {
-            if (check)
+            if (_check)
             {
-                foreach (GameObject collide in GameCore.GameObjectManager.gameObjects.ToArray())
+                foreach (GameObject collide in GameCore.GameObjectManager.GameObjects.ToArray())
                 {
-                    if (collide != GameObject && collide.layer == targetLayer && collide.hasComponent<RectCollider>())
+                    if (collide != GameObject && collide.Layer == TargetLayer && collide.hasComponent<RectCollider>())
                     {
                         BoundingBox futureBox = GameObject.HitBox.Copy();
-                        futureBox.Position += GameObject.velocity;
+                        futureBox.Position += GameObject.Velocity;
                         if (GameObject.HitBox.CollidesWith(collide.HitBox) &&
                             futureBox.CollidesWith(collide.HitBox))
                         {

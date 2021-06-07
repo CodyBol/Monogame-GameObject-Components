@@ -11,18 +11,18 @@ namespace Engine
 {
     public class AssetLoader
     {
-        private Dictionary<string, Sprite> sprites;
-        private Dictionary<string, SpriteFont> fonts;
+        private Dictionary<string, Sprite> _sprites;
+        private Dictionary<string, SpriteFont> _fonts;
         private Dictionary<string, Song> _songs;
         private Dictionary<string, SoundEffect> _soundEffects;
-        private ContentManager content;
+        private ContentManager _content;
 
         /**
          * creates the AssetLoader with the needed information
          */
         public AssetLoader(ContentManager Content) 
         {
-            content = Content;
+            _content = Content;
             clearFullLoader();
         }
 
@@ -39,7 +39,7 @@ namespace Engine
          * clears the AssetLoader
          */
         public void clearSpriteLoader() {
-            sprites = new Dictionary<string, Sprite>();
+            _sprites = new Dictionary<string, Sprite>();
         }
 
         /**
@@ -47,7 +47,7 @@ namespace Engine
          */
         public void clearFontLoader()
         {
-            fonts = new Dictionary<string, SpriteFont>();
+            _fonts = new Dictionary<string, SpriteFont>();
         }
 
         /**
@@ -82,7 +82,7 @@ namespace Engine
          */
         public void addFontToLoader(string fontName)
         {
-            fonts.Add(fontName, content.Load<SpriteFont>("fonts/" + fontName));
+            _fonts.Add(fontName, _content.Load<SpriteFont>("fonts/" + fontName));
         }
 
         /**
@@ -90,9 +90,9 @@ namespace Engine
         */
         public SpriteFont getFont(string fontName)
         {
-            if (fonts.ContainsKey(fontName))
+            if (_fonts.ContainsKey(fontName))
             {
-                return fonts[fontName];
+                return _fonts[fontName];
             }
 
             throw new Exception("The requested sprite [" + fontName + "] is not loaded in the AssetLoader");
@@ -113,9 +113,9 @@ namespace Engine
          */
         public void addSpriteToLoader(string spriteName)
         {
-            Sprite sprite = new Sprite(content.Load<Texture2D>(spriteName));
+            Sprite sprite = new Sprite(_content.Load<Texture2D>(spriteName));
             
-            sprites.Add(spriteName, sprite);
+            _sprites.Add(spriteName, sprite);
         }
 
         /**
@@ -123,9 +123,9 @@ namespace Engine
          */
         public void AddSpriteSheetToLoader(string spriteName, Rectangle singleDimensions, Vector2 offset, SpriteSheetType type = SpriteSheetType.SpriteSheet)
         {
-            SpriteSheet sheet = new SpriteSheet(content.Load<Texture2D>(spriteName), singleDimensions, offset, type);
+            SpriteSheet sheet = new SpriteSheet(_content.Load<Texture2D>(spriteName), singleDimensions, offset, type);
             
-            sprites.Add(spriteName, sheet);
+            _sprites.Add(spriteName, sheet);
         }
 
         /**
@@ -133,9 +133,9 @@ namespace Engine
          */
         public Sprite getSprite(string spriteName) 
         {
-            if (sprites.ContainsKey(spriteName))
+            if (_sprites.ContainsKey(spriteName))
             {
-                return sprites[spriteName];
+                return _sprites[spriteName];
             }
 
             throw new Exception("The requested sprite [" + spriteName + "] is not loaded in the AssetLoader");
@@ -146,9 +146,9 @@ namespace Engine
          */
         public SpriteSheet getSpriteSheet(string spriteName) 
         {
-            if (sprites.ContainsKey(spriteName))
+            if (_sprites.ContainsKey(spriteName))
             {
-                return sprites[spriteName] as SpriteSheet;
+                return _sprites[spriteName] as SpriteSheet;
             }
 
             throw new Exception("The requested sprite [" + spriteName + "] is not loaded in the AssetLoader");
@@ -170,7 +170,7 @@ namespace Engine
          */
         public void addSongToLoader(string songName)
         {
-            _songs.Add(songName, content.Load<Song>("songs/" + songName));
+            _songs.Add(songName, _content.Load<Song>("songs/" + songName));
         }
 
         /**
@@ -202,7 +202,7 @@ namespace Engine
          */
         public void addSoundEffectToLoader(string soundName)
         {
-            _soundEffects.Add(soundName, content.Load<SoundEffect>("sound_effects/" + soundName));
+            _soundEffects.Add(soundName, _content.Load<SoundEffect>("sound_effects/" + soundName));
         }
 
         /**
