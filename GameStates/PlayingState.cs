@@ -55,7 +55,7 @@ namespace TestProject.GameStates
             comp.Add(new Player(_camera, Layers["bottom"]));
 
             //Voeg Collision toe aan dit object
-            comp.Add(new RectCollider(Layers["bottom"], true));
+            comp.Add(new RectCollider(true));
 
 
             GameObject player;

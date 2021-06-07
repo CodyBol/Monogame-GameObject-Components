@@ -11,6 +11,12 @@ namespace Engine.Component
         public Layer TargetLayer;
         private bool _check;
 
+        public RectTrigger(bool checkSelf)
+        {
+            TargetLayer = GameObject.Layer;
+            _check = checkSelf;
+        }
+
         public RectTrigger(Layer layer, bool checkSelf)
         {
             if (layer == null)
