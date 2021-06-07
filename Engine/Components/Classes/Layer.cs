@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Component
+namespace Engine.Component
 {
     public class Layer
     {

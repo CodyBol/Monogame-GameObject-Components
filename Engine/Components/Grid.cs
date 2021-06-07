@@ -1,12 +1,8 @@
 ﻿using System;
-using Microsoft.Xna.Framework.Graphics;
-using System.Collections.Generic;
-using Engine.Misc;
-using GameObjects;
 using Microsoft.Xna.Framework;
 using BoundingBox = Engine.Misc.BoundingBox;
 
-namespace Component
+namespace Engine.Component
 {
     public class Grid : BaseComponent
     {

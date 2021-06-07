@@ -1,15 +1,10 @@
-﻿using Microsoft.Xna.Framework;
+﻿using System;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using Engine;
-using Engine.Misc;
-using GameObjects;
 using TestProject;
 using BoundingBox = Engine.Misc.BoundingBox;
 
-namespace Component
+namespace Engine.Component
 {
     public class RectCollider : BaseComponent, IUpdate, IDraw
     {

@@ -1,8 +1,7 @@
 ﻿using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
-using GameObjects;
 
-namespace Component
+namespace Engine.Component
 {
     static class ComponentBuild
     {
@@ -10,7 +9,6 @@ namespace Component
             ComponentContainer container = new ComponentContainer();
             container.updateComponents = new List<IUpdate>();
             container.drawComponents = new List<IDraw>();
-            container.scriptComponents = new List<ScriptComponent>();
 
             return container;
         }

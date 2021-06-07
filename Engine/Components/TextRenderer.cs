@@ -1,8 +1,9 @@
-﻿using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-using GameObjects;
+﻿
 
-namespace Component
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+
+namespace Engine.Component
 {
     public class TextRenderer : BaseComponent, IDraw
     {

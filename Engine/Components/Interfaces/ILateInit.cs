@@ -1,4 +1,4 @@
-﻿namespace Component
+﻿namespace Engine.Component
 {
     public interface ILateInit
     {

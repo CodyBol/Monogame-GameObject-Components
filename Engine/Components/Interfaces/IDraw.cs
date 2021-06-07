@@ -1,7 +1,6 @@
 ﻿using Microsoft.Xna.Framework.Graphics;
-using GameObjects;
 
-namespace Component
+namespace Engine.Component
 {
     public interface IDraw
     {

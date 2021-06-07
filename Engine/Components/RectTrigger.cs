@@ -1,13 +1,10 @@
-﻿using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
+﻿
 using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using Engine;
-using GameObjects;
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using TestProject;
 
-namespace Component
+namespace Engine.Component
 {
     public class RectTrigger : BaseComponent, IUpdate, IDraw
     {

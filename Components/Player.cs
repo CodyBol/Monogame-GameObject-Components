@@ -1,13 +1,11 @@
-﻿using Component;
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 using System.Collections.Generic;
 using System.Diagnostics;
 using Engine;
-using GameObjects;
+using Engine.Component;
 
-namespace Component
+namespace TestProject.Component
 {
     public class Player : BaseComponent, IUpdate, ILateUpdate, IMouse, ITrigger
     {

@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using Microsoft.Xna.Framework.Audio;
 
-namespace Component
+namespace Engine.Component
 {
     public class SoundEffectController : BaseComponent
     {

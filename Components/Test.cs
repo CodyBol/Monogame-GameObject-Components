@@ -1,11 +1,10 @@
-﻿using System;
-using Engine;
+﻿
+using Engine.Component;
 using Engine.Misc;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using GameObjects;
 
-namespace Component
+namespace TestProject.Component
 {
     public class Test : BaseComponent, IDraw
     {

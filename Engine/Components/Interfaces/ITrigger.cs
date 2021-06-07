@@ -1,7 +1,4 @@
-﻿using GameObjects;
-using Microsoft.Xna.Framework;
-
-namespace Component
+﻿namespace Engine.Component
 {
     public interface ITrigger
     {

@@ -1,13 +1,10 @@
 ﻿using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
-using System.Collections.Generic;
-using System.Diagnostics;
-using GameObjects;
 using Microsoft.Xna.Framework;
 using TestProject;
 using BoundingBox = Engine.Misc.BoundingBox;
 
-namespace Component
+namespace Engine.Component
 {
     public class MouseEvent : BaseComponent, IUpdate, IDraw
     {

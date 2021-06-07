@@ -1,6 +1,4 @@
-﻿using GameObjects;
-
-namespace Component
+﻿namespace Engine.Component
 {
     public interface ILateUpdate
     {

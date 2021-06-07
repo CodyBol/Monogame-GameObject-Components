@@ -1,11 +1,7 @@
-﻿using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Input;
-using System.Collections.Generic;
-using System.Diagnostics;
-using GameObjects;
+﻿using System.Diagnostics;
 using Microsoft.Xna.Framework;
 
-namespace Component
+namespace Engine.Component
 {
     public class Camera : BaseComponent, ILateUpdate
     {

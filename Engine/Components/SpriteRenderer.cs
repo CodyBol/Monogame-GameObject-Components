@@ -1,11 +1,8 @@
-﻿using System;
-using Engine;
-using Engine.Misc;
+﻿using Engine.Misc;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using GameObjects;
 
-namespace Component
+namespace Engine.Component
 {
     public class SpriteRenderer : BaseComponent, ILateInit, IDraw
     {

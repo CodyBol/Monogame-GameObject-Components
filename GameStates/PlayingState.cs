@@ -1,12 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using Component;
+﻿using System.Collections.Generic;
 using Engine;
-using Engine.GameStates;
+using Engine.Component;
 using Engine.Misc;
-using GameObjects;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
+using TestProject.Component;
 using BoundingBox = Engine.Misc.BoundingBox;
 
 namespace TestProject.GameStates

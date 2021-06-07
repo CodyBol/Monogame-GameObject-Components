@@ -1,13 +1,12 @@
-﻿using Component;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
+using Engine.Component;
 using Engine.Misc;
 using BoundingBox = Engine.Misc.BoundingBox;
 
-namespace GameObjects
+namespace Engine
 {
     public class GameObject
     {

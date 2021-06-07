@@ -1,12 +1,11 @@
-﻿using Component;
-using GameObjects;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
+using Engine.Component;
 using Engine.Time;
 using TestProject;
 
-namespace Engine.GameStates
+namespace Engine
 {
     public abstract class GameState
     {

@@ -1,6 +1,7 @@
-﻿using Microsoft.Xna.Framework;
+﻿using Engine.Component;
+using Microsoft.Xna.Framework;
 
-namespace Component
+namespace TestProject.Component
 {
     public class Bullet : BaseComponent, IUpdate
     {

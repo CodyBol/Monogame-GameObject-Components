@@ -1,11 +1,6 @@
-﻿using Component;
-using Microsoft.Xna.Framework.Graphics;
-using System;
+﻿using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
-using System.Text;
-using GameObjects;
-using Microsoft.Xna.Framework;
-using TestProject;
+using Engine.Component;
 
 namespace Engine
 {
