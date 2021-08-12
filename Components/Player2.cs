@@ -53,7 +53,7 @@ namespace TestProject.Component
                 comp.Add(new SpriteRenderer(GameCore.AssetLoader.getSprite("spr_blue_invader")));
                 comp.Add(new Bullet());
 
-                GameCore.GameObjectManager.Instantiate(new GameObject(GameObject.BoundingBox, _bulletLayer, comp));
+                //GameCore.GameObjectManager.Instantiate(new GameObject(GameObject.BoundingBox, _bulletLayer, comp));
             }
         }
 

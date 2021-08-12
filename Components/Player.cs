@@ -51,7 +51,7 @@ namespace TestProject.Component
             {
                 if (GameObject.getComponent<BasicMovement>().Moving == false)
                 {
-                    GameObject.getComponent<BasicMovement>().MoveTowards(new Vector2(0), 10f);
+                    GameObject.getComponent<BasicMovement>().MoveTowards(GameCore.GameObjectManager.FindGameObject("grid-item-2").BoundingBox.Position, 10f);
                 }
             }
         }

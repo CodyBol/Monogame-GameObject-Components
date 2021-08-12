@@ -38,10 +38,7 @@ namespace Engine.Component
         {
             if (Moving)
             {
-                //Vector2 direction = GameObject.BoundingBox.Position - _target.BoundingBox.Position;
                 Vector2 distance = DistanceBetween(_target);
-
-                GameObject.Velocity = GetDirectionVector(_target) * _speed;
 
                 if (Math.Abs(distance.X) < _speed && Math.Abs(distance.Y) < _speed)
                 {
@@ -49,6 +46,10 @@ namespace Engine.Component
                     _target = Vector2.Zero;
                     _speed = 0;
                     Moving = false;
+                }
+                else
+                {
+                    GameObject.Velocity = GetDirectionVector(_target) * _speed;
                 }
             }
         }

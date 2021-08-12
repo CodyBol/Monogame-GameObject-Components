@@ -19,6 +19,7 @@ namespace Engine
         public GameObject Parent;
         public List<GameObject> Children { private set; get; }
         public Layer Layer;
+        public string Id;
         public string Tag;
 
         /**
@@ -74,8 +75,23 @@ namespace Engine
         /**
          * set required variables
          */
-        public GameObject(BoundingBox boundingBox, Layer layer, List<BaseComponent> componentsList)
+        public GameObject(string id, BoundingBox boundingBox, Layer layer, List<BaseComponent> componentsList)
         {
+            if (GameCore.GameObjectManager.GameObjectExists(id))
+            {
+                int i = 1;
+                
+                while (GameCore.GameObjectManager.GameObjectExists(id + "-" + i))
+                {
+                    i++;
+                }
+
+                id = id + "-" + i;
+            }
+
+            Id = id;
+            
+            Console.WriteLine(id);
             BoundingBox = boundingBox;
             Layer = layer;
             Components = componentsList;

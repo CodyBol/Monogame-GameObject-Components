@@ -62,7 +62,7 @@ namespace TestProject.GameStates
 
             GameObject player;
             //Voeg gameObject toe aan de manager
-            GameObjectManager.GameObjects.Add(player = new GameObject(new BoundingBox(new Vector2(20, 20), new Vector2(2, 2)), Layers["bottom"], comp));
+            GameObjectManager.GameObjects.Add(player = new GameObject("Player", new BoundingBox(new Vector2(20, 20), new Vector2(2, 2)), Layers["bottom"], comp));
 
             comp = new List<BaseComponent>();
 
@@ -71,27 +71,27 @@ namespace TestProject.GameStates
             //comp.Add(new SpriteRenderer());
             comp.Add(new Animate(10, "idle", GameCore.AssetLoader.getSpriteSheet("Sheet"), true));
             comp.Add(new RectCollider(Layers["bottom"], false));
-            GameObjectManager.GameObjects.Add(new GameObject(new BoundingBox(new Vector2(400, 400), new Vector2(6, 6)), Layers["bottom"], comp));
+            GameObjectManager.GameObjects.Add(new GameObject("Sheet-col", new BoundingBox(new Vector2(400, 400), new Vector2(6, 6)), Layers["bottom"], comp));
 
             //grid
             GameObject grid;
             
             comp = new List<BaseComponent>();
             comp.Add(new Grid(new Vector2(4), new Vector2(3)));
-            GameObjectManager.GameObjects.Add(grid = new GameObject(new BoundingBox(new Vector2(0), new Vector2(2)), Layers["background"], comp));
+            GameObjectManager.GameObjects.Add(grid = new GameObject("Grid", new BoundingBox(new Vector2(0), new Vector2(2)), Layers["background"], comp));
             
             //grid items
             GameObject gridItem;
             
             comp = new List<BaseComponent>();
             comp.Add(new SpriteRenderer(GameCore.AssetLoader.getSprite("spr_tile")));
-            GameObjectManager.GameObjects.Add(gridItem = new GameObject(new BoundingBox(new Vector2(0)), Layers["bottom"], comp));
+            GameObjectManager.GameObjects.Add(gridItem = new GameObject("grid-item", new BoundingBox(new Vector2(0)), Layers["bottom"], comp));
             grid.AddChild(gridItem);
             grid.getComponent<Grid>().AddGameObject(gridItem, 0, 0);
             
             comp = new List<BaseComponent>();
             comp.Add(new SpriteRenderer(GameCore.AssetLoader.getSprite("spr_tile")));
-            GameObjectManager.GameObjects.Add(gridItem = new GameObject(new BoundingBox(new Vector2(0)), Layers["bottom"], comp));
+            GameObjectManager.GameObjects.Add(gridItem = new GameObject("grid-item", new BoundingBox(new Vector2(0)), Layers["bottom"], comp));
             gridItem.SetParent(grid);
             grid.getComponent<Grid>().AddGameObject(gridItem, 1, 0);
 
@@ -99,14 +99,14 @@ namespace TestProject.GameStates
             comp = new List<BaseComponent>();
             comp.Add(new SpriteRenderer(GameCore.AssetLoader.getSprite("spr_tile")));
             //comp.Add(new RectCollider(Layers["bottom"], false));
-            GameObjectManager.GameObjects.Add(gridItem = new GameObject(new BoundingBox(new Vector2(0)), Layers["bottom"], comp));
+            GameObjectManager.GameObjects.Add(gridItem = new GameObject("grid-item", new BoundingBox(new Vector2(0)), Layers["bottom"], comp));
             grid.AddChild(gridItem);
             grid.getComponent<Grid>().AddGameObject(gridItem, 1, 1);
             
             comp = new List<BaseComponent>();
             comp.Add(new SpriteRenderer(GameCore.AssetLoader.getSprite("spr_tile")));
             //comp.Add(new RectCollider(Layers["bottom"], false));
-            GameObjectManager.GameObjects.Add(gridItem = new GameObject(new BoundingBox(new Vector2(0)), Layers["bottom"], comp));
+            GameObjectManager.GameObjects.Add(gridItem = new GameObject("grid-item", new BoundingBox(new Vector2(0)), Layers["bottom"], comp));
             grid.AddChild(gridItem);
             grid.getComponent<Grid>().AddGameObject(gridItem, 1, 2);
 
@@ -114,7 +114,7 @@ namespace TestProject.GameStates
             comp = new List<BaseComponent>();
             comp.Add(new SpriteRenderer(GameCore.AssetLoader.getSprite("spr_tile")));
             //comp.Add(new RectCollider(Layers["bottom"], false));
-            GameObjectManager.GameObjects.Add(gridItem = new GameObject(new BoundingBox(new Vector2(0)), Layers["bottom"], comp));
+            GameObjectManager.GameObjects.Add(gridItem = new GameObject("grid-item", new BoundingBox(new Vector2(0)), Layers["bottom"], comp));
             grid.AddChild(gridItem);
             grid.getComponent<Grid>().AddGameObject(gridItem, 2, 1);
 
@@ -122,7 +122,7 @@ namespace TestProject.GameStates
             comp = new List<BaseComponent>();
             comp.Add(new SpriteRenderer(GameCore.AssetLoader.getSprite("spr_tile")));
             //comp.Add(new RectCollider(Layers["bottom"], false));
-            GameObjectManager.GameObjects.Add(gridItem = new GameObject(new BoundingBox(new Vector2(0)), Layers["bottom"], comp));
+            GameObjectManager.GameObjects.Add(gridItem = new GameObject("grid-item", new BoundingBox(new Vector2(0)), Layers["bottom"], comp));
             grid.AddChild(gridItem);
             grid.getComponent<Grid>().AddGameObject(gridItem, 2, 2);
 
@@ -130,12 +130,12 @@ namespace TestProject.GameStates
             comp = new List<BaseComponent>();
             comp.Add(new SpriteRenderer(GameCore.AssetLoader.getSprite("spr_tile")));
             comp.Add(new RectCollider(Layers["bottom"], false));
-            GameObjectManager.GameObjects.Add(gridItem = new GameObject(new BoundingBox(new Vector2(0)), Layers["bottom"], comp));
+            GameObjectManager.GameObjects.Add(gridItem = new GameObject("grid-item", new BoundingBox(new Vector2(0)), Layers["bottom"], comp));
             grid.AddChild(gridItem);
             grid.getComponent<Grid>().AddGameObject(gridItem, 3, 3);
 
             
-            GameObjectManager.GameObjects.Add(new GameObject(new BoundingBox(), Layers["bottom"], cam));
+            GameObjectManager.GameObjects.Add(new GameObject("camera", new BoundingBox(), Layers["bottom"], cam));
 
             base.Initialize();
         }

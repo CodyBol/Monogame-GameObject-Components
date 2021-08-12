@@ -57,5 +57,31 @@ namespace Engine
                 i++;
             }
         }
+
+        public GameObject FindGameObject(string id)
+        {
+            foreach (GameObject gameObject in GameObjects.ToArray())
+            {
+                if (gameObject.Id == id)
+                {
+                    return gameObject;
+                }
+            }
+            
+            return null;
+        }
+
+        public bool GameObjectExists(string id)
+        {
+            foreach (GameObject gameObject in GameObjects.ToArray())
+            {
+                if (gameObject.Id == id)
+                {
+                    return true;
+                }
+            }
+            
+            return false;
+        }
     }
 }
