@@ -2,10 +2,13 @@
 using Microsoft.Xna.Framework.Content;
 using System.Collections.Generic;
 using System;
+using System.IO;
+using System.Text.Json;
 using Engine.Misc;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Media;
+using TestProject;
 
 namespace Engine
 {
@@ -15,6 +18,7 @@ namespace Engine
         private Dictionary<string, SpriteFont> _fonts;
         private Dictionary<string, Song> _songs;
         private Dictionary<string, SoundEffect> _soundEffects;
+        private Dictionary<string, string> _unserializedJson;
         private ContentManager _content;
 
         /**
@@ -33,6 +37,7 @@ namespace Engine
         {
             clearSpriteLoader();
             clearFontLoader();
+            clearJsonLoader();
         }
 
         /**
@@ -48,6 +53,14 @@ namespace Engine
         public void clearFontLoader()
         {
             _fonts = new Dictionary<string, SpriteFont>();
+        }
+
+        /**
+         * clears the AssetLoader
+         */
+        public void clearJsonLoader()
+        {
+            _unserializedJson = new Dictionary<string, string>();
         }
 
         /**
@@ -216,6 +229,53 @@ namespace Engine
             }
 
             throw new Exception("The requested sprite [" + soundName + "] is not loaded in the AssetLoader");
+        }
+        
+        /**
+         * Adds the Json file in string format so it can later be parsed
+         * IMPORTANT NOTE: don't use this for json files that get updated during run time.
+         * This can create uneven data when you don't update the "cached" version in the assetManager when writing 
+         */
+        public void AddJsonFile(string fileName)
+        {
+            _unserializedJson.Add(fileName, File.ReadAllText("Content\\json\\" + fileName + ".json"));
+        }
+        
+        /**
+         * Gets the unparsed Json
+         */
+        public string GetUnparsedJsonFile(string fileName)
+        {
+            if (_unserializedJson.ContainsKey(fileName))
+            {
+                return _unserializedJson[fileName];
+            }
+
+            throw new Exception("The requested json file [" + fileName + "] is not loaded in the AssetLoader");
+        }
+
+        public Wrapper GetJson<Wrapper>(string fileName)
+        {
+            return JsonSerializer.Deserialize<Wrapper>(File.ReadAllText(GetUnparsedJsonFile(fileName)));
+        }
+
+        public Wrapper GetDirectJson<Wrapper>(string fileName)
+        {
+            return JsonSerializer.Deserialize<Wrapper>(File.ReadAllText("Content\\json\\" + fileName + ".json"));
+        }
+
+        public void WriteJson(string fileName, string content, bool updateCurrent = true)
+        {
+            File.WriteAllTextAsync("Content\\json\\" + fileName + ".json", content);
+            if (updateCurrent)
+            {
+                _unserializedJson[fileName] = content;
+            }
+        }
+
+        public void WriteJson<Wrapper>(string fileName, Wrapper content)
+        {
+            File.WriteAllTextAsync("Content\\json\\" + fileName + ".json", JsonSerializer.Serialize<Wrapper>(content));
         }
     }
 }

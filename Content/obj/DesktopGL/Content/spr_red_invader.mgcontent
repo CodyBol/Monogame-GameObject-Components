@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PipelineBuildEvent xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-  <SourceFile>C:/Users/CodySchool/source/repos/TestProject/TestProject/Content/spr_red_invader.png</SourceFile>
-  <SourceTime>2021-02-02T14:22:14.3180011+01:00</SourceTime>
-  <DestFile>C:/Users/CodySchool/source/repos/TestProject/TestProject/Content/bin/DesktopGL/Content/spr_red_invader.xnb</DestFile>
-  <DestTime>2021-02-03T18:04:34.3876974+01:00</DestTime>
+  <SourceFile>C:/Users/CodySchool/Desktop/engine/Monogame-GameObject-Components/Content/spr_red_invader.png</SourceFile>
+  <SourceTime>2021-08-12T15:26:00.2283348+02:00</SourceTime>
+  <DestFile>C:/Users/CodySchool/Desktop/engine/Monogame-GameObject-Components/Content/bin/DesktopGL/Content/spr_red_invader.xnb</DestFile>
+  <DestTime>2021-08-12T15:27:07.6182753+02:00</DestTime>
   <Importer>TextureImporter</Importer>
   <ImporterTime>2020-08-10T16:17:54+02:00</ImporterTime>
   <Processor>TextureProcessor</Processor>

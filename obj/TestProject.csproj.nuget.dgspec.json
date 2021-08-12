@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\CodySchool\\source\\repos\\TestProject\\TestProject\\TestProject.csproj": {}
+    "C:\\Users\\CodySchool\\Desktop\\engine\\Monogame-GameObject-Components\\TestProject.csproj": {}
   },
   "projects": {
-    "C:\\Users\\CodySchool\\source\\repos\\TestProject\\TestProject\\TestProject.csproj": {
+    "C:\\Users\\CodySchool\\Desktop\\engine\\Monogame-GameObject-Components\\TestProject.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\CodySchool\\source\\repos\\TestProject\\TestProject\\TestProject.csproj",
+        "projectUniqueName": "C:\\Users\\CodySchool\\Desktop\\engine\\Monogame-GameObject-Components\\TestProject.csproj",
         "projectName": "TestProject",
-        "projectPath": "C:\\Users\\CodySchool\\source\\repos\\TestProject\\TestProject\\TestProject.csproj",
+        "projectPath": "C:\\Users\\CodySchool\\Desktop\\engine\\Monogame-GameObject-Components\\TestProject.csproj",
         "packagesPath": "C:\\Users\\CodySchool\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\CodySchool\\source\\repos\\TestProject\\TestProject\\obj\\",
+        "outputPath": "C:\\Users\\CodySchool\\Desktop\\engine\\Monogame-GameObject-Components\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Microsoft\\Xamarin\\NuGet"
@@ -30,7 +30,6 @@
         },
         "frameworks": {
           "netcoreapp3.1": {
-            "targetAlias": "netcoreapp3.1",
             "projectReferences": {}
           }
         },
@@ -42,7 +41,6 @@
       },
       "frameworks": {
         "netcoreapp3.1": {
-          "targetAlias": "netcoreapp3.1",
           "dependencies": {
             "MonoGame.Content.Builder.Task": {
               "target": "Package",

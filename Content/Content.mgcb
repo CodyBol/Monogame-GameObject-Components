@@ -20,6 +20,9 @@
 /processorParam:TextureFormat=Compressed
 /build:fonts/Arial.spritefont
 
+#begin json/save.json
+/copy:json/save.json
+
 #begin Sheet.png
 /importer:TextureImporter
 /processor:TextureProcessor

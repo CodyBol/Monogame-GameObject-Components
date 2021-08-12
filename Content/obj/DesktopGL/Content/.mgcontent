@@ -4,11 +4,11 @@
   <Platform>DesktopGL</Platform>
   <Config />
   <SourceFiles>
-    <File>C:/Users/CodySchool/source/repos/TestProject/TestProject/Content/fonts/Arial.spritefont</File>
-    <File>C:/Users/CodySchool/source/repos/TestProject/TestProject/Content/Sheet.png</File>
-    <File>C:/Users/CodySchool/source/repos/TestProject/TestProject/Content/spr_blue_invader.png</File>
-    <File>C:/Users/CodySchool/source/repos/TestProject/TestProject/Content/spr_red_invader.png</File>
-    <File>C:/Users/CodySchool/source/repos/TestProject/TestProject/Content/spr_tile.png</File>
+    <File>C:/Users/CodySchool/Desktop/engine/Monogame-GameObject-Components/Content/fonts/Arial.spritefont</File>
+    <File>C:/Users/CodySchool/Desktop/engine/Monogame-GameObject-Components/Content/Sheet.png</File>
+    <File>C:/Users/CodySchool/Desktop/engine/Monogame-GameObject-Components/Content/spr_blue_invader.png</File>
+    <File>C:/Users/CodySchool/Desktop/engine/Monogame-GameObject-Components/Content/spr_red_invader.png</File>
+    <File>C:/Users/CodySchool/Desktop/engine/Monogame-GameObject-Components/Content/spr_tile.png</File>
   </SourceFiles>
   <DestFiles>
     <File xsi:nil="true" />
