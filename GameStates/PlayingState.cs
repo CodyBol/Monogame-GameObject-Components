@@ -54,13 +54,15 @@ namespace TestProject.GameStates
             //Voeg custom player script toe (bevat nu alleen movement)
             comp.Add(new Player(_camera, Layers["bottom"]));
 
+            comp.Add(new BasicMovement());
+
             //Voeg Collision toe aan dit object
             comp.Add(new RectCollider(true));
 
 
             GameObject player;
             //Voeg gameObject toe aan de manager
-            GameObjectManager.GameObjects.Add(player = new GameObject(new BoundingBox(new Vector2(0, 0), new Vector2(2, 2)), Layers["bottom"], comp));
+            GameObjectManager.GameObjects.Add(player = new GameObject(new BoundingBox(new Vector2(20, 20), new Vector2(2, 2)), Layers["bottom"], comp));
 
             comp = new List<BaseComponent>();
 

@@ -49,11 +49,10 @@ namespace TestProject.Component
 
             if (Keyboard.GetState().IsKeyDown(Keys.E))
             {
-                List<BaseComponent> comp = new List<BaseComponent>();
-                comp.Add(new SpriteRenderer(GameCore.AssetLoader.getSprite("spr_blue_invader")));
-                comp.Add(new Bullet());
-
-                GameCore.GameObjectManager.Instantiate(new GameObject(GameObject.BoundingBox, _bulletLayer, comp));
+                if (GameObject.getComponent<BasicMovement>().Moving == false)
+                {
+                    GameObject.getComponent<BasicMovement>().MoveTowards(new Vector2(0), 10f);
+                }
             }
         }
 
